@@ -22,9 +22,9 @@
 
   <style>
     :root {
-      --orange: #ff5a1f;
-      --orange-dark: #e8430a;
-      --orange-soft: #fff0e9;
+      --orange: #fcb65c;
+      --orange-dark: #9a5a12;
+      --orange-soft: #fff5e8;
       --black: #111111;
       --charcoal: #242424;
       --gray-700: #4b4b4b;
@@ -175,19 +175,20 @@
     .form-tab:focus-visible,
     .media-card:focus-visible,
     .social-link:focus-visible {
-      outline: 3px solid rgba(255, 90, 31, 0.35);
+      outline: 3px solid rgba(252, 182, 92, 0.35);
       outline-offset: 4px;
     }
 
     .button-primary {
       background: var(--orange);
-      box-shadow: 0 14px 32px rgba(255, 90, 31, 0.28);
-      color: var(--white);
+      box-shadow: 0 14px 32px rgba(252, 182, 92, 0.28);
+      color: var(--black);
     }
 
     .button-primary:hover {
       background: var(--orange-dark);
-      box-shadow: 0 18px 40px rgba(255, 90, 31, 0.35);
+      box-shadow: 0 18px 40px rgba(252, 182, 92, 0.35);
+      color: var(--white);
     }
 
     .button-dark {
@@ -294,11 +295,11 @@
     }
 
     .brand img {
-      width: 116px;
-      height: 68px;
-      object-fit: cover;
-      object-position: center 63%;
-      mix-blend-mode: multiply;
+      width: 146px;
+      height: 74px;
+      object-fit: contain;
+      object-position: center;
+      filter: drop-shadow(0 3px 8px rgba(17, 17, 17, 0.08));
     }
 
     .nav-links {
@@ -352,6 +353,7 @@
 
     .nav-cta:hover {
       background: var(--orange);
+      color: var(--black);
       transform: translateY(-2px);
     }
 
@@ -403,7 +405,7 @@
       overflow: hidden;
       padding: 150px 0 72px;
       background:
-        radial-gradient(circle at 82% 25%, rgba(255, 90, 31, 0.12), transparent 30%),
+        radial-gradient(circle at 82% 25%, rgba(252, 182, 92, 0.12), transparent 30%),
         linear-gradient(180deg, #ffffff 0%, #fafaf8 100%);
     }
 
@@ -413,7 +415,7 @@
       right: -16vw;
       width: 62vw;
       height: 62vw;
-      border: 1px solid rgba(255, 90, 31, 0.12);
+      border: 1px solid rgba(252, 182, 92, 0.12);
       border-radius: 50%;
       content: "";
     }
@@ -428,15 +430,51 @@
         -14deg,
         transparent 0,
         transparent 20px,
-        rgba(255, 90, 31, 0.04) 21px,
-        rgba(255, 90, 31, 0.04) 22px
+        rgba(252, 182, 92, 0.04) 21px,
+        rgba(252, 182, 92, 0.04) 22px
       );
       content: "";
       transform: skewX(-16deg);
     }
 
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.62;
+    }
+
+    .hero-media::after {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          100deg,
+          rgba(255, 255, 255, 0.88) 0%,
+          rgba(255, 255, 255, 0.6) 30%,
+          rgba(255, 255, 255, 0.28) 62%,
+          rgba(255, 255, 255, 0.12) 100%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.32) 0%,
+          rgba(255, 255, 255, 0.04) 44%,
+          rgba(250, 250, 248, 0.8) 100%
+        );
+      content: "";
+    }
+
     .speed-lines {
       position: absolute;
+      z-index: 1;
       top: 31%;
       left: -80px;
       width: 340px;
@@ -498,7 +536,7 @@
       gap: 11px;
       margin-bottom: 22px;
       padding: 8px 13px 8px 9px;
-      border: 1px solid rgba(255, 90, 31, 0.17);
+      border: 1px solid rgba(252, 182, 92, 0.17);
       border-radius: 999px;
       background: var(--orange-soft);
       color: var(--orange-dark);
@@ -515,12 +553,12 @@
       place-items: center;
       border-radius: 50%;
       background: var(--orange);
-      box-shadow: 0 0 0 6px rgba(255, 90, 31, 0.08);
+      box-shadow: 0 0 0 6px rgba(252, 182, 92, 0.08);
     }
 
     .hero-kicker svg {
       width: 12px;
-      color: var(--white);
+      color: var(--black);
     }
 
     .hero h1 {
@@ -607,6 +645,7 @@
       z-index: 3;
       margin-left: 0;
       background: var(--orange);
+      color: var(--black);
     }
 
     .hero-note-avatars span:nth-child(2) {
@@ -619,6 +658,241 @@
       min-height: 520px;
     }
 
+    .hero-photo-card {
+      position: absolute;
+      inset: 8px 0 8px 25px;
+      isolation: isolate;
+      overflow: hidden;
+      border: 8px solid rgba(255, 255, 255, 0.94);
+      border-radius: 34px;
+      background: var(--black);
+      box-shadow:
+        0 34px 85px rgba(17, 17, 17, 0.24),
+        0 0 0 1px rgba(17, 17, 17, 0.08);
+      transform: rotate(1.4deg);
+      transition:
+        transform 550ms var(--ease),
+        box-shadow 550ms ease;
+    }
+
+    .hero-photo-card:hover {
+      box-shadow:
+        0 42px 100px rgba(17, 17, 17, 0.3),
+        0 0 0 1px rgba(252, 182, 92, 0.16);
+      transform: rotate(0deg) translateY(-6px);
+    }
+
+    .hero-photo-card::before {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, rgba(17, 17, 17, 0.18) 0%, transparent 38%, rgba(17, 17, 17, 0.7) 100%),
+        linear-gradient(115deg, rgba(252, 182, 92, 0.12), transparent 48%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero-photo-card::after {
+      position: absolute;
+      inset: 13px;
+      z-index: 2;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 21px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero-photo-card > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s var(--ease);
+    }
+
+    .hero-photo-card:hover > img {
+      transform: scale(1.035);
+    }
+
+    .hero-photo-top {
+      position: absolute;
+      top: 26px;
+      right: 27px;
+      left: 27px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .hero-photo-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.48);
+      color: var(--white);
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(9px);
+    }
+
+    .hero-photo-live::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #66e399;
+      box-shadow: 0 0 0 6px rgba(102, 227, 153, 0.14);
+      content: "";
+      animation: live-pulse 1.8s ease-in-out infinite;
+    }
+
+    .hero-photo-coordinates {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+
+    .hero-photo-scan {
+      position: absolute;
+      top: 0;
+      right: 17px;
+      left: 17px;
+      z-index: 3;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(252, 182, 92, 0.9), transparent);
+      box-shadow: 0 0 18px rgba(252, 182, 92, 0.55);
+      opacity: 0;
+      animation: hero-scan 5.5s ease-in-out infinite;
+    }
+
+    @keyframes hero-scan {
+      0%,
+      12% {
+        opacity: 0;
+        transform: translateY(45px);
+      }
+      25% {
+        opacity: 0.8;
+      }
+      72% {
+        opacity: 0.5;
+      }
+      86%,
+      100% {
+        opacity: 0;
+        transform: translateY(420px);
+      }
+    }
+
+    .hero-photo-route {
+      position: absolute;
+      right: 25px;
+      bottom: 96px;
+      z-index: 4;
+      width: 52%;
+      opacity: 0.9;
+    }
+
+    .hero-photo-route path {
+      fill: none;
+      stroke: var(--orange);
+      stroke-dasharray: 6 8;
+      stroke-linecap: round;
+      stroke-width: 3;
+      animation: route-flow 2.8s linear infinite;
+    }
+
+    .hero-photo-route circle {
+      fill: var(--orange);
+      stroke: rgba(255, 255, 255, 0.92);
+      stroke-width: 2;
+    }
+
+    .hero-photo-trails {
+      position: absolute;
+      right: -15px;
+      bottom: 34%;
+      z-index: 4;
+      width: 150px;
+      height: 58px;
+      pointer-events: none;
+    }
+
+    .hero-photo-trails span {
+      position: absolute;
+      right: 0;
+      height: 2px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, transparent, var(--orange));
+      animation: photo-trail 2.3s ease-in-out infinite;
+    }
+
+    .hero-photo-trails span:nth-child(1) {
+      top: 4px;
+      width: 68%;
+    }
+
+    .hero-photo-trails span:nth-child(2) {
+      top: 27px;
+      width: 100%;
+      animation-delay: 180ms;
+    }
+
+    .hero-photo-trails span:nth-child(3) {
+      top: 50px;
+      width: 78%;
+      animation-delay: 360ms;
+    }
+
+    @keyframes photo-trail {
+      0%,
+      100% {
+        opacity: 0.25;
+        transform: translateX(18px) scaleX(0.75);
+      }
+      50% {
+        opacity: 1;
+        transform: translateX(-16px) scaleX(1);
+      }
+    }
+
+    .hero-photo-caption {
+      position: absolute;
+      right: 28px;
+      bottom: 25px;
+      left: 28px;
+      z-index: 5;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--white);
+    }
+
+    .hero-photo-caption strong {
+      display: block;
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.1;
+    }
+
+    .hero-photo-caption span {
+      color: var(--orange);
+      font-size: 0.68rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
     .network-card {
       position: absolute;
       inset: 20px 8px 20px 30px;
@@ -627,7 +901,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: var(--radius-lg);
       background:
-        radial-gradient(circle at 90% 5%, rgba(255, 90, 31, 0.38), transparent 30%),
+        radial-gradient(circle at 90% 5%, rgba(252, 182, 92, 0.38), transparent 30%),
         #151515;
       box-shadow: var(--shadow-lg);
       color: var(--white);
@@ -717,8 +991,8 @@
     }
 
     .route-map .point-ring {
-      fill: rgba(255, 90, 31, 0.17);
-      stroke: rgba(255, 90, 31, 0.5);
+      fill: rgba(252, 182, 92, 0.17);
+      stroke: rgba(252, 182, 92, 0.5);
       stroke-width: 1;
     }
 
@@ -800,7 +1074,8 @@
     }
 
     .float-card-two {
-      bottom: 55px;
+      top: 56%;
+      bottom: auto;
       left: -20px;
       animation-delay: -2s;
     }
@@ -898,16 +1173,17 @@
 
     .about-intro {
       display: grid;
-      align-items: start;
-      grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
-      gap: clamp(40px, 8vw, 120px);
+      align-items: center;
+      grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+      gap: clamp(48px, 7vw, 96px);
     }
 
     .about-copy {
-      padding-top: 7px;
+      max-width: 590px;
+      margin-top: 28px;
       color: var(--gray-700);
-      font-size: clamp(1.05rem, 1.7vw, 1.28rem);
-      line-height: 1.85;
+      font-size: clamp(0.98rem, 1.3vw, 1.08rem);
+      line-height: 1.82;
     }
 
     .about-copy strong {
@@ -915,9 +1191,446 @@
       font-weight: 800;
     }
 
+    .about-copy p + p {
+      margin-top: 17px;
+    }
+
+    .about-copy p:last-child {
+      padding-left: 17px;
+      border-left: 3px solid var(--orange);
+      color: var(--black);
+      font-weight: 800;
+    }
+
+    .about-media-stack {
+      position: relative;
+      min-height: 560px;
+      isolation: isolate;
+    }
+
+    .about-media-stack::before {
+      position: absolute;
+      top: 36px;
+      right: 4px;
+      z-index: -1;
+      width: 76%;
+      height: 78%;
+      border-radius: 44px;
+      background:
+        linear-gradient(145deg, rgba(252, 182, 92, 0.17), rgba(252, 182, 92, 0.03)),
+        repeating-linear-gradient(
+          -18deg,
+          transparent 0,
+          transparent 17px,
+          rgba(252, 182, 92, 0.08) 18px,
+          rgba(252, 182, 92, 0.08) 19px
+        );
+      content: "";
+      transform: rotate(5deg);
+    }
+
+    .about-media-stack.about-media-single {
+      display: grid;
+      min-height: 480px;
+      place-items: center;
+    }
+
+    .about-media-single::before {
+      top: 28px;
+      right: -12px;
+      width: 88%;
+      height: 86%;
+    }
+
+    .about-media-single .about-video-card {
+      position: relative;
+      right: auto;
+      bottom: auto;
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      transform: rotate(1.1deg);
+    }
+
+    .founder-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 72%;
+      height: 505px;
+      overflow: hidden;
+      border: 7px solid var(--white);
+      border-radius: 30px;
+      background: var(--orange-soft);
+      box-shadow:
+        0 28px 70px rgba(17, 17, 17, 0.15),
+        0 0 0 1px rgba(17, 17, 17, 0.06);
+      transform: rotate(-2.2deg);
+      transition:
+        transform 500ms var(--ease),
+        box-shadow 500ms ease;
+    }
+
+    .founder-card-primary {
+      z-index: 2;
+      width: 68%;
+      height: 515px;
+    }
+
+    .founder-card-secondary {
+      top: 30px;
+      right: 0;
+      left: auto;
+      z-index: 1;
+      width: 48%;
+      height: 420px;
+      border-color: rgba(255, 255, 255, 0.94);
+      transform: rotate(3.4deg);
+    }
+
+    .founder-card.founder-card-secondary:hover {
+      transform: rotate(1.4deg) translateY(-5px);
+    }
+
+    .founder-card::after {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 48%, rgba(17, 17, 17, 0.72) 100%),
+        linear-gradient(110deg, rgba(252, 182, 92, 0.08), transparent 55%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .founder-card:hover {
+      box-shadow:
+        0 36px 84px rgba(17, 17, 17, 0.21),
+        0 0 0 1px rgba(252, 182, 92, 0.14);
+      transform: rotate(-0.8deg) translateY(-5px);
+    }
+
+    .founder-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 900ms var(--ease);
+    }
+
+    .founder-card:hover img {
+      transform: scale(1.035);
+    }
+
+    .founder-secondary-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      z-index: 2;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.42);
+      color: var(--white);
+      font-size: 0.61rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .founder-meta {
+      position: absolute;
+      bottom: 25px;
+      left: 24px;
+      z-index: 2;
+      color: var(--white);
+    }
+
+    .founder-meta span {
+      display: block;
+      margin-bottom: 4px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .founder-meta strong {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 850;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+
+    .about-video-card {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+      width: 73%;
+      isolation: isolate;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      border: 7px solid var(--white);
+      border-radius: 30px;
+      background: var(--black);
+      box-shadow:
+        0 30px 75px rgba(17, 17, 17, 0.18),
+        0 0 0 1px rgba(17, 17, 17, 0.06);
+      transform: rotate(1.2deg);
+      transition:
+        transform 500ms var(--ease),
+        box-shadow 500ms ease;
+    }
+
+    .about-video-card::before {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, rgba(17, 17, 17, 0.05) 35%, rgba(17, 17, 17, 0.72) 100%),
+        linear-gradient(120deg, rgba(252, 182, 92, 0.18), transparent 48%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .about-video-card::after {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      z-index: 2;
+      width: 12px;
+      height: 12px;
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 7px rgba(252, 182, 92, 0.24);
+      content: "";
+      animation: live-pulse 1.8s ease-in-out infinite;
+    }
+
+    .about-video-card:hover {
+      box-shadow:
+        0 38px 90px rgba(17, 17, 17, 0.24),
+        0 0 0 1px rgba(252, 182, 92, 0.16);
+      transform: rotate(0deg) translateY(-7px);
+    }
+
+    .about-video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 900ms var(--ease);
+    }
+
+    .about-video-card:hover video {
+      transform: scale(1.045);
+    }
+
+    .about-video-label {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.42);
+      color: var(--white);
+      font-size: 0.67rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(9px);
+    }
+
+    .about-video-label::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      content: "";
+    }
+
+    .about-video-caption {
+      position: absolute;
+      right: 25px;
+      bottom: 23px;
+      left: 25px;
+      z-index: 3;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--white);
+    }
+
+    .about-video-caption strong {
+      display: block;
+      font-size: clamp(1.05rem, 2vw, 1.38rem);
+      font-weight: 850;
+      letter-spacing: -0.035em;
+      line-height: 1.2;
+    }
+
+    .about-video-caption span {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.7rem;
+      font-weight: 650;
+      text-align: right;
+    }
+
+    .capabilities-layout {
+      display: grid;
+      margin-top: 92px;
+      align-items: start;
+      grid-template-columns: minmax(240px, 0.72fr) minmax(0, 2fr);
+      gap: clamp(24px, 3.2vw, 42px);
+    }
+
+    .capabilities-reel {
+      position: sticky;
+      top: 112px;
+    }
+
+    .capabilities-video-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border: 7px solid var(--white);
+      border-radius: 30px;
+      background: var(--black);
+      box-shadow:
+        0 30px 75px rgba(17, 17, 17, 0.2),
+        0 0 0 1px rgba(17, 17, 17, 0.07);
+      transform: rotate(-1.5deg);
+      transition:
+        transform 500ms var(--ease),
+        box-shadow 500ms ease;
+    }
+
+    .capabilities-video-card::before {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, rgba(17, 17, 17, 0.08) 38%, rgba(17, 17, 17, 0.78) 100%),
+        linear-gradient(130deg, rgba(252, 182, 92, 0.16), transparent 46%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .capabilities-video-card::after {
+      position: absolute;
+      right: -42px;
+      bottom: 22%;
+      z-index: 2;
+      width: 100px;
+      height: 3px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, transparent, var(--orange));
+      box-shadow:
+        0 12px 0 rgba(252, 182, 92, 0.58),
+        0 24px 0 rgba(252, 182, 92, 0.28);
+      content: "";
+      transform: skewX(-18deg);
+    }
+
+    .capabilities-video-card:hover {
+      box-shadow:
+        0 38px 90px rgba(17, 17, 17, 0.26),
+        0 0 0 1px rgba(252, 182, 92, 0.18);
+      transform: rotate(0deg) translateY(-7px);
+    }
+
+    .capabilities-video-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 900ms var(--ease);
+    }
+
+    .capabilities-video-card:hover video {
+      transform: scale(1.04);
+    }
+
+    .capabilities-video-top {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      left: 18px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .capabilities-video-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.42);
+      color: var(--white);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .capabilities-video-tag::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 5px rgba(252, 182, 92, 0.18);
+      content: "";
+    }
+
+    .capabilities-video-top > span:last-child {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.67rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .capabilities-video-caption {
+      position: absolute;
+      right: 22px;
+      bottom: 24px;
+      left: 22px;
+      z-index: 3;
+      color: var(--white);
+    }
+
+    .capabilities-video-caption strong {
+      display: block;
+      font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.08;
+    }
+
+    .capabilities-video-caption span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.7rem;
+      font-weight: 650;
+    }
+
     .pillars-grid {
       display: grid;
-      margin-top: 78px;
       grid-template-columns: repeat(6, 1fr);
       gap: 18px;
     }
@@ -955,7 +1668,7 @@
     }
 
     .pillar-card:hover {
-      border-color: rgba(255, 90, 31, 0.35);
+      border-color: rgba(252, 182, 92, 0.35);
       box-shadow: var(--shadow-sm);
       transform: translateY(-7px);
     }
@@ -1008,6 +1721,187 @@
       font-size: 0.7rem;
       font-weight: 800;
       letter-spacing: 0.12em;
+    }
+
+    /* Leadership */
+    .leadership {
+      position: relative;
+      overflow: hidden;
+      padding: 128px 0;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(252, 182, 92, 0.19), transparent 25%),
+        var(--black);
+      color: var(--white);
+    }
+
+    .leadership::before {
+      position: absolute;
+      bottom: -260px;
+      left: -180px;
+      width: 560px;
+      height: 560px;
+      border: 1px solid rgba(252, 182, 92, 0.13);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .leadership-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      align-items: center;
+      grid-template-columns: minmax(300px, 0.8fr) minmax(500px, 1.2fr);
+      gap: clamp(55px, 8vw, 110px);
+    }
+
+    .leadership .eyebrow {
+      color: var(--orange);
+    }
+
+    .leadership .section-heading {
+      color: var(--white);
+    }
+
+    .leadership-copy {
+      max-width: 520px;
+      margin-top: 25px;
+      color: rgba(255, 255, 255, 0.64);
+      font-size: clamp(1rem, 1.3vw, 1.08rem);
+      line-height: 1.85;
+    }
+
+    .leadership-copy p + p {
+      margin-top: 19px;
+    }
+
+    .leadership-principles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 32px;
+    }
+
+    .leadership-principles span {
+      padding: 8px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.055);
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 0.68rem;
+      font-weight: 750;
+      letter-spacing: 0.04em;
+    }
+
+    .leadership-gallery {
+      position: relative;
+      min-height: 610px;
+    }
+
+    .leadership-gallery::before {
+      position: absolute;
+      top: 52px;
+      right: 8%;
+      width: 72%;
+      height: 76%;
+      border-radius: 42px;
+      background:
+        linear-gradient(145deg, rgba(252, 182, 92, 0.24), rgba(252, 182, 92, 0.04)),
+        repeating-linear-gradient(
+          -18deg,
+          transparent 0,
+          transparent 18px,
+          rgba(255, 255, 255, 0.04) 19px,
+          rgba(255, 255, 255, 0.04) 20px
+        );
+      content: "";
+      transform: rotate(4deg);
+    }
+
+    .leadership-photo {
+      position: absolute;
+      overflow: hidden;
+      border: 7px solid rgba(255, 255, 255, 0.96);
+      border-radius: 30px;
+      background: #222222;
+      box-shadow: 0 34px 85px rgba(0, 0, 0, 0.42);
+      transition:
+        transform 500ms var(--ease),
+        box-shadow 500ms ease;
+    }
+
+    .leadership-photo::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 58%, rgba(17, 17, 17, 0.55) 100%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .leadership-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 900ms var(--ease);
+    }
+
+    .leadership-photo:hover img {
+      transform: scale(1.035);
+    }
+
+    .leadership-photo-one {
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 56%;
+      height: 560px;
+      transform: rotate(-2.4deg);
+    }
+
+    .leadership-photo-two {
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      width: 55%;
+      height: 530px;
+      transform: rotate(2.8deg);
+    }
+
+    .leadership-photo-one:hover {
+      z-index: 3;
+      box-shadow: 0 42px 100px rgba(0, 0, 0, 0.5);
+      transform: rotate(-0.8deg) translateY(-6px);
+    }
+
+    .leadership-photo-two:hover {
+      z-index: 3;
+      box-shadow: 0 42px 100px rgba(0, 0, 0, 0.5);
+      transform: rotate(0.8deg) translateY(-6px);
+    }
+
+    .leadership-photo-label {
+      position: absolute;
+      right: 20px;
+      bottom: 19px;
+      left: 20px;
+      z-index: 2;
+      color: var(--white);
+    }
+
+    .leadership-photo-label span {
+      display: block;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .leadership-photo-label strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 0.92rem;
+      font-weight: 850;
     }
 
     /* Partners */
@@ -1132,9 +2026,233 @@
 
     /* Media */
     .media {
+      position: relative;
+      isolation: isolate;
       overflow: hidden;
       padding: 128px 0;
       background: var(--white);
+    }
+
+    .media > .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .media-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .media-background video {
+      width: 52%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.52;
+      filter: saturate(0.88) contrast(0.96);
+    }
+
+    .media-background::after {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.28) 0%,
+          rgba(255, 255, 255, 0.58) 28%,
+          rgba(255, 255, 255, 0.92) 49%,
+          var(--white) 67%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.76) 0%,
+          rgba(255, 255, 255, 0.08) 28%,
+          rgba(255, 255, 255, 0.18) 68%,
+          rgba(255, 255, 255, 0.88) 100%
+        );
+      content: "";
+    }
+
+    .media-layout {
+      display: block;
+    }
+
+    .media-feature {
+      position: sticky;
+      top: 108px;
+    }
+
+    .media-feature-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      border: 6px solid rgba(255, 255, 255, 0.92);
+      border-radius: 30px;
+      background: var(--orange-soft);
+      box-shadow:
+        0 28px 70px rgba(17, 17, 17, 0.15),
+        0 0 0 1px rgba(17, 17, 17, 0.06);
+      opacity: 0.9;
+      transform: rotate(-1.2deg);
+      transition:
+        opacity 300ms ease,
+        transform 500ms var(--ease),
+        box-shadow 500ms ease;
+    }
+
+    .media-feature-card:hover {
+      box-shadow:
+        0 36px 88px rgba(17, 17, 17, 0.21),
+        0 0 0 1px rgba(252, 182, 92, 0.16);
+      opacity: 1;
+      transform: rotate(0deg) translateY(-6px);
+    }
+
+    .media-feature-card::before {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, transparent 38%, rgba(17, 17, 17, 0.62) 100%),
+        linear-gradient(110deg, rgba(252, 182, 92, 0.16), transparent 48%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .media-feature-card::after {
+      position: absolute;
+      inset: 12px;
+      z-index: 2;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 19px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .media-feature-card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.68;
+      filter: saturate(0.88) contrast(0.96);
+      transition:
+        opacity 350ms ease,
+        transform 900ms var(--ease);
+    }
+
+    .media-feature-card:hover video {
+      opacity: 0.82;
+      transform: scale(1.035);
+    }
+
+    .media-feature-top {
+      position: absolute;
+      top: 19px;
+      right: 19px;
+      left: 19px;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .media-feature-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.23);
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.38);
+      color: var(--white);
+      font-size: 0.59rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .media-feature-tag::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 5px rgba(252, 182, 92, 0.18);
+      content: "";
+    }
+
+    .media-feature-ratio {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .media-feature-scan {
+      position: absolute;
+      top: 0;
+      right: 14px;
+      left: 14px;
+      z-index: 3;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(252, 182, 92, 0.9), transparent);
+      box-shadow: 0 0 16px rgba(252, 182, 92, 0.45);
+      opacity: 0;
+      animation: media-feature-scan 5s ease-in-out infinite;
+    }
+
+    @keyframes media-feature-scan {
+      0%,
+      12% {
+        opacity: 0;
+        transform: translateY(48px);
+      }
+      28% {
+        opacity: 0.75;
+      }
+      76% {
+        opacity: 0.45;
+      }
+      90%,
+      100% {
+        opacity: 0;
+        transform: translateY(430px);
+      }
+    }
+
+    .media-feature-caption {
+      position: absolute;
+      right: 22px;
+      bottom: 23px;
+      left: 22px;
+      z-index: 4;
+      color: var(--white);
+    }
+
+    .media-feature-caption strong {
+      display: block;
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.08;
+    }
+
+    .media-feature-caption span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.68rem;
+      font-weight: 650;
+    }
+
+    .media-main {
+      min-width: 0;
     }
 
     .media-head {
@@ -1217,7 +2335,7 @@
       z-index: 1;
       background:
         linear-gradient(180deg, rgba(17, 17, 17, 0.05) 35%, rgba(17, 17, 17, 0.88) 100%),
-        linear-gradient(135deg, rgba(255, 90, 31, 0.12), transparent 55%);
+        linear-gradient(135deg, rgba(252, 182, 92, 0.12), transparent 55%);
       content: "";
     }
 
@@ -1228,7 +2346,7 @@
       z-index: 2;
       width: 90px;
       height: 90px;
-      background: linear-gradient(225deg, rgba(255, 90, 31, 0.55), transparent 70%);
+      background: linear-gradient(225deg, rgba(252, 182, 92, 0.55), transparent 70%);
       content: "";
       opacity: 0;
       transition: opacity 260ms ease;
@@ -1304,8 +2422,8 @@
       place-items: center;
       border-radius: 50%;
       background: var(--orange);
-      box-shadow: 0 12px 32px rgba(255, 90, 31, 0.32);
-      color: var(--white);
+      box-shadow: 0 12px 32px rgba(252, 182, 92, 0.32);
+      color: var(--black);
       transition: transform 260ms var(--ease);
     }
 
@@ -1334,11 +2452,99 @@
       font-weight: 600;
     }
 
+    /* Operations showcase */
+    .network-showcase {
+      position: relative;
+      overflow: hidden;
+      padding: 120px 0;
+      background:
+        radial-gradient(circle at 88% 20%, rgba(252, 182, 92, 0.14), transparent 28%),
+        var(--gray-100);
+    }
+
+    .network-showcase::before {
+      position: absolute;
+      top: -180px;
+      right: -160px;
+      width: 520px;
+      height: 520px;
+      border: 1px solid rgba(252, 182, 92, 0.13);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .network-showcase-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      align-items: center;
+      grid-template-columns: minmax(280px, 0.75fr) minmax(480px, 1.25fr);
+      gap: clamp(48px, 7vw, 95px);
+    }
+
+    .network-showcase-copy .section-heading {
+      font-size: clamp(2.25rem, 4.5vw, 3.7rem);
+    }
+
+    .network-showcase-copy p {
+      max-width: 470px;
+      margin-top: 22px;
+      color: var(--gray-700);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .network-showcase-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .network-showcase-points span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border: 1px solid var(--gray-200);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--charcoal);
+      font-size: 0.72rem;
+      font-weight: 750;
+    }
+
+    .network-showcase-points span::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      content: "";
+    }
+
+    .network-showcase-visual {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .network-showcase .network-card {
+      inset: 0;
+      transform: rotate(-1.2deg);
+      transition:
+        transform 500ms var(--ease),
+        box-shadow 500ms ease;
+    }
+
+    .network-showcase .network-card:hover {
+      box-shadow: 0 38px 90px rgba(17, 17, 17, 0.22);
+      transform: rotate(0deg) translateY(-6px);
+    }
+
     /* Contact */
     .contact {
       padding: 128px 0;
       background:
-        radial-gradient(circle at 10% 10%, rgba(255, 90, 31, 0.16), transparent 25%),
+        radial-gradient(circle at 10% 10%, rgba(252, 182, 92, 0.16), transparent 25%),
         var(--black);
       color: var(--white);
     }
@@ -1563,7 +2769,7 @@
     .field textarea:focus {
       border-color: var(--orange);
       background: var(--white);
-      box-shadow: 0 0 0 4px rgba(255, 90, 31, 0.1);
+      box-shadow: 0 0 0 4px rgba(252, 182, 92, 0.1);
     }
 
     .form-submit {
@@ -1663,6 +2869,7 @@
     .social-link:hover {
       border-color: var(--orange);
       background: var(--orange);
+      color: var(--black);
       transform: translateY(-3px);
     }
 
@@ -1765,7 +2972,7 @@
 
     .modal-close:hover {
       background: var(--orange);
-      color: var(--white);
+      color: var(--black);
       transform: rotate(6deg);
     }
 
@@ -1834,6 +3041,10 @@
         inset: 20px 0 20px 15px;
       }
 
+      .hero-photo-card {
+        inset: 12px 0 12px 15px;
+      }
+
       .float-card-one {
         right: -6px;
       }
@@ -1842,21 +3053,70 @@
         gap: 50px;
       }
 
-      .pillar-card {
-        grid-column: span 3;
+      .about-media-stack {
+        min-height: 520px;
       }
 
-      .pillar-card:last-child {
-        grid-column: 2 / span 4;
+      .founder-card {
+        height: 465px;
+      }
+
+      .founder-card-primary {
+        height: 480px;
+      }
+
+      .founder-card-secondary {
+        width: 49%;
+        height: 390px;
+      }
+
+      .about-video-card {
+        width: 76%;
+      }
+
+      .pillar-card {
+        grid-column: span 2;
+      }
+
+      .pillar-card:nth-child(4),
+      .pillar-card:nth-child(5) {
+        grid-column: span 3;
       }
 
       .media-card {
         flex-basis: calc((100% - 36px) / 3);
       }
 
+      .media-layout {
+        grid-template-columns: minmax(205px, 0.55fr) minmax(0, 1.75fr);
+        gap: 30px;
+      }
+
       .contact-grid {
         grid-template-columns: minmax(260px, 0.7fr) minmax(420px, 1.3fr);
         gap: 45px;
+      }
+
+      .network-showcase-grid {
+        grid-template-columns: minmax(250px, 0.68fr) minmax(430px, 1.32fr);
+        gap: 42px;
+      }
+
+      .leadership-grid {
+        grid-template-columns: minmax(270px, 0.72fr) minmax(430px, 1.28fr);
+        gap: 45px;
+      }
+
+      .leadership-gallery {
+        min-height: 540px;
+      }
+
+      .leadership-photo-one {
+        height: 500px;
+      }
+
+      .leadership-photo-two {
+        height: 470px;
       }
     }
 
@@ -1870,8 +3130,8 @@
       }
 
       .brand img {
-        width: 100px;
-        height: 58px;
+        width: 124px;
+        height: 64px;
       }
 
       .nav-toggle {
@@ -1979,7 +3239,9 @@
       }
 
       .about,
+      .leadership,
       .media,
+      .network-showcase,
       .contact {
         padding: 96px 0;
       }
@@ -1989,8 +3251,56 @@
         gap: 28px;
       }
 
-      .pillars-grid {
+      .about-media-stack {
+        width: min(100%, 640px);
+        min-height: 590px;
+        margin: 18px auto 0;
+      }
+
+      .founder-card {
+        width: 69%;
+        height: 525px;
+      }
+
+      .founder-card-primary {
+        width: 66%;
+      }
+
+      .founder-card-secondary {
+        top: 34px;
+        right: 0;
+        left: auto;
+        width: 49%;
+        height: 430px;
+      }
+
+      .about-video-card {
+        width: 74%;
+      }
+
+      .about-media-stack.about-media-single {
+        min-height: 0;
+      }
+
+      .about-media-single .about-video-card {
+        width: 100%;
+      }
+
+      .capabilities-layout {
         margin-top: 55px;
+        grid-template-columns: 1fr;
+        gap: 38px;
+      }
+
+      .capabilities-reel {
+        position: relative;
+        top: auto;
+        width: min(100%, 330px);
+        margin-inline: auto;
+      }
+
+      .pillars-grid {
+        margin-top: 0;
       }
 
       .partners {
@@ -2007,6 +3317,15 @@
         position: relative;
       }
 
+      .media-layout {
+        display: block;
+      }
+
+      .media-background video {
+        width: 72%;
+        opacity: 0.46;
+      }
+
       .carousel-controls {
         align-self: flex-end;
         margin-top: -74px;
@@ -2019,6 +3338,36 @@
       .contact-grid {
         grid-template-columns: 1fr;
         gap: 55px;
+      }
+
+      .network-showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .network-showcase-copy {
+        max-width: 650px;
+      }
+
+      .network-showcase-visual {
+        width: min(100%, 650px);
+        min-height: 500px;
+        margin-inline: auto;
+      }
+
+      .leadership-grid {
+        grid-template-columns: 1fr;
+        gap: 55px;
+      }
+
+      .leadership-content {
+        max-width: 650px;
+      }
+
+      .leadership-gallery {
+        width: min(100%, 650px);
+        min-height: 610px;
+        margin-inline: auto;
       }
 
       .contact-copy {
@@ -2080,6 +3429,34 @@
         min-height: 410px;
       }
 
+      .hero-photo-card {
+        inset: 12px 0 12px 6px;
+        border-width: 5px;
+        border-radius: 26px;
+      }
+
+      .hero-photo-top {
+        top: 18px;
+        right: 18px;
+        left: 18px;
+      }
+
+      .hero-photo-coordinates {
+        display: none;
+      }
+
+      .hero-photo-caption {
+        right: 20px;
+        bottom: 19px;
+        left: 20px;
+      }
+
+      .hero-photo-route {
+        right: 20px;
+        bottom: 84px;
+        width: 55%;
+      }
+
       .network-card {
         inset: 18px 0 18px 8px;
         padding: 20px;
@@ -2095,6 +3472,38 @@
         right: 20px;
         bottom: 19px;
         left: 20px;
+      }
+
+      .network-showcase-visual {
+        min-height: 410px;
+      }
+
+      .leadership-gallery {
+        min-height: 500px;
+      }
+
+      .leadership-gallery::before {
+        top: 35px;
+        width: 78%;
+        height: 72%;
+        border-radius: 30px;
+      }
+
+      .leadership-photo {
+        border-width: 5px;
+        border-radius: 24px;
+      }
+
+      .leadership-photo-one {
+        width: 65%;
+        height: 440px;
+        transform: rotate(-1.7deg);
+      }
+
+      .leadership-photo-two {
+        width: 63%;
+        height: 410px;
+        transform: rotate(2deg);
       }
 
       .network-big-number strong {
@@ -2125,7 +3534,8 @@
       }
 
       .float-card-two {
-        bottom: 31px;
+        top: 57%;
+        bottom: auto;
         left: -6px;
       }
 
@@ -2146,7 +3556,9 @@
       }
 
       .about,
+      .leadership,
       .media,
+      .network-showcase,
       .contact {
         padding: 80px 0;
       }
@@ -2155,9 +3567,108 @@
         font-size: 1rem;
       }
 
+      .about-media-stack {
+        min-height: 500px;
+        margin-top: 10px;
+      }
+
+      .about-media-stack::before {
+        top: 24px;
+        width: 78%;
+        height: 72%;
+        border-radius: 30px;
+      }
+
+      .founder-card {
+        width: 78%;
+        height: 430px;
+        border-width: 5px;
+        border-radius: 24px;
+        transform: rotate(-1.5deg);
+      }
+
+      .founder-card-primary {
+        width: 72%;
+      }
+
+      .founder-card-secondary {
+        top: 27px;
+        right: 0;
+        left: auto;
+        width: 56%;
+        height: 365px;
+        transform: rotate(2.6deg);
+      }
+
+      .founder-secondary-badge {
+        top: 13px;
+        right: 13px;
+        padding: 6px 8px;
+        font-size: 0.55rem;
+      }
+
+      .founder-meta {
+        top: 16px;
+        bottom: auto;
+        left: 17px;
+        padding: 8px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 12px;
+        background: rgba(17, 17, 17, 0.42);
+        backdrop-filter: blur(8px);
+      }
+
+      .about-video-card {
+        width: 84%;
+        aspect-ratio: 4 / 3;
+        border-width: 5px;
+        border-radius: 24px;
+        transform: rotate(0.8deg);
+      }
+
+      .about-media-stack.about-media-single {
+        min-height: 0;
+      }
+
+      .about-media-single .about-video-card {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        transform: none;
+      }
+
+      .about-video-label {
+        top: 15px;
+        left: 15px;
+      }
+
+      .about-video-caption {
+        right: 18px;
+        bottom: 17px;
+        left: 18px;
+      }
+
+      .about-video-caption span {
+        display: none;
+      }
+
       .pillars-grid {
+        margin-top: 0;
         grid-template-columns: 1fr;
         gap: 14px;
+      }
+
+      .capabilities-layout {
+        gap: 32px;
+      }
+
+      .capabilities-reel {
+        width: min(82vw, 300px);
+      }
+
+      .capabilities-video-card {
+        border-width: 5px;
+        border-radius: 24px;
+        transform: rotate(-0.8deg);
       }
 
       .pillar-card,
@@ -2210,6 +3721,15 @@
       .media-viewport {
         margin-top: 30px;
         overflow-x: auto;
+      }
+
+      .media-layout {
+        display: block;
+      }
+
+      .media-background video {
+        width: 88%;
+        opacity: 0.4;
       }
 
       .media-track {
@@ -2293,7 +3813,7 @@
   <header class="site-header" id="siteHeader">
     <nav class="nav container" aria-label="Main navigation">
       <a class="brand" href="#home" aria-label="Super Speed Delivery home">
-        <img src="assets/logo.png" alt="Super Speed Delivery" />
+        <img src="assets/Logo superspeed png.png" alt="Super Speed Delivery" />
       </a>
 
       <button
@@ -2319,6 +3839,19 @@
 
   <main id="main-content">
     <section class="hero" id="home">
+      <div class="hero-media" aria-hidden="true">
+        <video
+          id="heroVideo"
+          src="assets/background video.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          data-motion-video
+        ></video>
+      </div>
+
       <div class="speed-lines" aria-hidden="true">
         <span></span>
         <span></span>
@@ -2369,46 +3902,29 @@
           </div>
 
           <div class="hero-visual reveal" data-delay="2">
-            <div class="network-card">
-              <div class="network-top">
-                <span class="network-label">Delivery network</span>
-                <span class="live-status">Live operations</span>
+            <div class="hero-photo-card">
+              <img
+                src="assets/Gemini_Generated_Image_gdp5p9gdp5p9gdp5.png"
+                alt="Super Speed Delivery rider in Dubai"
+              />
+              <div class="hero-photo-top">
+                <span class="hero-photo-live">On the move</span>
+                <span class="hero-photo-coordinates">DXB · 25.2048° N</span>
               </div>
-
-              <svg class="route-map" viewBox="0 0 420 300" fill="none" aria-hidden="true">
-                <path class="route-muted" d="M28 215C92 128 132 198 184 118S303 42 389 95" />
-                <path class="route" d="M42 235C93 194 104 123 173 145s82 34 114-36 71-54 100-24" />
-                <g transform="translate(42 235)">
-                  <circle class="point-ring" r="14" />
-                  <circle class="point" r="5" />
-                  <text x="-10" y="28">DXB</text>
-                </g>
-                <g transform="translate(173 145)">
-                  <circle class="point-ring" r="14" />
-                  <circle class="point" r="5" />
-                  <text x="-12" y="-22">AUH</text>
-                </g>
-                <g transform="translate(287 109)">
-                  <circle class="point-ring" r="14" />
-                  <circle class="point" r="5" />
-                  <text x="-10" y="30">SHJ</text>
-                </g>
-                <g transform="translate(387 85)">
-                  <circle class="point-ring" r="14" />
-                  <circle class="point" r="5" />
-                  <text x="-12" y="-22">RUH</text>
-                </g>
+              <span class="hero-photo-scan" aria-hidden="true"></span>
+              <svg class="hero-photo-route" viewBox="0 0 210 72" aria-hidden="true">
+                <path d="M8 60C42 54 45 17 83 24s46 31 72 4 34-16 47-20" />
+                <circle cx="8" cy="60" r="5" />
+                <circle cx="202" cy="8" r="5" />
               </svg>
-
-              <div class="network-bottom">
-                <div class="network-big-number">
-                  <strong>700+</strong>
-                  <span>Active riders</span>
-                </div>
-                <div class="network-coverage">
-                  <strong>UAE · KSA</strong>
-                  <span>Regional coverage</span>
-                </div>
+              <div class="hero-photo-trails" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="hero-photo-caption">
+                <strong>Last-mile delivery,<br />built for momentum.</strong>
+                <span>UAE · KSA</span>
               </div>
             </div>
 
@@ -2463,25 +3979,76 @@
     <section class="about" id="about">
       <div class="container">
         <div class="about-intro">
-          <div>
+          <div class="about-story">
             <span class="eyebrow reveal">About us</span>
             <h2 class="section-heading reveal" data-delay="1">
-              Built to move <span>business forward.</span>
+              Powering the Future of <span>Delivery</span>
             </h2>
+
+            <div class="about-copy reveal" data-delay="2">
+              <p>
+                Super Speed Delivery is a leading last-mile logistics and rider outsourcing
+                company based in Dubai, helping businesses scale with speed, reliability,
+                and operational excellence. Since 2021, we have partnered with delivery
+                platforms and logistics companies to provide professional riders, fleet
+                solutions, and end-to-end operational support across the UAE and Saudi Arabia.
+              </p>
+              <p>
+                Driven by innovation and backed by a highly trained workforce, we are committed
+                to delivering consistent performance, seamless operations, and long-term value
+                for every partner we serve.
+              </p>
+              <p>We don't just deliver orders. We power the businesses behind them.</p>
+            </div>
           </div>
 
-          <p class="about-copy reveal" data-delay="2">
-            <strong>Super Speed Delivery Service was established in 2021 in Dubai by
-            Mr. Hamza Jeridi.</strong> What started as a focused delivery operation has
-            grown into a fast-scaling logistics network operating across the UAE and
-            Saudi Arabia. Today, we manage a fleet of over 700 riders and operate across
-            6 major delivery platforms, ensuring speed, reliability, and consistent
-            service for our partners and customers.
-          </p>
+          <div class="about-media-stack about-media-single reveal" data-delay="2">
+            <div class="about-video-card">
+              <video
+                src="assets/background video.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                data-motion-video
+                aria-label="Dubai skyline and Super Speed Delivery operations"
+              ></video>
+              <span class="about-video-label">Dubai · Since 2021</span>
+              <div class="about-video-caption">
+                <strong>From one city to<br />a regional network.</strong>
+                <span>UAE · Saudi Arabia</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="pillars-grid">
-          <article class="pillar-card reveal">
+        <div class="capabilities-layout">
+          <aside class="capabilities-reel reveal" aria-label="Super Speed Delivery in motion">
+            <div class="capabilities-video-card">
+              <video
+                src="assets/animated-superspeeddelivery.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                data-motion-video
+                aria-label="Animated Super Speed Delivery showcase"
+              ></video>
+              <div class="capabilities-video-top">
+                <span class="capabilities-video-tag">In motion</span>
+                <span>9:16</span>
+              </div>
+              <div class="capabilities-video-caption">
+                <strong>Every route.<br />Every moment.</strong>
+                <span>Built for the pace of modern delivery.</span>
+              </div>
+            </div>
+          </aside>
+
+          <div class="pillars-grid">
+            <article class="pillar-card reveal">
             <span class="pillar-number">01</span>
             <span class="pillar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -2490,9 +4057,9 @@
             </span>
             <h3>Multi-Modal Delivery Fleet</h3>
             <p>We operate a versatile fleet of motorcycles, cars, bicycles, and walkers to match every route and delivery need.</p>
-          </article>
+            </article>
 
-          <article class="pillar-card reveal" data-delay="1">
+            <article class="pillar-card reveal" data-delay="1">
             <span class="pillar-number">02</span>
             <span class="pillar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -2502,9 +4069,9 @@
             </span>
             <h3>Regional Coverage</h3>
             <p>Spanning Dubai, Abu Dhabi, Sharjah, and Ajman in the UAE, plus Riyadh in Saudi Arabia.</p>
-          </article>
+            </article>
 
-          <article class="pillar-card reveal" data-delay="2">
+            <article class="pillar-card reveal" data-delay="2">
             <span class="pillar-number">03</span>
             <span class="pillar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -2513,9 +4080,9 @@
             </span>
             <h3>Strong Platform Partnerships</h3>
             <p>Working with leading delivery platforms including Talabat, Noon, HungerStation, Keeta, and Marsool.</p>
-          </article>
+            </article>
 
-          <article class="pillar-card reveal" data-delay="1">
+            <article class="pillar-card reveal" data-delay="1">
             <span class="pillar-number">04</span>
             <span class="pillar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -2524,9 +4091,9 @@
             </span>
             <h3>Scalable Rider Network</h3>
             <p>More than 700 riders distributed across multiple cities, with the flexibility to scale capacity based on demand.</p>
-          </article>
+            </article>
 
-          <article class="pillar-card reveal" data-delay="2">
+            <article class="pillar-card reveal" data-delay="2">
             <span class="pillar-number">05</span>
             <span class="pillar-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
@@ -2536,7 +4103,60 @@
             </span>
             <h3>Reliable Last-Mile Execution</h3>
             <p>Focused on speed, accuracy, and fewer delays through responsive operations and optimized rider allocation.</p>
-          </article>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="leadership" id="leadership">
+      <div class="container leadership-grid">
+        <div class="leadership-content">
+          <span class="eyebrow reveal">Our founder</span>
+          <h2 class="section-heading reveal" data-delay="1">
+            <span>Leadership</span>
+          </h2>
+          <div class="leadership-copy reveal" data-delay="2">
+            <p>
+              Founded by Mr. Hamza Jridi, Super Speed Delivery is built on the belief that
+              great companies are created through strong leadership, disciplined execution,
+              and long-term partnerships.
+            </p>
+            <p>
+              Under his leadership, the company continues to invest in people, technology,
+              and operational excellence with one clear objective: building one of the Gulf
+              region's leading logistics workforce companies.
+            </p>
+          </div>
+          <div class="leadership-principles reveal" data-delay="3" aria-label="Leadership principles">
+            <span>People</span>
+            <span>Technology</span>
+            <span>Operational Excellence</span>
+          </div>
+        </div>
+
+        <div class="leadership-gallery reveal" data-delay="2">
+          <figure class="leadership-photo leadership-photo-one">
+            <img
+              src="assets/founder superspeed delivery.jpeg"
+              alt="Mr. Hamza Jridi, founder of Super Speed Delivery"
+            />
+            <figcaption class="leadership-photo-label">
+              <span>Founder</span>
+              <strong>Mr. Hamza Jridi</strong>
+            </figcaption>
+          </figure>
+
+          <figure class="leadership-photo leadership-photo-two">
+            <img
+              src="assets/founder superspeed img2.jpeg"
+              alt="Mr. Hamza Jridi at Super Speed Delivery"
+            />
+            <figcaption class="leadership-photo-label">
+              <span>Leadership</span>
+              <strong>Vision in action</strong>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -2606,53 +4226,67 @@
     </section>
 
     <section class="media" id="media">
+      <div class="media-background" aria-hidden="true">
+        <video
+          src="assets/Generate_a_video_of_burj_khali.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          data-motion-video
+        ></video>
+      </div>
+
       <div class="container">
-        <div class="media-head">
-          <div>
-            <span class="eyebrow reveal">Inside Super Speed</span>
-            <h2 class="section-heading reveal" data-delay="1">
-              Our network <span>in motion.</span>
-            </h2>
-          </div>
+        <div class="media-layout">
+          <div class="media-main">
+            <div class="media-head">
+              <div>
+                <span class="eyebrow reveal">Inside Super Speed</span>
+                <h2 class="section-heading reveal" data-delay="1">
+                  Our network <span>in motion.</span>
+                </h2>
+              </div>
 
-          <div class="carousel-controls reveal" data-delay="2" aria-label="Media carousel controls">
-            <button class="icon-button" id="mediaPrev" type="button" aria-label="Previous video">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-            <button class="icon-button" id="mediaNext" type="button" aria-label="Next video">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </div>
+              <div class="carousel-controls reveal" data-delay="2" aria-label="Media carousel controls">
+                <button class="icon-button" id="mediaPrev" type="button" aria-label="Previous video">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+                <button class="icon-button" id="mediaNext" type="button" aria-label="Next video">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </div>
 
-        <div class="media-viewport reveal" id="mediaViewport">
-          <div class="media-track">
-            <button
-              class="media-card"
-              type="button"
-              data-video="assets/final spotify.mp4"
-              data-title="Driven by energy"
-              aria-label="Play Driven by energy video"
-            >
-              <video src="assets/final spotify.mp4" muted playsinline preload="metadata" aria-hidden="true"></video>
-              <span class="media-card-top">
-                <span class="reel-tag">Super Speed Reel</span>
-                <span class="media-index">01</span>
-              </span>
-              <span class="media-card-content">
-                <span class="play-button" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="m8 5 11 7-11 7V5Z" /></svg>
-                </span>
-                <span>
-                  <span class="media-card-title">Driven by energy</span>
-                  <span class="media-card-subtitle">Behind the operation</span>
-                </span>
-              </span>
-            </button>
+            <div class="media-viewport reveal" id="mediaViewport">
+              <div class="media-track">
+                <button
+                  class="media-card"
+                  type="button"
+                  data-video="assets/final spotify.mp4"
+                  data-title="Driven by energy"
+                  aria-label="Play Driven by energy video"
+                >
+                  <video src="assets/final spotify.mp4" muted playsinline preload="metadata" aria-hidden="true"></video>
+                  <span class="media-card-top">
+                    <span class="reel-tag">Super Speed Reel</span>
+                    <span class="media-index">01</span>
+                  </span>
+                  <span class="media-card-content">
+                    <span class="play-button" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="m8 5 11 7-11 7V5Z" /></svg>
+                    </span>
+                    <span>
+                      <span class="media-card-title">Driven by energy</span>
+                      <span class="media-card-subtitle">Behind the operation</span>
+                    </span>
+                  </span>
+                </button>
 
             <button
               class="media-card"
@@ -2722,6 +4356,73 @@
                 </span>
               </span>
             </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="network-showcase" aria-labelledby="networkShowcaseTitle">
+      <div class="container network-showcase-grid">
+        <div class="network-showcase-copy">
+          <span class="eyebrow reveal">Live operations</span>
+          <h2 class="section-heading reveal" id="networkShowcaseTitle" data-delay="1">
+            Visibility across <span>every mile.</span>
+          </h2>
+          <p class="reveal" data-delay="2">
+            Our regional delivery network combines active rider coverage with responsive
+            allocation—helping partners move faster across the UAE and Saudi Arabia.
+          </p>
+          <div class="network-showcase-points reveal" data-delay="3">
+            <span>700+ active riders</span>
+            <span>Live allocation</span>
+            <span>UAE · KSA coverage</span>
+          </div>
+        </div>
+
+        <div class="network-showcase-visual reveal" data-delay="2">
+          <div class="network-card">
+            <div class="network-top">
+              <span class="network-label">Delivery network</span>
+              <span class="live-status">Live operations</span>
+            </div>
+
+            <svg class="route-map" viewBox="0 0 420 300" fill="none" aria-hidden="true">
+              <path class="route-muted" d="M28 215C92 128 132 198 184 118S303 42 389 95" />
+              <path class="route" d="M42 235C93 194 104 123 173 145s82 34 114-36 71-54 100-24" />
+              <g transform="translate(42 235)">
+                <circle class="point-ring" r="14" />
+                <circle class="point" r="5" />
+                <text x="-10" y="28">DXB</text>
+              </g>
+              <g transform="translate(173 145)">
+                <circle class="point-ring" r="14" />
+                <circle class="point" r="5" />
+                <text x="-12" y="-22">AUH</text>
+              </g>
+              <g transform="translate(287 109)">
+                <circle class="point-ring" r="14" />
+                <circle class="point" r="5" />
+                <text x="-10" y="30">SHJ</text>
+              </g>
+              <g transform="translate(387 85)">
+                <circle class="point-ring" r="14" />
+                <circle class="point" r="5" />
+                <text x="-12" y="-22">RUH</text>
+              </g>
+            </svg>
+
+            <div class="network-bottom">
+              <div class="network-big-number">
+                <strong>700+</strong>
+                <span>Active riders</span>
+              </div>
+              <div class="network-coverage">
+                <strong>UAE · KSA</strong>
+                <span>Regional coverage</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2730,13 +4431,14 @@
     <section class="contact" id="contact">
       <div class="container contact-grid">
         <div class="contact-content">
-          <span class="eyebrow reveal">Connect with us</span>
+          <span class="eyebrow reveal">Contact</span>
           <h2 class="section-heading reveal" data-delay="1">
-            Let's move faster, <span>together.</span>
+            Let's Build the <span>Future Together</span>
           </h2>
           <p class="contact-copy reveal" data-delay="2">
-            Need a dependable delivery partner—or ready to join a fast-growing rider
-            network? Choose an option and send us your details.
+            Whether you're looking for professional riders, a trusted logistics workforce
+            partner, or new career opportunities as a licensed rider, our team is ready to
+            help you take the next step.
           </p>
 
           <div class="contact-points reveal" data-delay="3">
@@ -2915,7 +4617,7 @@
           <a href="#home" aria-label="Back to home">
             <img src="assets/logo.png" alt="Super Speed Delivery" />
           </a>
-          <p>Fast, reliable, and scalable last-mile delivery across the UAE and Saudi Arabia.</p>
+          <p>Building the Future of Logistics Workforce Solutions.</p>
         </div>
 
         <div class="footer-column">
@@ -2961,7 +4663,7 @@
 
       <div class="footer-bottom">
         <span>&copy; <span id="currentYear"></span> Super Speed Delivery Service. All rights reserved.</span>
-        <span>Delivering better, every mile.</span>
+        <span>UAE · Saudi Arabia</span>
       </div>
     </div>
   </footer>
@@ -2999,6 +4701,24 @@
       const year = document.getElementById("currentYear");
 
       year.textContent = new Date().getFullYear();
+
+      /* Decorative videos: honor reduced-motion and nudge autoplay. */
+      const motionVideos = document.querySelectorAll("[data-motion-video]");
+      if (motionVideos.length) {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const applyMotionPreference = () => {
+          motionVideos.forEach((video) => {
+            if (reduceMotion.matches) {
+              video.pause();
+            } else {
+              const playPromise = video.play();
+              if (playPromise !== undefined) playPromise.catch(() => {});
+            }
+          });
+        };
+        applyMotionPreference();
+        reduceMotion.addEventListener("change", applyMotionPreference);
+      }
 
       const updateScrollUI = () => {
         const scrollTop = window.scrollY;
