@@ -1893,9 +1893,46 @@
 
     /* Team */
     .team {
+      position: relative;
+      isolation: isolate;
       overflow: hidden;
       padding: 110px 0 120px;
       background: var(--white);
+    }
+
+    .team > .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .team-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .team-background img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      opacity: 0.14;
+      filter: saturate(0.9) contrast(0.95);
+    }
+
+    .team-background::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        var(--white) 0%,
+        rgba(255, 255, 255, 0.35) 20%,
+        rgba(255, 255, 255, 0.35) 78%,
+        var(--white) 100%
+      );
+      content: "";
     }
 
     .team-head {
@@ -4299,6 +4336,10 @@
     </section>
 
     <section class="team" id="team">
+      <div class="team-background" aria-hidden="true">
+        <img src="assets/The team/Locale.jpeg" alt="" />
+      </div>
+
       <div class="container team-head">
         <div>
           <span class="eyebrow reveal">Our people</span>
