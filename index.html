@@ -1794,7 +1794,7 @@
 
     .leadership-gallery {
       position: relative;
-      min-height: 610px;
+      min-height: 660px;
     }
 
     .leadership-gallery::before {
@@ -1852,31 +1852,48 @@
     .leadership-photo-one {
       top: 0;
       left: 0;
-      z-index: 2;
-      width: 56%;
-      height: 560px;
-      transform: rotate(-2.4deg);
+      z-index: 1;
+      width: 54%;
+      height: 540px;
+      transform: rotate(-3.2deg);
     }
 
     .leadership-photo-two {
       right: 0;
       bottom: 0;
       z-index: 1;
-      width: 55%;
-      height: 530px;
-      transform: rotate(2.8deg);
+      width: 53%;
+      height: 500px;
+      transform: rotate(3.4deg);
+    }
+
+    .leadership-photo-three {
+      top: 46%;
+      left: 50%;
+      z-index: 3;
+      width: 50%;
+      height: 430px;
+      border-color: var(--orange);
+      box-shadow: 0 46px 110px rgba(0, 0, 0, 0.55);
+      transform: translate(-50%, -50%) rotate(-1.2deg);
     }
 
     .leadership-photo-one:hover {
-      z-index: 3;
+      z-index: 2;
       box-shadow: 0 42px 100px rgba(0, 0, 0, 0.5);
-      transform: rotate(-0.8deg) translateY(-6px);
+      transform: rotate(-1.6deg) translateY(-6px);
     }
 
     .leadership-photo-two:hover {
-      z-index: 3;
+      z-index: 2;
       box-shadow: 0 42px 100px rgba(0, 0, 0, 0.5);
-      transform: rotate(0.8deg) translateY(-6px);
+      transform: rotate(1.6deg) translateY(-6px);
+    }
+
+    .leadership-photo-three:hover {
+      z-index: 4;
+      box-shadow: 0 54px 120px rgba(0, 0, 0, 0.6);
+      transform: translate(-50%, -50%) rotate(0deg) translateY(-6px);
     }
 
     .leadership-photo-label {
@@ -1902,6 +1919,85 @@
       margin-top: 3px;
       font-size: 0.92rem;
       font-weight: 850;
+    }
+
+    /* Team */
+    .team {
+      overflow: hidden;
+      padding: 110px 0 120px;
+      background: var(--white);
+    }
+
+    .team-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 46px;
+    }
+
+    .team-note {
+      max-width: 380px;
+      padding-bottom: 8px;
+      color: var(--gray-500);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .team-collage {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 190px;
+      grid-auto-flow: dense;
+      gap: 16px;
+    }
+
+    .team-tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      margin: 0;
+      background: #1c1c1c;
+      box-shadow: 0 22px 48px rgba(17, 17, 17, 0.14);
+    }
+
+    .team-tile::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(17, 17, 17, 0.4) 100%);
+      content: "";
+      opacity: 0;
+      transition: opacity 400ms ease;
+      pointer-events: none;
+    }
+
+    .team-tile:hover::after {
+      opacity: 1;
+    }
+
+    .team-tile img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 700ms var(--ease);
+    }
+
+    .team-tile:hover img {
+      transform: scale(1.06);
+    }
+
+    .team-tile-1 {
+      grid-row: span 2;
+    }
+
+    .team-tile-2 {
+      grid-row: span 2;
+      grid-column: span 2;
+    }
+
+    .team-tile-7 {
+      grid-column: span 2;
     }
 
     /* Partners */
@@ -3108,15 +3204,24 @@
       }
 
       .leadership-gallery {
-        min-height: 540px;
+        min-height: 580px;
       }
 
       .leadership-photo-one {
-        height: 500px;
+        height: 480px;
       }
 
       .leadership-photo-two {
-        height: 470px;
+        height: 450px;
+      }
+
+      .leadership-photo-three {
+        height: 380px;
+      }
+
+      .team-collage {
+        grid-auto-rows: 160px;
+        gap: 14px;
       }
     }
 
@@ -3307,10 +3412,25 @@
         padding: 84px 0;
       }
 
+      .team {
+        padding: 84px 0 90px;
+      }
+
       .partners-head,
-      .media-head {
+      .media-head,
+      .team-head {
         align-items: flex-start;
         flex-direction: column;
+      }
+
+      .team-head {
+        margin-bottom: 34px;
+      }
+
+      .team-collage {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 150px;
+        gap: 12px;
       }
 
       .media-head {
@@ -3366,7 +3486,7 @@
 
       .leadership-gallery {
         width: min(100%, 650px);
-        min-height: 610px;
+        min-height: 640px;
         margin-inline: auto;
       }
 
@@ -3479,7 +3599,7 @@
       }
 
       .leadership-gallery {
-        min-height: 500px;
+        min-height: 540px;
       }
 
       .leadership-gallery::before {
@@ -3496,14 +3616,20 @@
 
       .leadership-photo-one {
         width: 65%;
-        height: 440px;
+        height: 400px;
         transform: rotate(-1.7deg);
       }
 
       .leadership-photo-two {
         width: 63%;
-        height: 410px;
+        height: 370px;
         transform: rotate(2deg);
+      }
+
+      .leadership-photo-three {
+        width: 68%;
+        height: 320px;
+        top: 48%;
       }
 
       .network-big-number strong {
@@ -3687,6 +3813,20 @@
         font-size: 0.86rem;
       }
 
+      .team-note {
+        font-size: 0.86rem;
+      }
+
+      .team-collage {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 140px;
+        gap: 10px;
+      }
+
+      .team-tile {
+        border-radius: 16px;
+      }
+
       .partner-marquee {
         margin-top: 38px;
       }
@@ -3867,18 +4007,18 @@
                   <path d="M13 2 4.5 13h6L10 22l9-12h-6V2Z" fill="currentColor" />
                 </svg>
               </span>
-              Last-mile logistics, redefined
+              Delivering Excellence
             </div>
 
             <h1 class="reveal" data-delay="1">
-              <span class="hero-line">Fast.</span>
-              <span class="hero-line">Efficient.</span>
-              <span class="hero-line accent">Dependable.</span>
+              <span class="hero-line">Speed</span>
+              <span class="hero-line">Precision</span>
+              <span class="hero-line accent">Trust</span>
             </h1>
 
             <p class="hero-copy reveal" data-delay="2">
-              Last-mile delivery at scale across the UAE and Saudi Arabia—powered by
-              experienced riders, smart allocation, and relentless execution.
+              We provide fast, secure, and reliable last-mile delivery solutions that
+              help businesses grow across the UAE and Saudi Arabia.
             </p>
 
             <div class="hero-actions reveal" data-delay="3">
@@ -4156,6 +4296,86 @@
               <span>Leadership</span>
               <strong>Vision in action</strong>
             </figcaption>
+          </figure>
+
+          <figure class="leadership-photo leadership-photo-three">
+            <img
+              src="assets/Founder3.jpeg"
+              alt="Mr. Hamza Jridi leading the Super Speed Delivery team"
+            />
+            <figcaption class="leadership-photo-label">
+              <span>Founder</span>
+              <strong>Leading from the front</strong>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="team" id="team">
+      <div class="container team-head">
+        <div>
+          <span class="eyebrow reveal">Our people</span>
+          <h2 class="section-heading reveal" data-delay="1">
+            Meet the <span>team.</span>
+          </h2>
+        </div>
+        <p class="team-note reveal" data-delay="2">
+          A dedicated crew of operators, coordinators, and riders working around the clock
+          across the UAE and Saudi Arabia to keep every delivery on time.
+        </p>
+      </div>
+
+      <div class="container">
+        <div class="team-collage reveal" data-delay="3">
+          <figure class="team-tile team-tile-1">
+            <img
+              src="assets/Founder3.jpeg"
+              alt="Super Speed Delivery founder at the office"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-tile team-tile-2">
+            <img
+              src="assets/The team/WhatsApp Image 2026.jpeg"
+              alt="The full Super Speed Delivery team together"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-tile team-tile-3">
+            <img
+              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.35.jpeg"
+              alt="Team members at the Super Speed Delivery office"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-tile team-tile-4">
+            <img
+              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.37 AM.jpeg"
+              alt="Team members walking together in Super Speed uniforms"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-tile team-tile-5">
+            <img
+              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.34 AM.jpeg"
+              alt="Team members collaborating in the office"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-tile team-tile-6">
+            <img
+              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.jpeg"
+              alt="Team member assisting a customer"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-tile team-tile-7">
+            <img
+              src="assets/The team/WhatsApp Image 2026-07-22 at 7.jpeg"
+              alt="Team members working at their desks"
+              loading="lazy"
+            />
           </figure>
         </div>
       </div>
