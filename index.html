@@ -1914,60 +1914,29 @@
       line-height: 1.7;
     }
 
-    .team-collage {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 190px;
-      grid-auto-flow: dense;
-      gap: 16px;
-    }
-
-    .team-tile {
+    .team-showcase {
       position: relative;
       overflow: hidden;
-      border-radius: 22px;
-      margin: 0;
+      max-width: 620px;
+      margin: 0 auto;
+      border: 1px solid rgba(17, 17, 17, 0.08);
+      border-radius: 28px;
       background: #1c1c1c;
-      box-shadow: 0 22px 48px rgba(17, 17, 17, 0.14);
+      box-shadow: 0 30px 70px rgba(17, 17, 17, 0.16);
+      transition:
+        transform 500ms var(--ease),
+        box-shadow 500ms ease;
     }
 
-    .team-tile::after {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 55%, rgba(17, 17, 17, 0.4) 100%);
-      content: "";
-      opacity: 0;
-      transition: opacity 400ms ease;
-      pointer-events: none;
+    .team-showcase:hover {
+      box-shadow: 0 40px 90px rgba(17, 17, 17, 0.22);
+      transform: translateY(-6px);
     }
 
-    .team-tile:hover::after {
-      opacity: 1;
-    }
-
-    .team-tile img {
+    .team-showcase img {
       display: block;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 700ms var(--ease);
-    }
-
-    .team-tile:hover img {
-      transform: scale(1.06);
-    }
-
-    .team-tile-1 {
-      grid-row: span 2;
-    }
-
-    .team-tile-2 {
-      grid-row: span 2;
-      grid-column: span 2;
-    }
-
-    .team-tile-7 {
-      grid-column: span 2;
+      height: auto;
     }
 
     /* Partners */
@@ -3273,10 +3242,6 @@
         height: 440px;
       }
 
-      .team-collage {
-        grid-auto-rows: 160px;
-        gap: 14px;
-      }
     }
 
     @media (max-width: 820px) {
@@ -3481,10 +3446,8 @@
         margin-bottom: 34px;
       }
 
-      .team-collage {
-        grid-template-columns: repeat(3, 1fr);
-        grid-auto-rows: 150px;
-        gap: 12px;
+      .team-showcase {
+        max-width: 480px;
       }
 
       .media-head {
@@ -3862,14 +3825,9 @@
         font-size: 0.86rem;
       }
 
-      .team-collage {
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: 140px;
-        gap: 10px;
-      }
-
-      .team-tile {
-        border-radius: 16px;
+      .team-showcase {
+        max-width: 100%;
+        border-radius: 20px;
       }
 
       .partner-marquee {
@@ -4355,57 +4313,13 @@
       </div>
 
       <div class="container">
-        <div class="team-collage reveal" data-delay="3">
-          <figure class="team-tile team-tile-1">
-            <img
-              src="assets/Founder3.jpeg"
-              alt="Super Speed Delivery founder at the office"
-              loading="lazy"
-            />
-          </figure>
-          <figure class="team-tile team-tile-2">
-            <img
-              src="assets/The team/WhatsApp Image 2026.jpeg"
-              alt="The full Super Speed Delivery team together"
-              loading="lazy"
-            />
-          </figure>
-          <figure class="team-tile team-tile-3">
-            <img
-              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.35.jpeg"
-              alt="Team members at the Super Speed Delivery office"
-              loading="lazy"
-            />
-          </figure>
-          <figure class="team-tile team-tile-4">
-            <img
-              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.37 AM.jpeg"
-              alt="Team members walking together in Super Speed uniforms"
-              loading="lazy"
-            />
-          </figure>
-          <figure class="team-tile team-tile-5">
-            <img
-              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.34 AM.jpeg"
-              alt="Team members collaborating in the office"
-              loading="lazy"
-            />
-          </figure>
-          <figure class="team-tile team-tile-6">
-            <img
-              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.jpeg"
-              alt="Team member assisting a customer"
-              loading="lazy"
-            />
-          </figure>
-          <figure class="team-tile team-tile-7">
-            <img
-              src="assets/The team/WhatsApp Image 2026-07-22 at 7.jpeg"
-              alt="Team members working at their desks"
-              loading="lazy"
-            />
-          </figure>
-        </div>
+        <figure class="team-showcase reveal" data-delay="3">
+          <img
+            src="assets/TEAM.jpeg"
+            alt="Super Speed Delivery team collage — One team, one mission"
+            loading="lazy"
+          />
+        </figure>
       </div>
     </section>
 
