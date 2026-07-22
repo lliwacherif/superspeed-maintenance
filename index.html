@@ -1849,41 +1849,21 @@
       transform: scale(1.035);
     }
 
-    .leadership-photo-one,
-    .leadership-photo-two,
     .leadership-photo-three {
       top: 50%;
       left: 50%;
-      width: 56%;
-      height: 480px;
-      transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
-    }
-
-    .leadership-photo-one {
-      --tx: -78%;
-      --ty: -62%;
-      --rot: -7deg;
       z-index: 1;
-    }
-
-    .leadership-photo-two {
-      --tx: -22%;
-      --ty: -38%;
-      --rot: 7deg;
-      z-index: 2;
-    }
-
-    .leadership-photo-three {
-      --tx: -50%;
-      --ty: -50%;
-      --rot: -1deg;
-      z-index: 3;
+      width: 62%;
+      height: 560px;
+      transform: translate(-50%, -50%) rotate(-1.5deg);
     }
 
     .leadership-photo:hover {
-      z-index: 5;
       box-shadow: 0 46px 110px rgba(0, 0, 0, 0.55);
-      transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(1.045);
+    }
+
+    .leadership-photo-three:hover {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1.03);
     }
 
     .leadership-photo-label {
@@ -3286,13 +3266,11 @@
       }
 
       .leadership-gallery {
-        min-height: 580px;
+        min-height: 500px;
       }
 
-      .leadership-photo-one,
-      .leadership-photo-two,
       .leadership-photo-three {
-        height: 420px;
+        height: 440px;
       }
 
       .team-collage {
@@ -3561,8 +3539,8 @@
       }
 
       .leadership-gallery {
-        width: min(100%, 650px);
-        min-height: 640px;
+        width: min(100%, 520px);
+        min-height: 520px;
         margin-inline: auto;
       }
 
@@ -3680,7 +3658,7 @@
       }
 
       .leadership-gallery {
-        min-height: 540px;
+        min-height: 420px;
       }
 
       .leadership-gallery::before {
@@ -3694,23 +3672,9 @@
         border-radius: 24px;
       }
 
-      .leadership-photo-one,
-      .leadership-photo-two,
       .leadership-photo-three {
-        width: 66%;
-        height: 320px;
-      }
-
-      .leadership-photo-one {
-        --tx: -84%;
-        --ty: -68%;
-        --rot: -8deg;
-      }
-
-      .leadership-photo-two {
-        --tx: -16%;
-        --ty: -32%;
-        --rot: 8deg;
+        width: 78%;
+        height: 380px;
       }
 
       .network-big-number strong {
@@ -4362,36 +4326,14 @@
         </div>
 
         <div class="leadership-gallery reveal" data-delay="2">
-          <figure class="leadership-photo leadership-photo-one">
+          <figure class="leadership-photo leadership-photo-three">
             <img
-              src="assets/founder superspeed delivery.jpeg"
+              src="assets/Founder3.jpeg"
               alt="Mr. Hamza Jridi, founder of Super Speed Delivery"
             />
             <figcaption class="leadership-photo-label">
               <span>Founder</span>
               <strong>Mr. Hamza Jridi</strong>
-            </figcaption>
-          </figure>
-
-          <figure class="leadership-photo leadership-photo-two">
-            <img
-              src="assets/founder superspeed img2.jpeg"
-              alt="Mr. Hamza Jridi at Super Speed Delivery"
-            />
-            <figcaption class="leadership-photo-label">
-              <span>Leadership</span>
-              <strong>Vision in action</strong>
-            </figcaption>
-          </figure>
-
-          <figure class="leadership-photo leadership-photo-three">
-            <img
-              src="assets/Founder3.jpeg"
-              alt="Mr. Hamza Jridi leading the Super Speed Delivery team"
-            />
-            <figcaption class="leadership-photo-label">
-              <span>Founder</span>
-              <strong>Leading from the front</strong>
             </figcaption>
           </figure>
         </div>
