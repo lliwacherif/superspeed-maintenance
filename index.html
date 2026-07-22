@@ -2882,8 +2882,8 @@
     .footer-main {
       display: grid;
       align-items: start;
-      grid-template-columns: 1.4fr 0.6fr 0.6fr;
-      gap: 55px;
+      grid-template-columns: 1.05fr 0.5fr 0.5fr 0.95fr;
+      gap: 42px;
     }
 
     .footer-brand img {
@@ -2935,6 +2935,98 @@
     .social-links {
       display: flex;
       gap: 10px;
+    }
+
+    .footer-map-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      background: #111111;
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.4);
+      transition:
+        transform 400ms var(--ease),
+        box-shadow 400ms ease,
+        border-color 400ms ease;
+    }
+
+    .footer-map-card:hover {
+      border-color: rgba(252, 182, 92, 0.4);
+      box-shadow: 0 30px 65px rgba(0, 0, 0, 0.5);
+      transform: translateY(-4px);
+    }
+
+    .footer-map-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .footer-map-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .footer-map-dot-red {
+      background: #ff5f57;
+    }
+
+    .footer-map-dot-yellow {
+      background: #febc2e;
+    }
+
+    .footer-map-dot-green {
+      background: #28c840;
+    }
+
+    .footer-map-bar em {
+      overflow: hidden;
+      margin-left: 6px;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.68rem;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .footer-map-frame {
+      display: block;
+      width: 100%;
+      height: 168px;
+      border: 0;
+      filter: invert(92%) hue-rotate(180deg) contrast(88%) brightness(0.95);
+    }
+
+    .footer-map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 14px;
+      color: var(--orange);
+      font-size: 0.8rem;
+      font-weight: 800;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .footer-map-link svg {
+      width: 15px;
+      height: 15px;
+      transition: transform 220ms var(--ease);
+    }
+
+    .footer-map-link:hover {
+      opacity: 0.82;
+    }
+
+    .footer-map-link:hover svg {
+      transform: translateX(3px);
     }
 
     .social-link {
@@ -3482,8 +3574,13 @@
         grid-template-columns: 1.2fr 0.8fr;
       }
 
-      .footer-brand {
+      .footer-brand,
+      .footer-map-column {
         grid-column: 1 / -1;
+      }
+
+      .footer-map-card {
+        max-width: 420px;
       }
     }
 
@@ -3885,8 +3982,13 @@
         gap: 42px 25px;
       }
 
-      .footer-brand {
+      .footer-brand,
+      .footer-map-column {
         grid-column: 1 / -1;
+      }
+
+      .footer-map-card {
+        max-width: none;
       }
 
       .footer-bottom {
@@ -4862,6 +4964,37 @@
               </svg>
             </a>
           </div>
+        </div>
+
+        <div class="footer-column footer-map-column">
+          <h3>Our office</h3>
+          <div class="footer-map-card">
+            <div class="footer-map-bar">
+              <span class="footer-map-dot footer-map-dot-red" aria-hidden="true"></span>
+              <span class="footer-map-dot footer-map-dot-yellow" aria-hidden="true"></span>
+              <span class="footer-map-dot footer-map-dot-green" aria-hidden="true"></span>
+              <em>Super Speed Delivery &middot; Dubai, UAE</em>
+            </div>
+            <iframe
+              class="footer-map-frame"
+              src="https://www.google.com/maps?q=Super+Speed+Delivery,25.1859989,55.2620546&z=15&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Map showing the Super Speed Delivery office location"
+              aria-label="Map showing the Super Speed Delivery office location"
+            ></iframe>
+          </div>
+          <a
+            class="footer-map-link"
+            href="https://maps.app.goo.gl/7Bfxcx8Z3EHuJTEaA"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Get directions
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
         </div>
       </div>
 
