@@ -78,6 +78,11 @@
       max-width: 100%;
     }
 
+    /* Keeps the attribute authoritative over component display rules */
+    [hidden] {
+      display: none !important;
+    }
+
     button,
     input,
     select,
@@ -2706,7 +2711,7 @@
       padding: 5px;
       border-radius: 14px;
       background: var(--gray-100);
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       isolation: isolate;
     }
 
@@ -2716,26 +2721,27 @@
       bottom: 5px;
       left: 5px;
       z-index: -1;
-      width: calc(50% - 5px);
+      width: calc((100% - 10px) / 3);
       border-radius: 10px;
       background: var(--black);
       box-shadow: 0 8px 24px rgba(17, 17, 17, 0.14);
       content: "";
-      transition: transform 320ms var(--ease);
-    }
-
-    .form-switcher.career-active::before {
-      transform: translateX(100%);
+      transform: translateX(calc(var(--switcher-index, 0) * 100%));
+      transition: transform 380ms var(--ease);
     }
 
     .form-tab {
-      min-height: 50px;
-      padding-inline: 12px;
+      display: grid;
+      min-height: 54px;
+      padding-inline: 10px;
       border-radius: 10px;
       background: transparent;
       color: var(--gray-500);
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 800;
+      line-height: 1.3;
+      place-items: center;
+      text-align: center;
       transition: color 250ms ease;
     }
 
@@ -2781,6 +2787,130 @@
       }
     }
 
+    /* Multi-step wizard */
+    .form-stepper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+      list-style: none;
+    }
+
+    .form-stepper-item {
+      display: grid;
+      gap: 9px;
+    }
+
+    .form-stepper-track {
+      position: relative;
+      overflow: hidden;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--gray-200);
+    }
+
+    .form-stepper-track::after {
+      position: absolute;
+      inset: 0;
+      width: 0;
+      border-radius: 999px;
+      background: var(--orange);
+      content: "";
+      transition: width 480ms var(--ease);
+    }
+
+    .form-stepper-item.is-active .form-stepper-track::after,
+    .form-stepper-item.is-done .form-stepper-track::after {
+      width: 100%;
+    }
+
+    .form-stepper-item.is-done .form-stepper-track::after {
+      background: var(--black);
+    }
+
+    .form-stepper-meta em {
+      display: block;
+      color: var(--gray-500);
+      font-size: 0.6rem;
+      font-style: normal;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .form-stepper-meta strong {
+      display: block;
+      margin-top: 3px;
+      color: var(--gray-500);
+      font-size: 0.74rem;
+      font-weight: 750;
+      line-height: 1.35;
+    }
+
+    .form-stepper-item.is-active .form-stepper-meta em {
+      color: var(--orange-dark);
+    }
+
+    .form-stepper-item.is-active .form-stepper-meta strong,
+    .form-stepper-item.is-done .form-stepper-meta strong {
+      color: var(--black);
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: form-enter 380ms var(--ease);
+    }
+
+    .form-step-head {
+      margin-bottom: 20px;
+    }
+
+    .form-step-head h4 {
+      color: var(--black);
+      font-size: 1.14rem;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+    }
+
+    .form-step-head p {
+      margin-top: 5px;
+      color: var(--gray-500);
+      font-size: 0.79rem;
+      line-height: 1.55;
+    }
+
+    .form-section + .form-section {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .form-section-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 15px;
+      color: var(--black);
+      font-size: 0.72rem;
+      font-weight: 850;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .form-section-title::before {
+      width: 15px;
+      height: 2px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      background: var(--orange);
+      content: "";
+    }
+
+    /* Fields */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2789,6 +2919,7 @@
 
     .field {
       display: grid;
+      align-content: start;
       gap: 8px;
     }
 
@@ -2803,6 +2934,16 @@
       letter-spacing: 0.035em;
     }
 
+    .field label .req {
+      color: var(--orange-dark);
+    }
+
+    .field label .field-optional {
+      color: var(--gray-500);
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
     .field input,
     .field select,
     .field textarea {
@@ -2810,8 +2951,9 @@
       border: 1px solid var(--gray-200);
       border-radius: 12px;
       outline: 0;
-      background: #fbfbfa;
+      background-color: #fbfbfa;
       color: var(--black);
+      font-family: inherit;
       font-size: 0.88rem;
       transition:
         border-color 180ms ease,
@@ -2825,8 +2967,27 @@
       padding: 0 15px;
     }
 
+    .field select {
+      appearance: none;
+      padding-right: 42px;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 13px;
+      cursor: pointer;
+    }
+
+    /* Grey out the unselected prompt so it reads as a placeholder */
+    .field select:has(option[value=""]:checked) {
+      color: #a0a0a0;
+    }
+
+    .field select option {
+      color: var(--black);
+    }
+
     .field textarea {
-      min-height: 126px;
+      min-height: 118px;
       padding: 14px 15px;
       resize: vertical;
     }
@@ -2840,8 +3001,250 @@
     .field select:focus,
     .field textarea:focus {
       border-color: var(--orange);
-      background: var(--white);
+      background-color: var(--white);
       box-shadow: 0 0 0 4px rgba(252, 182, 92, 0.1);
+    }
+
+    .field-hint {
+      color: var(--gray-500);
+      font-size: 0.68rem;
+      line-height: 1.45;
+    }
+
+    .field-error {
+      display: none;
+      color: #c62f1c;
+      font-size: 0.68rem;
+      font-weight: 750;
+    }
+
+    .field.invalid .field-error,
+    .form-agreement-wrap.invalid .field-error {
+      display: block;
+    }
+
+    .field.invalid input,
+    .field.invalid select,
+    .field.invalid textarea {
+      border-color: #e0614d;
+      background-color: #fff7f6;
+    }
+
+    /* Choice chips */
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .chip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 11px 15px;
+      border: 1px solid var(--gray-200);
+      border-radius: 999px;
+      background: #fbfbfa;
+      color: var(--gray-700);
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 750;
+      transition:
+        border-color 200ms ease,
+        background-color 200ms ease,
+        color 200ms ease;
+    }
+
+    .chip:hover {
+      border-color: var(--black);
+      color: var(--black);
+    }
+
+    .chip input,
+    .form-agreement input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .chip-box {
+      display: grid;
+      width: 17px;
+      height: 17px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1.5px solid var(--gray-300);
+      border-radius: 5px;
+      background: var(--white);
+      color: transparent;
+      transition:
+        border-color 200ms ease,
+        background-color 200ms ease,
+        color 200ms ease;
+    }
+
+    .chip input[type="radio"] ~ .chip-box {
+      border-radius: 50%;
+    }
+
+    .chip-box svg {
+      width: 11px;
+    }
+
+    .chip:has(input:checked),
+    .form-agreement:has(input:checked) {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+      color: var(--black);
+    }
+
+    .chip:has(input:checked) .chip-box,
+    .form-agreement:has(input:checked) .chip-box {
+      border-color: var(--orange);
+      background: var(--orange);
+      color: var(--black);
+    }
+
+    .chip:has(input:focus-visible),
+    .form-agreement:has(input:focus-visible),
+    .upload:has(input:focus-visible) {
+      outline: 3px solid rgba(252, 182, 92, 0.35);
+      outline-offset: 3px;
+    }
+
+    .field.invalid .chip {
+      border-color: #e0614d;
+    }
+
+    /* Document uploads */
+    .upload-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .upload {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 14px;
+      border: 1.5px dashed var(--gray-300);
+      border-radius: 14px;
+      background: #fbfbfa;
+      cursor: pointer;
+      transition:
+        border-color 200ms ease,
+        background-color 200ms ease;
+    }
+
+    .upload:hover {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+    .upload input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .upload-icon {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--white);
+      box-shadow: 0 4px 12px rgba(17, 17, 17, 0.08);
+      color: var(--orange-dark);
+    }
+
+    .upload-icon svg {
+      width: 16px;
+    }
+
+    .upload-text {
+      min-width: 0;
+    }
+
+    .upload-text strong {
+      display: block;
+      color: var(--black);
+      font-size: 0.77rem;
+      font-weight: 800;
+    }
+
+    .upload-text span {
+      display: block;
+      overflow: hidden;
+      margin-top: 2px;
+      color: var(--gray-500);
+      font-size: 0.67rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .upload.has-file {
+      border-style: solid;
+      border-color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+    .upload.has-file .upload-text span {
+      color: var(--orange-dark);
+      font-weight: 750;
+    }
+
+    .upload-note {
+      margin-top: 11px;
+    }
+
+    /* Agreement + actions */
+    .form-agreement-wrap {
+      display: grid;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .form-agreement {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 14px 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      background: var(--gray-100);
+      color: var(--gray-700);
+      cursor: pointer;
+      font-size: 0.79rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .form-agreement-wrap.invalid .form-agreement {
+      border-color: #e0614d;
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .form-actions .button {
+      flex: 1 1 auto;
+      justify-content: center;
+    }
+
+    .form-actions .form-back {
+      flex: 0 0 auto;
     }
 
     .form-submit {
@@ -3924,8 +4327,23 @@
         border-radius: 23px;
       }
 
+      .form-switcher {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .form-switcher::before {
+        display: none;
+      }
+
       .form-tab {
-        font-size: 0.72rem;
+        min-height: 46px;
+        font-size: 0.76rem;
+      }
+
+      .form-tab.active {
+        background: var(--black);
+        color: var(--white);
       }
 
       .form-grid {
@@ -3934,6 +4352,23 @@
 
       .field-full {
         grid-column: auto;
+      }
+
+      .form-stepper-meta strong {
+        display: none;
+      }
+
+      .upload-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-actions {
+        flex-direction: column-reverse;
+      }
+
+      .form-actions .button,
+      .form-actions .form-back {
+        width: 100%;
       }
 
       .footer-main {
@@ -4693,9 +5128,22 @@
               role="tab"
               aria-selected="false"
               aria-controls="careerForm"
+              tabindex="-1"
               data-form="career"
             >
               Join Our Team
+            </button>
+            <button
+              class="form-tab"
+              id="partnerTab"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="partnerForm"
+              tabindex="-1"
+              data-form="partner"
+            >
+              Business Partnership
             </button>
           </div>
 
@@ -4704,42 +5152,90 @@
             <p>Our team will get back to you as soon as possible.</p>
           </div>
 
+          <!-- Form 3: Contact Us -->
           <form
             class="interactive-form active"
             id="contactForm"
             action="https://formsubmit.co/info@superspeeddelivery.com"
             method="POST"
+            enctype="multipart/form-data"
             role="tabpanel"
             aria-labelledby="contactTab"
+            novalidate
           >
             <input type="hidden" name="_subject" value="New website contact enquiry" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="Form type" value="Business enquiry" />
+            <input type="hidden" name="Form type" value="Contact enquiry" />
             <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
 
-            <div class="form-grid">
-              <div class="field">
-                <label for="contactName">Name</label>
-                <input id="contactName" name="Name" type="text" placeholder="Your name" autocomplete="name" required />
-              </div>
+            <div class="form-step active">
+              <div class="form-section">
+                <h5 class="form-section-title">Personal information</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="contactName">Full Name <span class="req">*</span></label>
+                    <input id="contactName" name="Full Name" type="text" placeholder="Your full name" autocomplete="name" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
 
-              <div class="field">
-                <label for="contactEmail">Email</label>
-                <input id="contactEmail" name="Email" type="email" placeholder="you@company.com" autocomplete="email" required />
-              </div>
+                  <div class="field">
+                    <label for="contactCompany">Company <span class="field-optional">(optional)</span></label>
+                    <input id="contactCompany" name="Company" type="text" placeholder="Company name" autocomplete="organization" />
+                  </div>
 
-              <div class="field field-full">
-                <label for="contactSubject">Subject</label>
-                <input id="contactSubject" name="Subject" type="text" placeholder="How can we help?" required />
-              </div>
+                  <div class="field">
+                    <label for="contactPhone">Phone <span class="req">*</span></label>
+                    <input id="contactPhone" name="Phone" type="tel" placeholder="+971 50 000 0000" autocomplete="tel" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
 
-              <div class="field field-full">
-                <label for="contactMessage">Message</label>
-                <textarea id="contactMessage" name="Message" placeholder="Tell us about your delivery requirements..." required></textarea>
+                  <div class="field">
+                    <label for="contactEmail">Email <span class="req">*</span></label>
+                    <input id="contactEmail" name="Email" type="email" placeholder="you@company.com" autocomplete="email" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field field-full">
+                    <label for="contactSubject">Subject <span class="req">*</span></label>
+                    <select id="contactSubject" name="Subject" data-req>
+                      <option value="" selected>Select a subject</option>
+                      <option>General Inquiry</option>
+                      <option>Partnership Question</option>
+                      <option>Technical Support</option>
+                      <option>Complaint</option>
+                      <option>Suggestion</option>
+                      <option>Other</option>
+                    </select>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field field-full">
+                    <label for="contactMessage">Message <span class="req">*</span></label>
+                    <textarea id="contactMessage" name="Message" placeholder="Tell us how we can help..." data-req></textarea>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field field-full">
+                    <label>Attachment <span class="field-optional">(optional)</span></label>
+                    <label class="upload" data-hint="PDF, JPG or PNG · max 5 MB">
+                      <input type="file" name="Attachment" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" />
+                      <span class="upload-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <span class="upload-text">
+                        <strong>Upload a file</strong>
+                        <span data-upload-name>PDF, JPG or PNG · max 5 MB</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <button class="button button-primary form-submit" type="submit">
+            <button class="button button-primary form-submit" type="submit" data-form-submit>
               Send enquiry
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -4748,13 +5244,16 @@
             <p class="form-note">By submitting, you agree to be contacted about your enquiry.</p>
           </form>
 
+          <!-- Form 1: Join Our Team -->
           <form
             class="interactive-form"
             id="careerForm"
             action="https://formsubmit.co/info@superspeeddelivery.com"
             method="POST"
+            enctype="multipart/form-data"
             role="tabpanel"
             aria-labelledby="careerTab"
+            novalidate
             hidden
           >
             <input type="hidden" name="_subject" value="New career application from website" />
@@ -4762,51 +5261,1172 @@
             <input type="hidden" name="Form type" value="Career application" />
             <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
 
-            <div class="form-grid">
-              <div class="field">
-                <label for="careerName">Name</label>
-                <input id="careerName" name="Name" type="text" placeholder="Your full name" autocomplete="name" required />
+            <ol class="form-stepper">
+              <li class="form-stepper-item is-active">
+                <span class="form-stepper-track"></span>
+                <span class="form-stepper-meta"><em>Step 1</em><strong>Personal</strong></span>
+              </li>
+              <li class="form-stepper-item">
+                <span class="form-stepper-track"></span>
+                <span class="form-stepper-meta"><em>Step 2</em><strong>Employment</strong></span>
+              </li>
+              <li class="form-stepper-item">
+                <span class="form-stepper-track"></span>
+                <span class="form-stepper-meta"><em>Step 3</em><strong>Experience</strong></span>
+              </li>
+            </ol>
+
+            <!-- Careers · Step 1 -->
+            <div class="form-step active">
+              <div class="form-step-head">
+                <h4>Personal information</h4>
+                <p>Tell us who you are and where you are based.</p>
               </div>
 
-              <div class="field">
-                <label for="careerEmail">Email</label>
-                <input id="careerEmail" name="Email" type="email" placeholder="you@email.com" autocomplete="email" required />
+              <div class="form-section">
+                <h5 class="form-section-title">Personal details</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="carFullName">Full Name <span class="req">*</span></label>
+                    <input id="carFullName" name="Full Name" type="text" placeholder="As per passport" autocomplete="name" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="carMobile">Mobile Number <span class="req">*</span></label>
+                    <input id="carMobile" name="Mobile Number" type="tel" placeholder="+971 50 000 0000" autocomplete="tel" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="carWhatsapp">WhatsApp Number</label>
+                    <input id="carWhatsapp" name="WhatsApp Number" type="tel" placeholder="Same as mobile if identical" />
+                  </div>
+
+                  <div class="field">
+                    <label for="carEmail">Email <span class="field-optional">(optional)</span></label>
+                    <input id="carEmail" name="Email" type="email" placeholder="you@email.com" autocomplete="email" />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="carNationality">Nationality <span class="req">*</span></label>
+                    <input id="carNationality" name="Nationality" type="text" placeholder="e.g. Indian, Pakistani, Filipino" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="carGender">Gender <span class="req">*</span></label>
+                    <select id="carGender" name="Gender" data-req>
+                      <option value="" selected>Select gender</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="carDob">Date of Birth <span class="req">*</span></label>
+                    <input id="carDob" name="Date of Birth" type="date" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="carMarital">Marital Status</label>
+                    <select id="carMarital" name="Marital Status">
+                      <option value="" selected>Select status</option>
+                      <option>Single</option>
+                      <option>Married</option>
+                      <option>Divorced</option>
+                      <option>Widowed</option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
-              <div class="field">
-                <label for="careerPhone">Phone</label>
-                <input id="careerPhone" name="Phone" type="tel" placeholder="+971 / +966" autocomplete="tel" required />
+              <div class="form-section">
+                <h5 class="form-section-title">Current location</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="carCountry">Country</label>
+                    <select id="carCountry" name="Country">
+                      <option value="" selected>Select country</option>
+                      <option>United Arab Emirates</option>
+                      <option>Saudi Arabia</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="carEmirate">Emirate / City</label>
+                    <select id="carEmirate" name="Emirate / City">
+                      <option value="" selected>Select city</option>
+                      <optgroup label="United Arab Emirates">
+                        <option>Dubai</option>
+                        <option>Abu Dhabi</option>
+                        <option>Sharjah</option>
+                        <option>Ajman</option>
+                        <option>Ras Al Khaimah</option>
+                        <option>Fujairah</option>
+                        <option>Umm Al Quwain</option>
+                      </optgroup>
+                      <optgroup label="Saudi Arabia">
+                        <option>Riyadh</option>
+                        <option>Jeddah</option>
+                        <option>Dammam</option>
+                      </optgroup>
+                      <option>Other</option>
+                    </select>
+                  </div>
+
+                  <div class="field field-full">
+                    <label for="carArea">Area</label>
+                    <input id="carArea" name="Area" type="text" placeholder="e.g. Al Quoz, Deira, Al Nahda" />
+                  </div>
+                </div>
               </div>
 
-              <div class="field">
-                <label for="careerCity">City / Market</label>
-                <select id="careerCity" name="City / Market" required>
-                  <option value="" disabled selected>Select a location</option>
-                  <optgroup label="United Arab Emirates">
-                    <option>Dubai, UAE</option>
-                    <option>Abu Dhabi, UAE</option>
-                    <option>Sharjah, UAE</option>
-                    <option>Ajman, UAE</option>
-                  </optgroup>
-                  <optgroup label="Saudi Arabia">
-                    <option>Riyadh, KSA</option>
-                  </optgroup>
-                </select>
-              </div>
+              <div class="form-section">
+                <h5 class="form-section-title">Languages</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="carLangEn">English</label>
+                    <select id="carLangEn" name="English Level">
+                      <option value="" selected>Not applicable</option>
+                      <option>Basic</option>
+                      <option>Good</option>
+                      <option>Excellent</option>
+                    </select>
+                  </div>
 
-              <div class="field field-full">
-                <label for="careerRole">Role applied for</label>
-                <input id="careerRole" name="Role applied for" type="text" placeholder="e.g. Delivery Rider, Operations Coordinator" required />
+                  <div class="field">
+                    <label for="carLangAr">Arabic</label>
+                    <select id="carLangAr" name="Arabic Level">
+                      <option value="" selected>Not applicable</option>
+                      <option>Basic</option>
+                      <option>Good</option>
+                      <option>Excellent</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="carLangEs">Spanish</label>
+                    <select id="carLangEs" name="Spanish Level">
+                      <option value="" selected>Not applicable</option>
+                      <option>Basic</option>
+                      <option>Good</option>
+                      <option>Excellent</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="carLangFr">French</label>
+                    <select id="carLangFr" name="French Level">
+                      <option value="" selected>Not applicable</option>
+                      <option>Basic</option>
+                      <option>Good</option>
+                      <option>Excellent</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <button class="button button-primary form-submit" type="submit">
-              Submit application
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
+            <!-- Careers · Step 2 -->
+            <div class="form-step" hidden>
+              <div class="form-step-head">
+                <h4>Employment information</h4>
+                <p>Your visa status, licences, and job preferences.</p>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Residence status</h5>
+                <div class="form-grid">
+                  <div class="field field-full">
+                    <label>Currently in UAE?</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Currently in UAE" value="Yes" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Yes
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Currently in UAE" value="No" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="carVisa">Visa Status</label>
+                    <select id="carVisa" name="Visa Status">
+                      <option value="" selected>Select visa status</option>
+                      <option>Employment Visa</option>
+                      <option>Freelance Visa</option>
+                      <option>Visit Visa</option>
+                      <option>Cancelled Visa</option>
+                      <option>Expired</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="carVisaExpiry">Visa Expiry Date</label>
+                    <input id="carVisaExpiry" name="Visa Expiry Date" type="date" />
+                  </div>
+
+                  <div class="field">
+                    <label>Can Transfer Visa?</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Can Transfer Visa" value="Yes" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Yes
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Can Transfer Visa" value="No" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label>Emirates ID Available?</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Emirates ID Available" value="Yes" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Yes
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Emirates ID Available" value="No" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Driving information</h5>
+                <div class="form-grid">
+                  <div class="field field-full">
+                    <label>Do you have a licence?</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Licence Held" value="Car License" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Car License
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Licence Held" value="Motorcycle License" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Motorcycle License
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Licence Held" value="Both" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Both
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Licence Held" value="None" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        None
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="carLicenceExpiry">License Expiry Date</label>
+                    <input id="carLicenceExpiry" name="License Expiry Date" type="date" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Vehicle</h5>
+                <div class="form-grid">
+                  <div class="field field-full">
+                    <label>Do you own a vehicle?</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Vehicle Owned" value="Car" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Car
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Vehicle Owned" value="Motorcycle" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Motorcycle
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Vehicle Owned" value="None" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        None
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field field-full">
+                    <label>Need a company vehicle?</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Needs Company Vehicle" value="Yes" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Yes
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Needs Company Vehicle" value="No" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Job preferences</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="carPosition">Position</label>
+                    <select id="carPosition" name="Position">
+                      <option value="" selected>Select position</option>
+                      <option>Car Driver</option>
+                      <option>Bike Rider</option>
+                      <option>Any Position</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="carSalary">Expected Monthly Salary</label>
+                    <input id="carSalary" name="Expected Monthly Salary" type="number" min="0" step="100" placeholder="e.g. 3500 (AED)" />
+                  </div>
+
+                  <div class="field field-full">
+                    <label>Available to work</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="checkbox" name="Available to Work" value="Day Shift" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Day Shift
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Available to Work" value="Night Shift" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Night Shift
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Available to Work" value="Weekend" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Weekend
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label>Available From</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Available From" value="Immediately" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Immediately
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Available From" value="From a specific date" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Specific date
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="carAvailableDate">Start Date</label>
+                    <input id="carAvailableDate" name="Available Start Date" type="date" />
+                    <span class="field-hint">Only if you selected a specific date.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Careers · Step 3 -->
+            <div class="form-step" hidden>
+              <div class="form-step-head">
+                <h4>Experience &amp; documents</h4>
+                <p>Share your background and upload your documents.</p>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Experience</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label>Worked in delivery before?</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Worked Before" value="Yes" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Yes
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Worked Before" value="No" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="carYears">Years of Experience</label>
+                    <select id="carYears" name="Years of Experience">
+                      <option value="" selected>Select experience</option>
+                      <option>Less than 1 year</option>
+                      <option>1 - 2 years</option>
+                      <option>3 - 5 years</option>
+                      <option>More than 5 years</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="carLastEmployer">Last Employer</label>
+                    <input id="carLastEmployer" name="Last Employer" type="text" placeholder="Company name" />
+                  </div>
+
+                  <div class="field">
+                    <label for="carLeaving">Reason for Leaving</label>
+                    <input id="carLeaving" name="Reason for Leaving" type="text" placeholder="e.g. Contract ended" />
+                  </div>
+
+                  <div class="field field-full">
+                    <label>Delivery Companies Worked With</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="checkbox" name="Companies Worked With" value="Talabat" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Talabat
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Companies Worked With" value="Noon" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Noon
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Companies Worked With" value="Deliveroo" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Deliveroo
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Companies Worked With" value="Careem" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Careem
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Companies Worked With" value="Amazon" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Amazon
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Companies Worked With" value="Aramex" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Aramex
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Companies Worked With" value="DHL" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        DHL
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Companies Worked With" value="Others" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Others
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Emergency contact</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="carEmgName">Name</label>
+                    <input id="carEmgName" name="Emergency Contact Name" type="text" placeholder="Full name" />
+                  </div>
+
+                  <div class="field">
+                    <label for="carEmgRelation">Relationship</label>
+                    <input id="carEmgRelation" name="Emergency Contact Relationship" type="text" placeholder="e.g. Brother, Spouse" />
+                  </div>
+
+                  <div class="field field-full">
+                    <label for="carEmgPhone">Phone Number</label>
+                    <input id="carEmgPhone" name="Emergency Contact Phone" type="tel" placeholder="+971 50 000 0000" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Upload documents</h5>
+                <div class="upload-grid">
+                  <label class="upload" data-hint="PDF or image">
+                    <input type="file" name="Passport" accept=".pdf,.jpg,.jpeg,.png" />
+                    <span class="upload-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="upload-text">
+                      <strong>Passport</strong>
+                      <span data-upload-name>PDF or image</span>
+                    </span>
+                  </label>
+
+                  <label class="upload" data-hint="PDF or image">
+                    <input type="file" name="Emirates ID" accept=".pdf,.jpg,.jpeg,.png" />
+                    <span class="upload-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="upload-text">
+                      <strong>Emirates ID</strong>
+                      <span data-upload-name>PDF or image</span>
+                    </span>
+                  </label>
+
+                  <label class="upload" data-hint="PDF or image">
+                    <input type="file" name="Visa" accept=".pdf,.jpg,.jpeg,.png" />
+                    <span class="upload-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="upload-text">
+                      <strong>Visa</strong>
+                      <span data-upload-name>PDF or image</span>
+                    </span>
+                  </label>
+
+                  <label class="upload" data-hint="PDF or image">
+                    <input type="file" name="Driving License" accept=".pdf,.jpg,.jpeg,.png" />
+                    <span class="upload-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="upload-text">
+                      <strong>Driving License</strong>
+                      <span data-upload-name>PDF or image</span>
+                    </span>
+                  </label>
+
+                  <label class="upload" data-hint="JPG or PNG">
+                    <input type="file" name="Personal Photo" accept=".jpg,.jpeg,.png" />
+                    <span class="upload-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="upload-text">
+                      <strong>Personal Photo</strong>
+                      <span data-upload-name>JPG or PNG</span>
+                    </span>
+                  </label>
+
+                  <label class="upload" data-hint="Optional · PDF or DOC">
+                    <input type="file" name="CV" accept=".pdf,.doc,.docx" />
+                    <span class="upload-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </span>
+                    <span class="upload-text">
+                      <strong>CV</strong>
+                      <span data-upload-name>Optional · PDF or DOC</span>
+                    </span>
+                  </label>
+                </div>
+                <p class="field-hint upload-note">Keep each file under 5 MB so your application is delivered reliably.</p>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Additional notes</h5>
+                <div class="field">
+                  <label for="carNotes">Anything else we should know?</label>
+                  <textarea id="carNotes" name="Additional Notes" placeholder="Add any details that support your application..."></textarea>
+                </div>
+              </div>
+
+              <div class="form-agreement-wrap">
+                <label class="form-agreement">
+                  <input type="checkbox" name="Agreement" value="Confirmed accurate" data-req />
+                  <span class="chip-box" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </span>
+                  I confirm the information provided is accurate.
+                </label>
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="button button-outline form-back" type="button" data-form-back hidden>Back</button>
+              <button class="button button-dark" type="button" data-form-next>
+                Continue
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button class="button button-primary" type="submit" data-form-submit hidden>
+                Submit application
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
             <p class="form-note">We review applications based on current operational needs.</p>
+          </form>
+
+          <!-- Form 2: Business Partnership Request -->
+          <form
+            class="interactive-form"
+            id="partnerForm"
+            action="https://formsubmit.co/info@superspeeddelivery.com"
+            method="POST"
+            role="tabpanel"
+            aria-labelledby="partnerTab"
+            novalidate
+            hidden
+          >
+            <input type="hidden" name="_subject" value="New business partnership request" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="Form type" value="Business partnership request" />
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
+
+            <ol class="form-stepper">
+              <li class="form-stepper-item is-active">
+                <span class="form-stepper-track"></span>
+                <span class="form-stepper-meta"><em>Step 1</em><strong>Company</strong></span>
+              </li>
+              <li class="form-stepper-item">
+                <span class="form-stepper-track"></span>
+                <span class="form-stepper-meta"><em>Step 2</em><strong>Services</strong></span>
+              </li>
+              <li class="form-stepper-item">
+                <span class="form-stepper-track"></span>
+                <span class="form-stepper-meta"><em>Step 3</em><strong>Details</strong></span>
+              </li>
+            </ol>
+
+            <!-- Partnership · Step 1 -->
+            <div class="form-step active">
+              <div class="form-step-head">
+                <h4>Company information</h4>
+                <p>Tell us about your business and who we should speak to.</p>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Company details</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="parCompany">Company Name <span class="req">*</span></label>
+                    <input id="parCompany" name="Company Name" type="text" placeholder="Registered company name" autocomplete="organization" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="parBusinessType">Business Type <span class="req">*</span></label>
+                    <select id="parBusinessType" name="Business Type" data-req>
+                      <option value="" selected>Select business type</option>
+                      <option>Food Delivery Platform</option>
+                      <option>E-commerce</option>
+                      <option>Retail</option>
+                      <option>Grocery</option>
+                      <option>Cloud Kitchen</option>
+                      <option>Restaurant</option>
+                      <option>Logistics / Courier</option>
+                      <option>Pharmacy</option>
+                      <option>Other</option>
+                    </select>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="parWebsite">Website</label>
+                    <input id="parWebsite" name="Website" type="url" placeholder="https://" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parYear">Year Established</label>
+                    <input id="parYear" name="Year Established" type="number" min="1900" max="2100" placeholder="e.g. 2019" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parEmployees">Number of Employees</label>
+                    <select id="parEmployees" name="Number of Employees">
+                      <option value="" selected>Select range</option>
+                      <option>1 - 10</option>
+                      <option>11 - 50</option>
+                      <option>51 - 200</option>
+                      <option>201 - 500</option>
+                      <option>500+</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="parCountry">Country</label>
+                    <select id="parCountry" name="Country">
+                      <option value="" selected>Select country</option>
+                      <option>United Arab Emirates</option>
+                      <option>Saudi Arabia</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="parCity">City / Emirate</label>
+                    <input id="parCity" name="City / Emirate" type="text" placeholder="e.g. Dubai, Riyadh" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parAddress">Office Address</label>
+                    <input id="parAddress" name="Office Address" type="text" placeholder="Street, building, area" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Contact person</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="parContactName">Full Name <span class="req">*</span></label>
+                    <input id="parContactName" name="Contact Full Name" type="text" placeholder="Your full name" autocomplete="name" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="parPosition">Position</label>
+                    <input id="parPosition" name="Contact Position" type="text" placeholder="e.g. Operations Manager" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parPhone">Phone <span class="req">*</span></label>
+                    <input id="parPhone" name="Contact Phone" type="tel" placeholder="+971 50 000 0000" autocomplete="tel" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="parWhatsapp">WhatsApp</label>
+                    <input id="parWhatsapp" name="Contact WhatsApp" type="tel" placeholder="Same as phone if identical" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parEmail">Email <span class="req">*</span></label>
+                    <input id="parEmail" name="Contact Email" type="email" placeholder="you@company.com" autocomplete="email" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field">
+                    <label for="parPreferred">Preferred Contact Method</label>
+                    <select id="parPreferred" name="Preferred Contact Method">
+                      <option value="" selected>Select method</option>
+                      <option>Phone Call</option>
+                      <option>WhatsApp</option>
+                      <option>Email</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Partnership · Step 2 -->
+            <div class="form-step" hidden>
+              <div class="form-step-head">
+                <h4>Service requirements</h4>
+                <p>What do you need, where, and at what scale?</p>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Required services</h5>
+                <div class="field">
+                  <div class="chip-group">
+                    <label class="chip">
+                      <input type="checkbox" name="Required Services" value="Car Drivers" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Car Drivers
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Required Services" value="Bike Riders" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Bike Riders
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Required Services" value="Cars" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Cars
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Required Services" value="Motorcycles" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Motorcycles
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Required Services" value="Fleet Management" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Fleet Management
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Required Services" value="Recruitment Only" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Recruitment Only
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Required Services" value="Complete Outsourcing" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Complete Outsourcing
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Project scope</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="parLocation">Project Location</label>
+                    <input id="parLocation" name="Project Location" type="text" placeholder="e.g. Dubai Marina, Riyadh North" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parStart">Expected Start Date</label>
+                    <input id="parStart" name="Expected Start Date" type="date" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parDuration">Contract Duration</label>
+                    <select id="parDuration" name="Contract Duration">
+                      <option value="" selected>Select duration</option>
+                      <option>1 Month</option>
+                      <option>3 Months</option>
+                      <option>6 Months</option>
+                      <option>12 Months</option>
+                      <option>Long Term</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="parDrivers">Number of Drivers Required</label>
+                    <input id="parDrivers" name="Drivers Required" type="number" min="0" placeholder="0" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parRiders">Number of Riders Required</label>
+                    <input id="parRiders" name="Riders Required" type="number" min="0" placeholder="0" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parCars">Number of Cars Required</label>
+                    <input id="parCars" name="Cars Required" type="number" min="0" placeholder="0" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parBikes">Number of Bikes Required</label>
+                    <input id="parBikes" name="Bikes Required" type="number" min="0" placeholder="0" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Schedule</h5>
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="parHours">Working Hours</label>
+                    <input id="parHours" name="Working Hours" type="text" placeholder="e.g. 9 hours / 10:00 - 22:00" />
+                  </div>
+
+                  <div class="field">
+                    <label for="parShift">Shift System</label>
+                    <select id="parShift" name="Shift System">
+                      <option value="" selected>Select shift system</option>
+                      <option>Single Shift</option>
+                      <option>Double Shift</option>
+                      <option>Rotational</option>
+                      <option>24/7 Coverage</option>
+                    </select>
+                  </div>
+
+                  <div class="field field-full">
+                    <label for="parWeeklyDays">Weekly Days</label>
+                    <select id="parWeeklyDays" name="Weekly Days">
+                      <option value="" selected>Select weekly days</option>
+                      <option>5 days per week</option>
+                      <option>6 days per week</option>
+                      <option>7 days per week</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Partnership · Step 3 -->
+            <div class="form-step" hidden>
+              <div class="form-step-head">
+                <h4>Business details</h4>
+                <p>Help us understand your current operation and challenges.</p>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Current operations</h5>
+                <div class="form-grid">
+                  <div class="field field-full">
+                    <label>Current Delivery Platform</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="checkbox" name="Current Delivery Platform" value="Talabat" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Talabat
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Current Delivery Platform" value="Noon" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Noon
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Current Delivery Platform" value="Deliveroo" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Deliveroo
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Current Delivery Platform" value="Careem" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Careem
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Current Delivery Platform" value="Amazon" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Amazon
+                      </label>
+                      <label class="chip">
+                        <input type="checkbox" name="Current Delivery Platform" value="Other" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Other
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label>Do you currently have delivery staff?</label>
+                    <div class="chip-group">
+                      <label class="chip">
+                        <input type="radio" name="Has Delivery Staff" value="Yes" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Yes
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Has Delivery Staff" value="No" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label for="parTeamSize">Current Team Size</label>
+                    <input id="parTeamSize" name="Current Team Size" type="number" min="0" placeholder="0" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Current challenges</h5>
+                <div class="field">
+                  <div class="chip-group">
+                    <label class="chip">
+                      <input type="checkbox" name="Current Challenges" value="Staff shortage" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Staff shortage
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Current Challenges" value="High turnover" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      High turnover
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Current Challenges" value="Fleet shortage" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Fleet shortage
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Current Challenges" value="Cost reduction" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Cost reduction
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Current Challenges" value="Fast expansion" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Fast expansion
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" name="Current Challenges" value="Other" />
+                      <span class="chip-box" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      </span>
+                      Other
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Project description</h5>
+                <div class="form-grid">
+                  <div class="field field-full">
+                    <label for="parDescription">Describe your project</label>
+                    <textarea id="parDescription" name="Project Description" placeholder="Volumes, coverage areas, service levels, expected growth..."></textarea>
+                  </div>
+
+                  <div class="field field-full">
+                    <label for="parNotes">Additional Notes</label>
+                    <textarea id="parNotes" name="Additional Notes" placeholder="Anything else we should know?"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-agreement-wrap">
+                <label class="form-agreement">
+                  <input type="checkbox" name="Agreement" value="Confirmed accurate" data-req />
+                  <span class="chip-box" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </span>
+                  I confirm the information provided is accurate.
+                </label>
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="button button-outline form-back" type="button" data-form-back hidden>Back</button>
+              <button class="button button-dark" type="button" data-form-next>
+                Continue
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button class="button button-primary" type="submit" data-form-submit hidden>
+                Send request
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <p class="form-note">Our partnerships team typically responds within one business day.</p>
           </form>
         </div>
       </div>
@@ -5113,27 +6733,200 @@
         if (event.key === "Escape" && modal.classList.contains("open")) closeVideo();
       });
 
-      /* Contact/career form switcher */
+      /* Contact / careers / partnership form suite */
       const formSwitcher = document.getElementById("formSwitcher");
-      const formTabs = formSwitcher.querySelectorAll(".form-tab");
-      const contactForm = document.getElementById("contactForm");
-      const careerForm = document.getElementById("careerForm");
+      const formTabs = Array.from(formSwitcher.querySelectorAll(".form-tab"));
       const formIntro = document.getElementById("formIntro");
+
+      const formPanels = {
+        contact: document.getElementById("contactForm"),
+        career: document.getElementById("careerForm"),
+        partner: document.getElementById("partnerForm")
+      };
 
       const formContent = {
         contact: {
           title: "Tell us what you need.",
-          copy: "Our team will get back to you as soon as possible."
+          copy: "Send us a message and our team will get back to you as soon as possible."
         },
         career: {
           title: "Build your next chapter.",
-          copy: "Share your details and tell us where you would like to work."
+          copy: "Complete the three steps below to apply for a role in our rider network."
+        },
+        partner: {
+          title: "Scale your delivery operation.",
+          copy: "Share your requirements in three steps and we will design the right solution."
         }
       };
 
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      const urlPattern = /^(https?:\/\/)?[^\s./]+(\.[^\s./]+)+(\/\S*)?$/;
+
+      const errorHost = (input) => input.closest(".field, .form-agreement-wrap");
+
+      const setError = (input, message) => {
+        const host = errorHost(input);
+        if (!host) return;
+        host.classList.add("invalid");
+        const slot = host.querySelector(".field-error");
+        if (slot) slot.textContent = message;
+        input.setAttribute("aria-invalid", "true");
+      };
+
+      const clearError = (host) => {
+        if (!host) return;
+        host.classList.remove("invalid");
+        const slot = host.querySelector(".field-error");
+        if (slot) slot.textContent = "";
+        host.querySelectorAll("[aria-invalid]").forEach((input) => {
+          input.removeAttribute("aria-invalid");
+        });
+      };
+
+      const problemWith = (input) => {
+        const required = input.hasAttribute("data-req");
+
+        if (input.type === "radio") return "";
+        if (input.type === "checkbox") {
+          return required && !input.checked ? "Please confirm to continue." : "";
+        }
+
+        const value = input.value.trim();
+        if (!value) return required ? "This field is required." : "";
+
+        if (input.type === "email" && !emailPattern.test(value)) {
+          return "Enter a valid email address.";
+        }
+        if (input.type === "tel" && value.replace(/\D/g, "").length < 7) {
+          return "Enter a valid phone number.";
+        }
+        if (input.type === "url" && !urlPattern.test(value)) {
+          return "Enter a valid website address.";
+        }
+        if (input.type === "number") {
+          const amount = Number(value);
+          const min = input.getAttribute("min");
+          const max = input.getAttribute("max");
+          if (Number.isNaN(amount)) return "Enter a valid number.";
+          if (min !== null && amount < Number(min)) return `Enter ${min} or more.`;
+          if (max !== null && amount > Number(max)) return `Enter ${max} or less.`;
+        }
+        return "";
+      };
+
+      const validatableFields =
+        "input:not([type='hidden']):not([type='file']):not([name='_honey']), select, textarea";
+
+      const validateScope = (scope, report) => {
+        let firstInvalid = null;
+
+        scope.querySelectorAll(validatableFields).forEach((input) => {
+          const message = problemWith(input);
+          if (!message) {
+            clearError(errorHost(input));
+            return;
+          }
+          if (!firstInvalid) firstInvalid = input;
+          if (report) setError(input, message);
+        });
+
+        if (firstInvalid && report) {
+          const focusTarget =
+            firstInvalid.type === "checkbox"
+              ? firstInvalid.closest("label") || firstInvalid
+              : firstInvalid;
+          focusTarget.scrollIntoView({ block: "center", behavior: "smooth" });
+          firstInvalid.focus({ preventScroll: true });
+        }
+
+        return !firstInvalid;
+      };
+
+      const wireForm = (form) => {
+        const steps = Array.from(form.querySelectorAll(".form-step"));
+        const stepperItems = Array.from(form.querySelectorAll(".form-stepper-item"));
+        const backButton = form.querySelector("[data-form-back]");
+        const nextButton = form.querySelector("[data-form-next]");
+        const submitButton = form.querySelector("[data-form-submit]");
+        let index = 0;
+
+        const render = (shouldScroll) => {
+          steps.forEach((step, i) => {
+            const active = i === index;
+            step.classList.toggle("active", active);
+            step.hidden = !active;
+          });
+
+          stepperItems.forEach((item, i) => {
+            item.classList.toggle("is-active", i === index);
+            item.classList.toggle("is-done", i < index);
+            if (i === index) item.setAttribute("aria-current", "step");
+            else item.removeAttribute("aria-current");
+          });
+
+          if (backButton) backButton.hidden = index === 0;
+          if (nextButton) nextButton.hidden = index >= steps.length - 1;
+          if (submitButton) submitButton.hidden = index !== steps.length - 1;
+
+          if (shouldScroll) {
+            form.closest(".form-panel").scrollIntoView({ block: "start", behavior: "smooth" });
+          }
+        };
+
+        const goTo = (target, shouldScroll) => {
+          index = Math.min(Math.max(target, 0), steps.length - 1);
+          render(shouldScroll);
+        };
+
+        if (nextButton) {
+          nextButton.addEventListener("click", () => {
+            if (!validateScope(steps[index], true)) return;
+            goTo(index + 1, true);
+          });
+        }
+
+        if (backButton) {
+          backButton.addEventListener("click", () => goTo(index - 1, true));
+        }
+
+        form.addEventListener("submit", (event) => {
+          const firstBadStep = steps.findIndex((step) => !validateScope(step, false));
+          if (firstBadStep === -1) return;
+          event.preventDefault();
+          goTo(firstBadStep, true);
+          validateScope(steps[firstBadStep], true);
+        });
+
+        const revalidate = (event) => {
+          const host = errorHost(event.target);
+          if (host && host.classList.contains("invalid")) clearError(host);
+        };
+        form.addEventListener("input", revalidate);
+        form.addEventListener("change", revalidate);
+
+        form.querySelectorAll(".upload").forEach((upload) => {
+          const input = upload.querySelector("input[type='file']");
+          const nameSlot = upload.querySelector("[data-upload-name]");
+          if (!input || !nameSlot) return;
+          input.addEventListener("change", () => {
+            const file = input.files && input.files[0];
+            upload.classList.toggle("has-file", Boolean(file));
+            nameSlot.textContent = file ? file.name : upload.dataset.hint || "";
+          });
+        });
+
+        if (steps.length > 1) render(false);
+        return { reset: () => goTo(0, false) };
+      };
+
+      const wizards = {};
+      Object.entries(formPanels).forEach(([key, form]) => {
+        if (form) wizards[key] = wireForm(form);
+      });
+
       const switchForm = (target) => {
-        const isCareer = target === "career";
-        formSwitcher.classList.toggle("career-active", isCareer);
+        const tabIndex = formTabs.findIndex((tab) => tab.dataset.form === target);
+        formSwitcher.style.setProperty("--switcher-index", String(Math.max(tabIndex, 0)));
 
         formTabs.forEach((tab) => {
           const active = tab.dataset.form === target;
@@ -5142,22 +6935,27 @@
           tab.tabIndex = active ? 0 : -1;
         });
 
-        contactForm.classList.toggle("active", !isCareer);
-        careerForm.classList.toggle("active", isCareer);
-        contactForm.hidden = isCareer;
-        careerForm.hidden = !isCareer;
+        Object.entries(formPanels).forEach(([key, form]) => {
+          if (!form) return;
+          const active = key === target;
+          form.classList.toggle("active", active);
+          form.hidden = !active;
+        });
+
+        if (wizards[target]) wizards[target].reset();
         formIntro.querySelector("h3").textContent = formContent[target].title;
         formIntro.querySelector("p").textContent = formContent[target].copy;
       };
 
-      formTabs.forEach((tab) => {
+      formTabs.forEach((tab, tabIndex) => {
         tab.addEventListener("click", () => switchForm(tab.dataset.form));
         tab.addEventListener("keydown", (event) => {
           if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
           event.preventDefault();
-          const nextTarget = tab.dataset.form === "contact" ? "career" : "contact";
-          switchForm(nextTarget);
-          formSwitcher.querySelector(`[data-form="${nextTarget}"]`).focus();
+          const step = event.key === "ArrowRight" ? 1 : -1;
+          const nextTab = formTabs[(tabIndex + step + formTabs.length) % formTabs.length];
+          switchForm(nextTab.dataset.form);
+          nextTab.focus();
         });
       });
     })();
