@@ -3204,6 +3204,25 @@
       margin-top: 11px;
     }
 
+    .conditional-block {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      padding: 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      background: var(--gray-100);
+      animation: form-enter 320ms var(--ease);
+    }
+
+    .conditional-block[hidden] {
+      display: none !important;
+    }
+
+    .field.invalid .upload {
+      border-color: #e0614d;
+      background: #fff7f6;
+    }
+
     /* Agreement + actions */
     .form-agreement-wrap {
       display: grid;
@@ -5244,7 +5263,7 @@
             <p class="form-note">By submitting, you agree to be contacted about your enquiry.</p>
           </form>
 
-          <!-- Form 1: Join Our Team -->
+          <!-- Form 1: Join Our Team (Rider) -->
           <form
             class="interactive-form"
             id="careerForm"
@@ -5256,701 +5275,449 @@
             novalidate
             hidden
           >
-            <input type="hidden" name="_subject" value="New career application from website" />
+            <input type="hidden" name="_subject" value="New rider application from website" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="Form type" value="Career application" />
+            <input type="hidden" name="Form type" value="Rider application" />
             <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
 
-            <ol class="form-stepper">
-              <li class="form-stepper-item is-active">
-                <span class="form-stepper-track"></span>
-                <span class="form-stepper-meta"><em>Step 1</em><strong>Personal</strong></span>
-              </li>
-              <li class="form-stepper-item">
-                <span class="form-stepper-track"></span>
-                <span class="form-stepper-meta"><em>Step 2</em><strong>Employment</strong></span>
-              </li>
-              <li class="form-stepper-item">
-                <span class="form-stepper-track"></span>
-                <span class="form-stepper-meta"><em>Step 3</em><strong>Experience</strong></span>
-              </li>
-            </ol>
-
-            <!-- Careers · Step 1 -->
             <div class="form-step active">
-              <div class="form-step-head">
-                <h4>Personal information</h4>
-                <p>Tell us who you are and where you are based.</p>
-              </div>
-
               <div class="form-section">
                 <h5 class="form-section-title">Personal details</h5>
                 <div class="form-grid">
                   <div class="field">
-                    <label for="carFullName">Full Name <span class="req">*</span></label>
-                    <input id="carFullName" name="Full Name" type="text" placeholder="As per passport" autocomplete="name" data-req />
+                    <label for="carName">Name <span class="req">*</span></label>
+                    <input id="carName" name="Name" type="text" placeholder="First name" autocomplete="given-name" data-req />
                     <span class="field-error" aria-live="polite"></span>
                   </div>
 
                   <div class="field">
-                    <label for="carMobile">Mobile Number <span class="req">*</span></label>
-                    <input id="carMobile" name="Mobile Number" type="tel" placeholder="+971 50 000 0000" autocomplete="tel" data-req />
+                    <label for="carLastName">Last Name <span class="req">*</span></label>
+                    <input id="carLastName" name="Last Name" type="text" placeholder="Family name" autocomplete="family-name" data-req />
                     <span class="field-error" aria-live="polite"></span>
                   </div>
 
                   <div class="field">
-                    <label for="carWhatsapp">WhatsApp Number</label>
-                    <input id="carWhatsapp" name="WhatsApp Number" type="tel" placeholder="Same as mobile if identical" />
-                  </div>
-
-                  <div class="field">
-                    <label for="carEmail">Email <span class="field-optional">(optional)</span></label>
-                    <input id="carEmail" name="Email" type="email" placeholder="you@email.com" autocomplete="email" />
+                    <label for="carPhone">Phone <span class="req">*</span></label>
+                    <input id="carPhone" name="Phone" type="tel" inputmode="numeric" placeholder="+971 50 000 0000" autocomplete="tel" data-req />
                     <span class="field-error" aria-live="polite"></span>
                   </div>
 
                   <div class="field">
+                    <label for="carEmail">Email <span class="req">*</span></label>
+                    <input id="carEmail" name="Email" type="email" placeholder="you@email.com" autocomplete="email" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field field-full">
                     <label for="carNationality">Nationality <span class="req">*</span></label>
-                    <input id="carNationality" name="Nationality" type="text" placeholder="e.g. Indian, Pakistani, Filipino" data-req />
-                    <span class="field-error" aria-live="polite"></span>
-                  </div>
-
-                  <div class="field">
-                    <label for="carGender">Gender <span class="req">*</span></label>
-                    <select id="carGender" name="Gender" data-req>
-                      <option value="" selected>Select gender</option>
-                      <option>Male</option>
-                      <option>Female</option>
-                    </select>
-                    <span class="field-error" aria-live="polite"></span>
-                  </div>
-
-                  <div class="field">
-                    <label for="carDob">Date of Birth <span class="req">*</span></label>
-                    <input id="carDob" name="Date of Birth" type="date" data-req />
-                    <span class="field-error" aria-live="polite"></span>
-                  </div>
-
-                  <div class="field">
-                    <label for="carMarital">Marital Status</label>
-                    <select id="carMarital" name="Marital Status">
-                      <option value="" selected>Select status</option>
-                      <option>Single</option>
-                      <option>Married</option>
-                      <option>Divorced</option>
-                      <option>Widowed</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Current location</h5>
-                <div class="form-grid">
-                  <div class="field">
-                    <label for="carCountry">Country</label>
-                    <select id="carCountry" name="Country">
-                      <option value="" selected>Select country</option>
-                      <option>United Arab Emirates</option>
+                    <select id="carNationality" name="Nationality" data-req>
+                      <option value="" selected>Select nationality</option>
+                      <option>Afghanistan</option>
+                      <option>Albania</option>
+                      <option>Algeria</option>
+                      <option>Andorra</option>
+                      <option>Angola</option>
+                      <option>Antigua and Barbuda</option>
+                      <option>Argentina</option>
+                      <option>Armenia</option>
+                      <option>Australia</option>
+                      <option>Austria</option>
+                      <option>Azerbaijan</option>
+                      <option>Bahamas</option>
+                      <option>Bahrain</option>
+                      <option>Bangladesh</option>
+                      <option>Barbados</option>
+                      <option>Belarus</option>
+                      <option>Belgium</option>
+                      <option>Belize</option>
+                      <option>Benin</option>
+                      <option>Bhutan</option>
+                      <option>Bolivia</option>
+                      <option>Bosnia and Herzegovina</option>
+                      <option>Botswana</option>
+                      <option>Brazil</option>
+                      <option>Brunei</option>
+                      <option>Bulgaria</option>
+                      <option>Burkina Faso</option>
+                      <option>Burundi</option>
+                      <option>Cabo Verde</option>
+                      <option>Cambodia</option>
+                      <option>Cameroon</option>
+                      <option>Canada</option>
+                      <option>Central African Republic</option>
+                      <option>Chad</option>
+                      <option>Chile</option>
+                      <option>China</option>
+                      <option>Colombia</option>
+                      <option>Comoros</option>
+                      <option>Congo</option>
+                      <option>Costa Rica</option>
+                      <option>Croatia</option>
+                      <option>Cuba</option>
+                      <option>Cyprus</option>
+                      <option>Czech Republic</option>
+                      <option>Côte d'Ivoire</option>
+                      <option>Denmark</option>
+                      <option>Djibouti</option>
+                      <option>Dominica</option>
+                      <option>Dominican Republic</option>
+                      <option>Ecuador</option>
+                      <option>Egypt</option>
+                      <option>El Salvador</option>
+                      <option>Equatorial Guinea</option>
+                      <option>Eritrea</option>
+                      <option>Estonia</option>
+                      <option>Eswatini</option>
+                      <option>Ethiopia</option>
+                      <option>Fiji</option>
+                      <option>Finland</option>
+                      <option>France</option>
+                      <option>Gabon</option>
+                      <option>Gambia</option>
+                      <option>Georgia</option>
+                      <option>Germany</option>
+                      <option>Ghana</option>
+                      <option>Greece</option>
+                      <option>Grenada</option>
+                      <option>Guatemala</option>
+                      <option>Guinea</option>
+                      <option>Guinea-Bissau</option>
+                      <option>Guyana</option>
+                      <option>Haiti</option>
+                      <option>Honduras</option>
+                      <option>Hungary</option>
+                      <option>Iceland</option>
+                      <option>India</option>
+                      <option>Indonesia</option>
+                      <option>Iran</option>
+                      <option>Iraq</option>
+                      <option>Ireland</option>
+                      <option>Italy</option>
+                      <option>Jamaica</option>
+                      <option>Japan</option>
+                      <option>Jordan</option>
+                      <option>Kazakhstan</option>
+                      <option>Kenya</option>
+                      <option>Kiribati</option>
+                      <option>Kuwait</option>
+                      <option>Kyrgyzstan</option>
+                      <option>Laos</option>
+                      <option>Latvia</option>
+                      <option>Lebanon</option>
+                      <option>Lesotho</option>
+                      <option>Liberia</option>
+                      <option>Libya</option>
+                      <option>Liechtenstein</option>
+                      <option>Lithuania</option>
+                      <option>Luxembourg</option>
+                      <option>Madagascar</option>
+                      <option>Malawi</option>
+                      <option>Malaysia</option>
+                      <option>Maldives</option>
+                      <option>Mali</option>
+                      <option>Malta</option>
+                      <option>Marshall Islands</option>
+                      <option>Mauritania</option>
+                      <option>Mauritius</option>
+                      <option>Mexico</option>
+                      <option>Micronesia</option>
+                      <option>Moldova</option>
+                      <option>Monaco</option>
+                      <option>Mongolia</option>
+                      <option>Montenegro</option>
+                      <option>Morocco</option>
+                      <option>Mozambique</option>
+                      <option>Myanmar</option>
+                      <option>Namibia</option>
+                      <option>Nauru</option>
+                      <option>Nepal</option>
+                      <option>Netherlands</option>
+                      <option>New Zealand</option>
+                      <option>Nicaragua</option>
+                      <option>Niger</option>
+                      <option>Nigeria</option>
+                      <option>North Korea</option>
+                      <option>North Macedonia</option>
+                      <option>Norway</option>
+                      <option>Oman</option>
+                      <option>Pakistan</option>
+                      <option>Palau</option>
+                      <option>Palestine</option>
+                      <option>Panama</option>
+                      <option>Papua New Guinea</option>
+                      <option>Paraguay</option>
+                      <option>Peru</option>
+                      <option>Philippines</option>
+                      <option>Poland</option>
+                      <option>Portugal</option>
+                      <option>Qatar</option>
+                      <option>Romania</option>
+                      <option>Russia</option>
+                      <option>Rwanda</option>
+                      <option>Saint Kitts and Nevis</option>
+                      <option>Saint Lucia</option>
+                      <option>Saint Vincent and the Grenadines</option>
+                      <option>Samoa</option>
+                      <option>San Marino</option>
+                      <option>Sao Tome and Principe</option>
                       <option>Saudi Arabia</option>
-                      <option>Other</option>
+                      <option>Senegal</option>
+                      <option>Serbia</option>
+                      <option>Seychelles</option>
+                      <option>Sierra Leone</option>
+                      <option>Singapore</option>
+                      <option>Slovakia</option>
+                      <option>Slovenia</option>
+                      <option>Solomon Islands</option>
+                      <option>Somalia</option>
+                      <option>South Africa</option>
+                      <option>South Korea</option>
+                      <option>South Sudan</option>
+                      <option>Spain</option>
+                      <option>Sri Lanka</option>
+                      <option>Sudan</option>
+                      <option>Suriname</option>
+                      <option>Sweden</option>
+                      <option>Switzerland</option>
+                      <option>Syria</option>
+                      <option>Taiwan</option>
+                      <option>Tajikistan</option>
+                      <option>Tanzania</option>
+                      <option>Thailand</option>
+                      <option>Timor-Leste</option>
+                      <option>Togo</option>
+                      <option>Tonga</option>
+                      <option>Trinidad and Tobago</option>
+                      <option>Tunisia</option>
+                      <option>Turkey</option>
+                      <option>Turkmenistan</option>
+                      <option>Tuvalu</option>
+                      <option>Uganda</option>
+                      <option>Ukraine</option>
+                      <option>United Arab Emirates</option>
+                      <option>United Kingdom</option>
+                      <option>United States</option>
+                      <option>Uruguay</option>
+                      <option>Uzbekistan</option>
+                      <option>Vanuatu</option>
+                      <option>Vatican City</option>
+                      <option>Venezuela</option>
+                      <option>Vietnam</option>
+                      <option>Yemen</option>
+                      <option>Zambia</option>
+                      <option>Zimbabwe</option>
                     </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="carEmirate">Emirate / City</label>
-                    <select id="carEmirate" name="Emirate / City">
-                      <option value="" selected>Select city</option>
-                      <optgroup label="United Arab Emirates">
-                        <option>Dubai</option>
-                        <option>Abu Dhabi</option>
-                        <option>Sharjah</option>
-                        <option>Ajman</option>
-                        <option>Ras Al Khaimah</option>
-                        <option>Fujairah</option>
-                        <option>Umm Al Quwain</option>
-                      </optgroup>
-                      <optgroup label="Saudi Arabia">
-                        <option>Riyadh</option>
-                        <option>Jeddah</option>
-                        <option>Dammam</option>
-                      </optgroup>
-                      <option>Other</option>
-                    </select>
-                  </div>
-
-                  <div class="field field-full">
-                    <label for="carArea">Area</label>
-                    <input id="carArea" name="Area" type="text" placeholder="e.g. Al Quoz, Deira, Al Nahda" />
+                    <span class="field-error" aria-live="polite"></span>
                   </div>
                 </div>
               </div>
 
               <div class="form-section">
-                <h5 class="form-section-title">Languages</h5>
-                <div class="form-grid">
-                  <div class="field">
-                    <label for="carLangEn">English</label>
-                    <select id="carLangEn" name="English Level">
-                      <option value="" selected>Not applicable</option>
-                      <option>Basic</option>
-                      <option>Good</option>
-                      <option>Excellent</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="carLangAr">Arabic</label>
-                    <select id="carLangAr" name="Arabic Level">
-                      <option value="" selected>Not applicable</option>
-                      <option>Basic</option>
-                      <option>Good</option>
-                      <option>Excellent</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="carLangEs">Spanish</label>
-                    <select id="carLangEs" name="Spanish Level">
-                      <option value="" selected>Not applicable</option>
-                      <option>Basic</option>
-                      <option>Good</option>
-                      <option>Excellent</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="carLangFr">French</label>
-                    <select id="carLangFr" name="French Level">
-                      <option value="" selected>Not applicable</option>
-                      <option>Basic</option>
-                      <option>Good</option>
-                      <option>Excellent</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Careers · Step 2 -->
-            <div class="form-step" hidden>
-              <div class="form-step-head">
-                <h4>Employment information</h4>
-                <p>Your visa status, licences, and job preferences.</p>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Residence status</h5>
+                <h5 class="form-section-title">Documents</h5>
                 <div class="form-grid">
                   <div class="field field-full">
-                    <label>Currently in UAE?</label>
+                    <label>ID <span class="req">*</span></label>
+                    <label class="upload" data-hint="PDF, JPG or PNG · max 5 MB">
+                      <input type="file" name="ID" accept=".pdf,.jpg,.jpeg,.png" data-req />
+                      
+                      <span class="upload-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <span class="upload-text">
+                        <strong>Upload ID</strong>
+                        <span data-upload-name>PDF, JPG or PNG · max 5 MB</span>
+                      </span>
+                    </label>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field field-full" data-req-group="Driving Licence Type">
+                    <label>Driving Licence <span class="req">*</span></label>
                     <div class="chip-group">
+                      
                       <label class="chip">
-                        <input type="radio" name="Currently in UAE" value="Yes" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Yes
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Currently in UAE" value="No" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        No
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="field">
-                    <label for="carVisa">Visa Status</label>
-                    <select id="carVisa" name="Visa Status">
-                      <option value="" selected>Select visa status</option>
-                      <option>Employment Visa</option>
-                      <option>Freelance Visa</option>
-                      <option>Visit Visa</option>
-                      <option>Cancelled Visa</option>
-                      <option>Expired</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="carVisaExpiry">Visa Expiry Date</label>
-                    <input id="carVisaExpiry" name="Visa Expiry Date" type="date" />
-                  </div>
-
-                  <div class="field">
-                    <label>Can Transfer Visa?</label>
-                    <div class="chip-group">
-                      <label class="chip">
-                        <input type="radio" name="Can Transfer Visa" value="Yes" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Yes
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Can Transfer Visa" value="No" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        No
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="field">
-                    <label>Emirates ID Available?</label>
-                    <div class="chip-group">
-                      <label class="chip">
-                        <input type="radio" name="Emirates ID Available" value="Yes" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Yes
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Emirates ID Available" value="No" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        No
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Driving information</h5>
-                <div class="form-grid">
-                  <div class="field field-full">
-                    <label>Do you have a licence?</label>
-                    <div class="chip-group">
-                      <label class="chip">
-                        <input type="radio" name="Licence Held" value="Car License" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Car License
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Licence Held" value="Motorcycle License" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Motorcycle License
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Licence Held" value="Both" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Both
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Licence Held" value="None" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        None
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="field">
-                    <label for="carLicenceExpiry">License Expiry Date</label>
-                    <input id="carLicenceExpiry" name="License Expiry Date" type="date" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Vehicle</h5>
-                <div class="form-grid">
-                  <div class="field field-full">
-                    <label>Do you own a vehicle?</label>
-                    <div class="chip-group">
-                      <label class="chip">
-                        <input type="radio" name="Vehicle Owned" value="Car" />
+                        <input type="radio" name="Driving Licence Type" value="Car" />
                         <span class="chip-box" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         </span>
                         Car
                       </label>
+                      
                       <label class="chip">
-                        <input type="radio" name="Vehicle Owned" value="Motorcycle" />
+                        <input type="radio" name="Driving Licence Type" value="Motor" />
                         <span class="chip-box" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         </span>
-                        Motorcycle
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Vehicle Owned" value="None" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        None
+                        Motor
                       </label>
                     </div>
+                    <span class="field-error" aria-live="polite"></span>
                   </div>
 
                   <div class="field field-full">
-                    <label>Need a company vehicle?</label>
+                    <label>Driving Licence Upload <span class="req">*</span></label>
+                    <label class="upload" data-hint="PDF, JPG or PNG · max 5 MB">
+                      <input type="file" name="Driving Licence" accept=".pdf,.jpg,.jpeg,.png" data-req />
+                      
+                      <span class="upload-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <span class="upload-text">
+                        <strong>Upload driving licence</strong>
+                        <span data-upload-name>PDF, JPG or PNG · max 5 MB</span>
+                      </span>
+                    </label>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h5 class="form-section-title">Work status</h5>
+                <div class="form-grid">
+                  <div class="field field-full" data-req-group="Current Situation">
+                    <label>Current situation <span class="req">*</span></label>
+                    <div class="chip-group">
+                      
+                      <label class="chip">
+                        <input type="radio" name="Current Situation" value="Visa" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Visa
+                      </label>
+                      
+                      <label class="chip">
+                        <input type="radio" name="Current Situation" value="Expired" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Expired
+                      </label>
+                      
+                      <label class="chip">
+                        <input type="radio" name="Current Situation" value="Working" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Working
+                      </label>
+                      
+                      <label class="chip">
+                        <input type="radio" name="Current Situation" value="Unemployed" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Unemployed
+                      </label>
+                    </div>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field field-full" data-req-group="Previous Delivery Experience">
+                    <label>Previous delivery experience <span class="req">*</span></label>
                     <div class="chip-group">
                       <label class="chip">
-                        <input type="radio" name="Needs Company Vehicle" value="Yes" />
+                        <input type="radio" name="Previous Delivery Experience" value="No" data-toggle-target="carExperienceDetails" data-toggle-show="No" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        No
+                      </label>
+                      <label class="chip">
+                        <input type="radio" name="Previous Delivery Experience" value="Yes" data-toggle-target="carExperienceDetails" data-toggle-show="Yes" />
                         <span class="chip-box" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         </span>
                         Yes
                       </label>
+                    </div>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="conditional-block" id="carExperienceDetails" hidden>
+                    <div class="form-grid">
+                      <div class="field">
+                        <label for="carPrevCompany">Company name <span class="req">*</span></label>
+                        <input id="carPrevCompany" name="Previous Company Name" type="text" placeholder="e.g. Super Speed Delivery" data-req-when-visible />
+                        <span class="field-error" aria-live="polite"></span>
+                      </div>
+
+                      <div class="field">
+                        <label for="carPrevVendor">Vendor <span class="req">*</span></label>
+                        <input id="carPrevVendor" name="Previous Vendor" type="text" placeholder="e.g. Talabat, Keeta" data-req-when-visible />
+                        <span class="field-error" aria-live="polite"></span>
+                      </div>
+
+                      <div class="field field-full">
+                        <label for="carPrevDuration">Duration working <span class="req">*</span></label>
+                        <input id="carPrevDuration" name="Previous Duration" type="text" placeholder="e.g. 8 months" data-req-when-visible />
+                        <span class="field-error" aria-live="polite"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="field field-full" data-req-group="Availability">
+                    <label>Availability — are you available to work now? <span class="req">*</span></label>
+                    <div class="chip-group">
+                      
                       <label class="chip">
-                        <input type="radio" name="Needs Company Vehicle" value="No" />
+                        <input type="radio" name="Availability" value="Yes" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Yes
+                      </label>
+                      
+                      <label class="chip">
+                        <input type="radio" name="Availability" value="No" />
                         <span class="chip-box" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         </span>
                         No
                       </label>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Job preferences</h5>
-                <div class="form-grid">
-                  <div class="field">
-                    <label for="carPosition">Position</label>
-                    <select id="carPosition" name="Position">
-                      <option value="" selected>Select position</option>
-                      <option>Car Driver</option>
-                      <option>Bike Rider</option>
-                      <option>Any Position</option>
-                    </select>
+                    <span class="field-error" aria-live="polite"></span>
                   </div>
 
-                  <div class="field">
-                    <label for="carSalary">Expected Monthly Salary</label>
-                    <input id="carSalary" name="Expected Monthly Salary" type="number" min="0" step="100" placeholder="e.g. 3500 (AED)" />
-                  </div>
-
-                  <div class="field field-full">
-                    <label>Available to work</label>
+                  <div class="field field-full" data-req-group="Vehicle">
+                    <label>Vehicle <span class="req">*</span></label>
                     <div class="chip-group">
+                      
                       <label class="chip">
-                        <input type="checkbox" name="Available to Work" value="Day Shift" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Day Shift
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Available to Work" value="Night Shift" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Night Shift
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Available to Work" value="Weekend" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Weekend
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="field">
-                    <label>Available From</label>
-                    <div class="chip-group">
-                      <label class="chip">
-                        <input type="radio" name="Available From" value="Immediately" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Immediately
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Available From" value="From a specific date" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Specific date
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="field">
-                    <label for="carAvailableDate">Start Date</label>
-                    <input id="carAvailableDate" name="Available Start Date" type="date" />
-                    <span class="field-hint">Only if you selected a specific date.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Careers · Step 3 -->
-            <div class="form-step" hidden>
-              <div class="form-step-head">
-                <h4>Experience &amp; documents</h4>
-                <p>Share your background and upload your documents.</p>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Experience</h5>
-                <div class="form-grid">
-                  <div class="field">
-                    <label>Worked in delivery before?</label>
-                    <div class="chip-group">
-                      <label class="chip">
-                        <input type="radio" name="Worked Before" value="Yes" />
+                        <input type="radio" name="Vehicle" value="Yes" />
                         <span class="chip-box" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         </span>
                         Yes
                       </label>
+                      
                       <label class="chip">
-                        <input type="radio" name="Worked Before" value="No" />
+                        <input type="radio" name="Vehicle" value="No" />
                         <span class="chip-box" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         </span>
                         No
                       </label>
                     </div>
-                  </div>
-
-                  <div class="field">
-                    <label for="carYears">Years of Experience</label>
-                    <select id="carYears" name="Years of Experience">
-                      <option value="" selected>Select experience</option>
-                      <option>Less than 1 year</option>
-                      <option>1 - 2 years</option>
-                      <option>3 - 5 years</option>
-                      <option>More than 5 years</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="carLastEmployer">Last Employer</label>
-                    <input id="carLastEmployer" name="Last Employer" type="text" placeholder="Company name" />
-                  </div>
-
-                  <div class="field">
-                    <label for="carLeaving">Reason for Leaving</label>
-                    <input id="carLeaving" name="Reason for Leaving" type="text" placeholder="e.g. Contract ended" />
-                  </div>
-
-                  <div class="field field-full">
-                    <label>Delivery Companies Worked With</label>
-                    <div class="chip-group">
-                      <label class="chip">
-                        <input type="checkbox" name="Companies Worked With" value="Talabat" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Talabat
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Companies Worked With" value="Noon" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Noon
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Companies Worked With" value="Deliveroo" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Deliveroo
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Companies Worked With" value="Careem" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Careem
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Companies Worked With" value="Amazon" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Amazon
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Companies Worked With" value="Aramex" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Aramex
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Companies Worked With" value="DHL" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        DHL
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Companies Worked With" value="Others" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Others
-                      </label>
-                    </div>
+                    <span class="field-error" aria-live="polite"></span>
                   </div>
                 </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Emergency contact</h5>
-                <div class="form-grid">
-                  <div class="field">
-                    <label for="carEmgName">Name</label>
-                    <input id="carEmgName" name="Emergency Contact Name" type="text" placeholder="Full name" />
-                  </div>
-
-                  <div class="field">
-                    <label for="carEmgRelation">Relationship</label>
-                    <input id="carEmgRelation" name="Emergency Contact Relationship" type="text" placeholder="e.g. Brother, Spouse" />
-                  </div>
-
-                  <div class="field field-full">
-                    <label for="carEmgPhone">Phone Number</label>
-                    <input id="carEmgPhone" name="Emergency Contact Phone" type="tel" placeholder="+971 50 000 0000" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Upload documents</h5>
-                <div class="upload-grid">
-                  <label class="upload" data-hint="PDF or image">
-                    <input type="file" name="Passport" accept=".pdf,.jpg,.jpeg,.png" />
-                    <span class="upload-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                      </svg>
-                    </span>
-                    <span class="upload-text">
-                      <strong>Passport</strong>
-                      <span data-upload-name>PDF or image</span>
-                    </span>
-                  </label>
-
-                  <label class="upload" data-hint="PDF or image">
-                    <input type="file" name="Emirates ID" accept=".pdf,.jpg,.jpeg,.png" />
-                    <span class="upload-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                      </svg>
-                    </span>
-                    <span class="upload-text">
-                      <strong>Emirates ID</strong>
-                      <span data-upload-name>PDF or image</span>
-                    </span>
-                  </label>
-
-                  <label class="upload" data-hint="PDF or image">
-                    <input type="file" name="Visa" accept=".pdf,.jpg,.jpeg,.png" />
-                    <span class="upload-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                      </svg>
-                    </span>
-                    <span class="upload-text">
-                      <strong>Visa</strong>
-                      <span data-upload-name>PDF or image</span>
-                    </span>
-                  </label>
-
-                  <label class="upload" data-hint="PDF or image">
-                    <input type="file" name="Driving License" accept=".pdf,.jpg,.jpeg,.png" />
-                    <span class="upload-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                      </svg>
-                    </span>
-                    <span class="upload-text">
-                      <strong>Driving License</strong>
-                      <span data-upload-name>PDF or image</span>
-                    </span>
-                  </label>
-
-                  <label class="upload" data-hint="JPG or PNG">
-                    <input type="file" name="Personal Photo" accept=".jpg,.jpeg,.png" />
-                    <span class="upload-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                      </svg>
-                    </span>
-                    <span class="upload-text">
-                      <strong>Personal Photo</strong>
-                      <span data-upload-name>JPG or PNG</span>
-                    </span>
-                  </label>
-
-                  <label class="upload" data-hint="Optional · PDF or DOC">
-                    <input type="file" name="CV" accept=".pdf,.doc,.docx" />
-                    <span class="upload-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                      </svg>
-                    </span>
-                    <span class="upload-text">
-                      <strong>CV</strong>
-                      <span data-upload-name>Optional · PDF or DOC</span>
-                    </span>
-                  </label>
-                </div>
-                <p class="field-hint upload-note">Keep each file under 5 MB so your application is delivered reliably.</p>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Additional notes</h5>
-                <div class="field">
-                  <label for="carNotes">Anything else we should know?</label>
-                  <textarea id="carNotes" name="Additional Notes" placeholder="Add any details that support your application..."></textarea>
-                </div>
-              </div>
-
-              <div class="form-agreement-wrap">
-                <label class="form-agreement">
-                  <input type="checkbox" name="Agreement" value="Confirmed accurate" data-req />
-                  <span class="chip-box" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                  </span>
-                  I confirm the information provided is accurate.
-                </label>
-                <span class="field-error" aria-live="polite"></span>
               </div>
             </div>
 
-            <div class="form-actions">
-              <button class="button button-outline form-back" type="button" data-form-back hidden>Back</button>
-              <button class="button button-dark" type="button" data-form-next>
-                Continue
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </button>
-              <button class="button button-primary" type="submit" data-form-submit hidden>
-                Submit application
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </button>
-            </div>
+            <button class="button button-primary form-submit" type="submit" data-form-submit>
+              Submit application
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
             <p class="form-note">We review applications based on current operational needs.</p>
           </form>
 
@@ -5960,6 +5727,7 @@
             id="partnerForm"
             action="https://formsubmit.co/info@superspeeddelivery.com"
             method="POST"
+            enctype="multipart/form-data"
             role="tabpanel"
             aria-labelledby="partnerTab"
             novalidate
@@ -5970,462 +5738,166 @@
             <input type="hidden" name="Form type" value="Business partnership request" />
             <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
 
-            <ol class="form-stepper">
-              <li class="form-stepper-item is-active">
-                <span class="form-stepper-track"></span>
-                <span class="form-stepper-meta"><em>Step 1</em><strong>Company</strong></span>
-              </li>
-              <li class="form-stepper-item">
-                <span class="form-stepper-track"></span>
-                <span class="form-stepper-meta"><em>Step 2</em><strong>Services</strong></span>
-              </li>
-              <li class="form-stepper-item">
-                <span class="form-stepper-track"></span>
-                <span class="form-stepper-meta"><em>Step 3</em><strong>Details</strong></span>
-              </li>
-            </ol>
-
-            <!-- Partnership · Step 1 -->
             <div class="form-step active">
-              <div class="form-step-head">
-                <h4>Company information</h4>
-                <p>Tell us about your business and who we should speak to.</p>
-              </div>
-
               <div class="form-section">
                 <h5 class="form-section-title">Company details</h5>
                 <div class="form-grid">
                   <div class="field">
-                    <label for="parCompany">Company Name <span class="req">*</span></label>
+                    <label for="parCompany">Company name <span class="req">*</span></label>
                     <input id="parCompany" name="Company Name" type="text" placeholder="Registered company name" autocomplete="organization" data-req />
                     <span class="field-error" aria-live="polite"></span>
                   </div>
 
                   <div class="field">
-                    <label for="parBusinessType">Business Type <span class="req">*</span></label>
-                    <select id="parBusinessType" name="Business Type" data-req>
-                      <option value="" selected>Select business type</option>
-                      <option>Food Delivery Platform</option>
-                      <option>E-commerce</option>
-                      <option>Retail</option>
-                      <option>Grocery</option>
-                      <option>Cloud Kitchen</option>
-                      <option>Restaurant</option>
-                      <option>Logistics / Courier</option>
-                      <option>Pharmacy</option>
-                      <option>Other</option>
+                    <label for="parLocation">Location <span class="req">*</span></label>
+                    <select id="parLocation" name="Location" data-req>
+                      <option value="" selected>Select emirate</option>
+                      <option>Abu Dhabi</option>
+                      <option>Dubai</option>
+                      <option>Sharjah</option>
+                      <option>Ajman</option>
+                      <option>Umm Al Quwain</option>
+                      <option>Ras Al Khaimah</option>
+                      <option>Fujairah</option>
                     </select>
                     <span class="field-error" aria-live="polite"></span>
                   </div>
 
-                  <div class="field">
-                    <label for="parWebsite">Website</label>
-                    <input id="parWebsite" name="Website" type="url" placeholder="https://" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parYear">Year Established</label>
-                    <input id="parYear" name="Year Established" type="number" min="1900" max="2100" placeholder="e.g. 2019" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parEmployees">Number of Employees</label>
-                    <select id="parEmployees" name="Number of Employees">
-                      <option value="" selected>Select range</option>
-                      <option>1 - 10</option>
-                      <option>11 - 50</option>
-                      <option>51 - 200</option>
-                      <option>201 - 500</option>
-                      <option>500+</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="parCountry">Country</label>
-                    <select id="parCountry" name="Country">
-                      <option value="" selected>Select country</option>
-                      <option>United Arab Emirates</option>
-                      <option>Saudi Arabia</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="parCity">City / Emirate</label>
-                    <input id="parCity" name="City / Emirate" type="text" placeholder="e.g. Dubai, Riyadh" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parAddress">Office Address</label>
-                    <input id="parAddress" name="Office Address" type="text" placeholder="Street, building, area" />
+                  <div class="field field-full">
+                    <label>Trade Licence <span class="req">*</span></label>
+                    <label class="upload" data-hint="PDF, JPG or PNG · max 5 MB">
+                      <input type="file" name="Trade Licence" accept=".pdf,.jpg,.jpeg,.png" data-req />
+                      
+                      <span class="upload-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <span class="upload-text">
+                        <strong>Upload trade licence</strong>
+                        <span data-upload-name>PDF, JPG or PNG · max 5 MB</span>
+                      </span>
+                    </label>
+                    <span class="field-error" aria-live="polite"></span>
                   </div>
                 </div>
               </div>
 
               <div class="form-section">
-                <h5 class="form-section-title">Contact person</h5>
+                <h5 class="form-section-title">Authorised contact</h5>
                 <div class="form-grid">
-                  <div class="field">
-                    <label for="parContactName">Full Name <span class="req">*</span></label>
-                    <input id="parContactName" name="Contact Full Name" type="text" placeholder="Your full name" autocomplete="name" data-req />
+                  <div class="field field-full">
+                    <label for="parPoc">Authorised Poc name (owner) <span class="req">*</span></label>
+                    <input id="parPoc" name="Authorised Poc Name" type="text" placeholder="Owner / authorised person" autocomplete="name" data-req />
                     <span class="field-error" aria-live="polite"></span>
-                  </div>
-
-                  <div class="field">
-                    <label for="parPosition">Position</label>
-                    <input id="parPosition" name="Contact Position" type="text" placeholder="e.g. Operations Manager" />
                   </div>
 
                   <div class="field">
                     <label for="parPhone">Phone <span class="req">*</span></label>
-                    <input id="parPhone" name="Contact Phone" type="tel" placeholder="+971 50 000 0000" autocomplete="tel" data-req />
+                    <input id="parPhone" name="Phone" type="tel" inputmode="numeric" placeholder="+971 50 000 0000" autocomplete="tel" data-req />
                     <span class="field-error" aria-live="polite"></span>
-                  </div>
-
-                  <div class="field">
-                    <label for="parWhatsapp">WhatsApp</label>
-                    <input id="parWhatsapp" name="Contact WhatsApp" type="tel" placeholder="Same as phone if identical" />
                   </div>
 
                   <div class="field">
                     <label for="parEmail">Email <span class="req">*</span></label>
-                    <input id="parEmail" name="Contact Email" type="email" placeholder="you@company.com" autocomplete="email" data-req />
+                    <input id="parEmail" name="Email" type="email" placeholder="you@company.com" autocomplete="email" data-req />
                     <span class="field-error" aria-live="polite"></span>
                   </div>
 
-                  <div class="field">
-                    <label for="parPreferred">Preferred Contact Method</label>
-                    <select id="parPreferred" name="Preferred Contact Method">
-                      <option value="" selected>Select method</option>
-                      <option>Phone Call</option>
-                      <option>WhatsApp</option>
-                      <option>Email</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Partnership · Step 2 -->
-            <div class="form-step" hidden>
-              <div class="form-step-head">
-                <h4>Service requirements</h4>
-                <p>What do you need, where, and at what scale?</p>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Required services</h5>
-                <div class="field">
-                  <div class="chip-group">
-                    <label class="chip">
-                      <input type="checkbox" name="Required Services" value="Car Drivers" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Car Drivers
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Required Services" value="Bike Riders" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Bike Riders
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Required Services" value="Cars" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Cars
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Required Services" value="Motorcycles" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Motorcycles
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Required Services" value="Fleet Management" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Fleet Management
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Required Services" value="Recruitment Only" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Recruitment Only
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Required Services" value="Complete Outsourcing" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Complete Outsourcing
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Project scope</h5>
-                <div class="form-grid">
-                  <div class="field">
-                    <label for="parLocation">Project Location</label>
-                    <input id="parLocation" name="Project Location" type="text" placeholder="e.g. Dubai Marina, Riyadh North" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parStart">Expected Start Date</label>
-                    <input id="parStart" name="Expected Start Date" type="date" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parDuration">Contract Duration</label>
-                    <select id="parDuration" name="Contract Duration">
-                      <option value="" selected>Select duration</option>
-                      <option>1 Month</option>
-                      <option>3 Months</option>
-                      <option>6 Months</option>
-                      <option>12 Months</option>
-                      <option>Long Term</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="parDrivers">Number of Drivers Required</label>
-                    <input id="parDrivers" name="Drivers Required" type="number" min="0" placeholder="0" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parRiders">Number of Riders Required</label>
-                    <input id="parRiders" name="Riders Required" type="number" min="0" placeholder="0" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parCars">Number of Cars Required</label>
-                    <input id="parCars" name="Cars Required" type="number" min="0" placeholder="0" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parBikes">Number of Bikes Required</label>
-                    <input id="parBikes" name="Bikes Required" type="number" min="0" placeholder="0" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Schedule</h5>
-                <div class="form-grid">
-                  <div class="field">
-                    <label for="parHours">Working Hours</label>
-                    <input id="parHours" name="Working Hours" type="text" placeholder="e.g. 9 hours / 10:00 - 22:00" />
-                  </div>
-
-                  <div class="field">
-                    <label for="parShift">Shift System</label>
-                    <select id="parShift" name="Shift System">
-                      <option value="" selected>Select shift system</option>
-                      <option>Single Shift</option>
-                      <option>Double Shift</option>
-                      <option>Rotational</option>
-                      <option>24/7 Coverage</option>
-                    </select>
-                  </div>
-
                   <div class="field field-full">
-                    <label for="parWeeklyDays">Weekly Days</label>
-                    <select id="parWeeklyDays" name="Weekly Days">
-                      <option value="" selected>Select weekly days</option>
-                      <option>5 days per week</option>
-                      <option>6 days per week</option>
-                      <option>7 days per week</option>
-                    </select>
+                    <label>ID <span class="req">*</span></label>
+                    <label class="upload" data-hint="PDF, JPG or PNG · max 5 MB">
+                      <input type="file" name="ID" accept=".pdf,.jpg,.jpeg,.png" data-req />
+                      
+                      <span class="upload-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M12 16V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                          <path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                      </span>
+                      <span class="upload-text">
+                        <strong>Upload ID</strong>
+                        <span data-upload-name>PDF, JPG or PNG · max 5 MB</span>
+                      </span>
+                    </label>
+                    <span class="field-error" aria-live="polite"></span>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <!-- Partnership · Step 3 -->
-            <div class="form-step" hidden>
-              <div class="form-step-head">
-                <h4>Business details</h4>
-                <p>Help us understand your current operation and challenges.</p>
-              </div>
 
               <div class="form-section">
-                <h5 class="form-section-title">Current operations</h5>
+                <h5 class="form-section-title">Requirements</h5>
                 <div class="form-grid">
                   <div class="field field-full">
-                    <label>Current Delivery Platform</label>
+                    <label for="parRiders">Numbers of riders <span class="req">*</span></label>
+                    <input id="parRiders" name="Numbers of Riders" type="number" min="1" step="1" inputmode="numeric" placeholder="e.g. 25" data-req />
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field field-full" data-req-group="Type">
+                    <label>Type <span class="req">*</span></label>
                     <div class="chip-group">
+                      
                       <label class="chip">
-                        <input type="checkbox" name="Current Delivery Platform" value="Talabat" />
+                        <input type="radio" name="Type" value="Motorcycles" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Motorcycles
+                      </label>
+                      
+                      <label class="chip">
+                        <input type="radio" name="Type" value="Cars" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Cars
+                      </label>
+                      
+                      <label class="chip">
+                        <input type="radio" name="Type" value="Bicycles" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Bicycles
+                      </label>
+                    </div>
+                    <span class="field-error" aria-live="polite"></span>
+                  </div>
+
+                  <div class="field field-full" data-req-group="Preferred Partner">
+                    <label>Preferred Partner <span class="req">*</span></label>
+                    <div class="chip-group">
+                      
+                      <label class="chip">
+                        <input type="radio" name="Preferred Partner" value="Keeta" />
+                        <span class="chip-box" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                        </span>
+                        Keeta
+                      </label>
+                      
+                      <label class="chip">
+                        <input type="radio" name="Preferred Partner" value="Talabat" />
                         <span class="chip-box" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
                         </span>
                         Talabat
                       </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Current Delivery Platform" value="Noon" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Noon
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Current Delivery Platform" value="Deliveroo" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Deliveroo
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Current Delivery Platform" value="Careem" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Careem
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Current Delivery Platform" value="Amazon" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Amazon
-                      </label>
-                      <label class="chip">
-                        <input type="checkbox" name="Current Delivery Platform" value="Other" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Other
-                      </label>
                     </div>
-                  </div>
-
-                  <div class="field">
-                    <label>Do you currently have delivery staff?</label>
-                    <div class="chip-group">
-                      <label class="chip">
-                        <input type="radio" name="Has Delivery Staff" value="Yes" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        Yes
-                      </label>
-                      <label class="chip">
-                        <input type="radio" name="Has Delivery Staff" value="No" />
-                        <span class="chip-box" aria-hidden="true">
-                          <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                        </span>
-                        No
-                      </label>
-                    </div>
-                  </div>
-
-                  <div class="field">
-                    <label for="parTeamSize">Current Team Size</label>
-                    <input id="parTeamSize" name="Current Team Size" type="number" min="0" placeholder="0" />
+                    <span class="field-error" aria-live="polite"></span>
                   </div>
                 </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Current challenges</h5>
-                <div class="field">
-                  <div class="chip-group">
-                    <label class="chip">
-                      <input type="checkbox" name="Current Challenges" value="Staff shortage" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Staff shortage
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Current Challenges" value="High turnover" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      High turnover
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Current Challenges" value="Fleet shortage" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Fleet shortage
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Current Challenges" value="Cost reduction" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Cost reduction
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Current Challenges" value="Fast expansion" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Fast expansion
-                    </label>
-                    <label class="chip">
-                      <input type="checkbox" name="Current Challenges" value="Other" />
-                      <span class="chip-box" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                      </span>
-                      Other
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-section">
-                <h5 class="form-section-title">Project description</h5>
-                <div class="form-grid">
-                  <div class="field field-full">
-                    <label for="parDescription">Describe your project</label>
-                    <textarea id="parDescription" name="Project Description" placeholder="Volumes, coverage areas, service levels, expected growth..."></textarea>
-                  </div>
-
-                  <div class="field field-full">
-                    <label for="parNotes">Additional Notes</label>
-                    <textarea id="parNotes" name="Additional Notes" placeholder="Anything else we should know?"></textarea>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-agreement-wrap">
-                <label class="form-agreement">
-                  <input type="checkbox" name="Agreement" value="Confirmed accurate" data-req />
-                  <span class="chip-box" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                  </span>
-                  I confirm the information provided is accurate.
-                </label>
-                <span class="field-error" aria-live="polite"></span>
               </div>
             </div>
 
-            <div class="form-actions">
-              <button class="button button-outline form-back" type="button" data-form-back hidden>Back</button>
-              <button class="button button-dark" type="button" data-form-next>
-                Continue
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </button>
-              <button class="button button-primary" type="submit" data-form-submit hidden>
-                Send request
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </button>
-            </div>
+            <button class="button button-primary form-submit" type="submit" data-form-submit>
+              Send request
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
             <p class="form-note">Our partnerships team typically responds within one business day.</p>
           </form>
         </div>
@@ -6751,11 +6223,11 @@
         },
         career: {
           title: "Build your next chapter.",
-          copy: "Complete the three steps below to apply for a role in our rider network."
+          copy: "Share your details and documents to apply for a rider role."
         },
         partner: {
           title: "Scale your delivery operation.",
-          copy: "Share your requirements in three steps and we will design the right solution."
+          copy: "Tell us about your company and rider requirements."
         }
       };
 
@@ -6784,11 +6256,19 @@
       };
 
       const problemWith = (input) => {
-        const required = input.hasAttribute("data-req");
+        const host = errorHost(input);
+        const required =
+          input.hasAttribute("data-req") ||
+          (input.hasAttribute("data-req-when-visible") &&
+            host &&
+            !host.closest("[hidden]"));
 
         if (input.type === "radio") return "";
         if (input.type === "checkbox") {
           return required && !input.checked ? "Please confirm to continue." : "";
+        }
+        if (input.type === "file") {
+          return required && !(input.files && input.files.length) ? "Please upload a file." : "";
         }
 
         const value = input.value.trim();
@@ -6815,12 +6295,16 @@
       };
 
       const validatableFields =
-        "input:not([type='hidden']):not([type='file']):not([name='_honey']), select, textarea";
+        "input:not([type='hidden']):not([name='_honey']), select, textarea";
 
       const validateScope = (scope, report) => {
         let firstInvalid = null;
 
         scope.querySelectorAll(validatableFields).forEach((input) => {
+          if (input.closest("[hidden]")) {
+            clearError(errorHost(input));
+            return;
+          }
           const message = problemWith(input);
           if (!message) {
             clearError(errorHost(input));
@@ -6830,16 +6314,61 @@
           if (report) setError(input, message);
         });
 
+        scope.querySelectorAll("[data-req-group]").forEach((group) => {
+          if (group.closest("[hidden]")) {
+            clearError(group);
+            return;
+          }
+          const name = group.getAttribute("data-req-group");
+          const checked = group.querySelector(`input[name="${CSS.escape(name)}"]:checked`);
+          if (checked) {
+            clearError(group);
+            return;
+          }
+          if (!firstInvalid) {
+            firstInvalid = group.querySelector("input") || group;
+          }
+          if (report) {
+            group.classList.add("invalid");
+            const slot = group.querySelector(".field-error");
+            if (slot) slot.textContent = "Please select an option.";
+          }
+        });
+
         if (firstInvalid && report) {
-          const focusTarget =
-            firstInvalid.type === "checkbox"
-              ? firstInvalid.closest("label") || firstInvalid
-              : firstInvalid;
+          const focusTarget = firstInvalid.closest("label") || firstInvalid;
           focusTarget.scrollIntoView({ block: "center", behavior: "smooth" });
-          firstInvalid.focus({ preventScroll: true });
+          if (typeof firstInvalid.focus === "function") {
+            firstInvalid.focus({ preventScroll: true });
+          }
         }
 
         return !firstInvalid;
+      };
+
+      const wireToggles = (form) => {
+        const syncGroup = (name) => {
+          const selected = form.querySelector(`input[name="${CSS.escape(name)}"]:checked`);
+          const any = form.querySelector(`input[name="${CSS.escape(name)}"][data-toggle-target]`);
+          if (!any) return;
+          const targetId = any.getAttribute("data-toggle-target");
+          const target = form.querySelector("#" + CSS.escape(targetId));
+          if (!target) return;
+          const shouldShow = Boolean(selected && selected.value === "Yes");
+          target.hidden = !shouldShow;
+          if (!shouldShow) {
+            target.querySelectorAll("input, select, textarea").forEach((el) => {
+              if (el.type === "radio" || el.type === "checkbox") el.checked = false;
+              else if (el.type === "file") el.value = "";
+              else el.value = "";
+              clearError(errorHost(el));
+            });
+          }
+        };
+
+        form.querySelectorAll("input[data-toggle-target]").forEach((input) => {
+          input.addEventListener("change", () => syncGroup(input.name));
+        });
       };
 
       const wireForm = (form) => {
@@ -6849,6 +6378,8 @@
         const nextButton = form.querySelector("[data-form-next]");
         const submitButton = form.querySelector("[data-form-submit]");
         let index = 0;
+
+        wireToggles(form);
 
         const render = (shouldScroll) => {
           steps.forEach((step, i) => {
@@ -6864,9 +6395,9 @@
             else item.removeAttribute("aria-current");
           });
 
-          if (backButton) backButton.hidden = index === 0;
-          if (nextButton) nextButton.hidden = index >= steps.length - 1;
-          if (submitButton) submitButton.hidden = index !== steps.length - 1;
+          if (backButton) backButton.hidden = index === 0 || steps.length <= 1;
+          if (nextButton) nextButton.hidden = index >= steps.length - 1 || steps.length <= 1;
+          if (submitButton && steps.length > 1) submitButton.hidden = index !== steps.length - 1;
 
           if (shouldScroll) {
             form.closest(".form-panel").scrollIntoView({ block: "start", behavior: "smooth" });
@@ -6900,6 +6431,8 @@
         const revalidate = (event) => {
           const host = errorHost(event.target);
           if (host && host.classList.contains("invalid")) clearError(host);
+          const group = event.target.closest("[data-req-group]");
+          if (group && group.classList.contains("invalid")) clearError(group);
         };
         form.addEventListener("input", revalidate);
         form.addEventListener("change", revalidate);
@@ -6912,6 +6445,8 @@
             const file = input.files && input.files[0];
             upload.classList.toggle("has-file", Boolean(file));
             nameSlot.textContent = file ? file.name : upload.dataset.hint || "";
+            const host = errorHost(input);
+            if (host && host.classList.contains("invalid")) clearError(host);
           });
         });
 
