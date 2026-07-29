@@ -2101,6 +2101,220 @@
       }
     }
 
+    /* Blog */
+    .blog {
+      padding: 110px 0 120px;
+      background: var(--white);
+    }
+
+    .blog-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 42px;
+    }
+
+    .blog-note {
+      max-width: 360px;
+      padding-bottom: 8px;
+      color: var(--gray-500);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .blog-card {
+      display: grid;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      border-radius: 24px;
+      background: var(--gray-100);
+      text-align: left;
+      cursor: pointer;
+      transition:
+        transform 220ms var(--ease),
+        box-shadow 220ms ease,
+        border-color 220ms ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(17, 17, 17, 0.18);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .blog-card-media {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .blog-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 420ms var(--ease);
+    }
+
+    .blog-card:hover .blog-card-media img {
+      transform: scale(1.04);
+    }
+
+    .blog-card-media-empty {
+      display: grid;
+      width: 100%;
+      height: 100%;
+      place-items: center;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(252, 182, 92, 0.35), transparent 45%),
+        linear-gradient(145deg, #1a1a1a, #0b0b0b);
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.75rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .blog-card-body {
+      display: grid;
+      gap: 10px;
+      padding: 22px 22px 24px;
+    }
+
+    .blog-card-body time {
+      color: var(--gray-500);
+      font-size: 0.68rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .blog-card-body h3 {
+      color: var(--black);
+      font-size: 1.15rem;
+      font-weight: 850;
+      letter-spacing: -0.035em;
+      line-height: 1.3;
+    }
+
+    .blog-card-body p {
+      color: var(--gray-700);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    .blog-empty {
+      padding: 48px 28px;
+      border: 1px dashed var(--gray-300);
+      border-radius: 24px;
+      color: var(--gray-500);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .blog-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(17, 17, 17, 0.62);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease;
+    }
+
+    .blog-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .blog-modal-dialog {
+      width: min(820px, 100%);
+      max-height: min(88vh, 920px);
+      overflow: auto;
+      border-radius: 28px;
+      background: var(--white);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35);
+      transform: translateY(12px);
+      transition: transform 260ms var(--ease);
+    }
+
+    .blog-modal.open .blog-modal-dialog {
+      transform: translateY(0);
+    }
+
+    .blog-modal-close {
+      position: sticky;
+      top: 14px;
+      float: right;
+      z-index: 2;
+      margin: 14px 14px 0 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.08);
+      color: var(--black);
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .blog-modal-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding: 18px 18px 0;
+    }
+
+    .blog-modal-gallery:has(img:only-child) {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-modal-gallery img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    .blog-modal-content {
+      padding: 22px 28px 34px;
+    }
+
+    .blog-modal-content time {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--gray-500);
+      font-size: 0.7rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .blog-modal-content h3 {
+      color: var(--black);
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.2;
+    }
+
+    .blog-modal-content .blog-modal-text {
+      margin-top: 16px;
+      color: var(--gray-700);
+      font-size: 1rem;
+      line-height: 1.85;
+      white-space: pre-wrap;
+    }
+
     /* Media */
     .media {
       position: relative;
@@ -3896,9 +4110,14 @@
 
       .partners-head,
       .media-head,
-      .team-head {
+      .team-head,
+      .blog-head {
         align-items: flex-start;
         flex-direction: column;
+      }
+
+      .blog-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .team-head {
@@ -4276,6 +4495,18 @@
         padding: 72px 0;
       }
 
+      .blog {
+        padding: 80px 0 90px;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-modal-gallery {
+        grid-template-columns: 1fr;
+      }
+
       .partners-note {
         font-size: 0.86rem;
       }
@@ -4470,6 +4701,7 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About Us</a></li>
         <li><a href="#partners">Partners</a></li>
+        <li><a href="#blog">Blog</a></li>
         <li><a href="#media">Media</a></li>
         <li><a class="nav-cta" href="#contact">Contact Us</a></li>
       </ul>
@@ -4881,6 +5113,38 @@
         </div>
       </div>
     </section>
+
+    <section class="blog" id="blog">
+      <div class="container">
+        <div class="blog-head">
+          <div>
+            <span class="eyebrow reveal">Blog</span>
+            <h2 class="section-heading reveal" data-delay="1">
+              Stories from the <span>road.</span>
+            </h2>
+          </div>
+          <p class="blog-note reveal" data-delay="2">
+            Updates, insights, and moments from Super Speed Delivery across the region.
+          </p>
+        </div>
+
+        <div class="blog-grid" id="blogGrid">
+          <div class="blog-empty">Loading latest posts...</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="blog-modal" id="blogModal" role="dialog" aria-modal="true" aria-labelledby="blogModalTitle" hidden>
+      <div class="blog-modal-dialog">
+        <button class="blog-modal-close" type="button" id="blogModalClose" aria-label="Close article">×</button>
+        <div class="blog-modal-gallery" id="blogModalGallery"></div>
+        <div class="blog-modal-content">
+          <time id="blogModalDate"></time>
+          <h3 id="blogModalTitle"></h3>
+          <div class="blog-modal-text" id="blogModalText"></div>
+        </div>
+      </div>
+    </div>
 
     <section class="media" id="media">
       <div class="media-background" aria-hidden="true">
@@ -5920,6 +6184,7 @@
           <ul class="footer-links">
             <li><a href="#about">About Us</a></li>
             <li><a href="#partners">Partners</a></li>
+            <li><a href="#blog">Blog</a></li>
             <li><a href="#media">Media</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -6493,6 +6758,161 @@
           nextTab.focus();
         });
       });
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-config.js"></script>
+  <script>
+    (() => {
+      const grid = document.getElementById("blogGrid");
+      const modal = document.getElementById("blogModal");
+      const modalClose = document.getElementById("blogModalClose");
+      const modalGallery = document.getElementById("blogModalGallery");
+      const modalDate = document.getElementById("blogModalDate");
+      const modalTitle = document.getElementById("blogModalTitle");
+      const modalText = document.getElementById("blogModalText");
+      if (!grid || !window.supabase || !window.SUPABASE_URL) return;
+
+      const client = window.supabase.createClient(
+        window.SUPABASE_URL,
+        window.SUPABASE_ANON_KEY
+      );
+
+      let posts = [];
+
+      const escapeHtml = (value) =>
+        String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+
+      const excerpt = (text) => {
+        const clean = String(text || "").replace(/\s+/g, " ").trim();
+        return clean.length > 140 ? `${clean.slice(0, 140).trim()}…` : clean;
+      };
+
+      const formatDate = (value) => {
+        try {
+          return new Date(value).toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "short",
+            day: "numeric"
+          });
+        } catch {
+          return "";
+        }
+      };
+
+      const openPost = (post) => {
+        const images = Array.isArray(post.images) ? post.images.filter(Boolean) : [];
+        modalGallery.innerHTML = images
+          .map((src) => `<img src="${escapeHtml(src)}" alt="" loading="lazy" />`)
+          .join("");
+        modalGallery.hidden = images.length === 0;
+        modalDate.textContent = formatDate(post.published_at || post.created_at || post.updated_at);
+        modalTitle.textContent = post.title || "";
+        modalText.textContent = post.content || "";
+        modal.hidden = false;
+        requestAnimationFrame(() => modal.classList.add("open"));
+        document.body.classList.add("modal-open");
+      };
+
+      const closePost = () => {
+        modal.classList.remove("open");
+        document.body.classList.remove("modal-open");
+        window.setTimeout(() => {
+          modal.hidden = true;
+        }, 220);
+      };
+
+      const render = () => {
+        if (!posts.length) {
+          grid.innerHTML =
+            '<div class="blog-empty">No published articles yet. Check back soon.</div>';
+          return;
+        }
+
+        grid.innerHTML = posts
+          .map((post, index) => {
+            const images = Array.isArray(post.images) ? post.images.filter(Boolean) : [];
+            const cover = images[0];
+            return `
+              <article class="blog-card reveal" data-delay="${Math.min(index, 4)}" data-blog-index="${index}" tabindex="0" role="button" aria-label="Read ${escapeHtml(post.title)}">
+                <div class="blog-card-media">
+                  ${
+                    cover
+                      ? `<img src="${escapeHtml(cover)}" alt="" loading="lazy" />`
+                      : `<div class="blog-card-media-empty">Super Speed</div>`
+                  }
+                </div>
+                <div class="blog-card-body">
+                  <time datetime="${escapeHtml(post.created_at || "")}">${formatDate(post.created_at || post.updated_at)}</time>
+                  <h3>${escapeHtml(post.title)}</h3>
+                  <p>${escapeHtml(excerpt(post.content))}</p>
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+
+        if ("IntersectionObserver" in window) {
+          const revealObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-visible");
+                revealObserver.unobserve(entry.target);
+              });
+            },
+            { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+          );
+          grid.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+        } else {
+          grid.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+        }
+      };
+
+      grid.addEventListener("click", (event) => {
+        const card = event.target.closest("[data-blog-index]");
+        if (!card) return;
+        const post = posts[Number(card.dataset.blogIndex)];
+        if (post) openPost(post);
+      });
+
+      grid.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        const card = event.target.closest("[data-blog-index]");
+        if (!card) return;
+        event.preventDefault();
+        const post = posts[Number(card.dataset.blogIndex)];
+        if (post) openPost(post);
+      });
+
+      modalClose.addEventListener("click", closePost);
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) closePost();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal.classList.contains("open")) closePost();
+      });
+
+      (async () => {
+        try {
+          const { data, error } = await client
+            .from("blogs")
+            .select("id, title, content, images, created_at, updated_at")
+            .eq("status", "published")
+            .order("created_at", { ascending: false });
+
+          if (error) throw error;
+          posts = data || [];
+          render();
+        } catch (_) {
+          grid.innerHTML =
+            '<div class="blog-empty">Blog posts will appear here once published.</div>';
+        }
+      })();
     })();
   </script>
 </body>

@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin · Super Speed Delivery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.1/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js?v=2"></script>
+  <style>
+    :root {
+      --orange: #fcb65c;
+      --orange-dark: #9a5a12;
+      --orange-soft: #fff5e8;
+      --black: #111111;
+      --charcoal: #242424;
+      --gray-700: #4b4b4b;
+      --gray-500: #737373;
+      --gray-300: #d6d6d6;
+      --gray-200: #e9e9e9;
+      --gray-100: #f5f5f3;
+      --white: #ffffff;
+      --danger: #c62f1c;
+      --danger-soft: #fff7f6;
+      --ok: #1f7a4d;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(252, 182, 92, 0.18), transparent 28%),
+        var(--gray-100);
+      color: var(--charcoal);
+      font-family: "Inter", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; border: 0; background: none; }
+    img { display: block; max-width: 100%; }
+
+    [hidden] { display: none !important; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      transition: transform 180ms var(--ease), background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .btn-primary { background: var(--orange); color: var(--black); }
+    .btn-primary:hover { background: var(--orange-dark); color: var(--white); }
+    .btn-dark { background: var(--black); color: var(--white); }
+    .btn-outline { border: 1px solid var(--gray-300); background: var(--white); color: var(--black); }
+    .btn-danger { background: var(--danger-soft); color: var(--danger); border: 1px solid #f0b4ab; }
+    .btn-ghost { color: var(--gray-500); }
+
+    /* Login */
+    .login-shell {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 24px;
+    }
+    .login-card {
+      width: min(440px, 100%);
+      padding: 36px 32px;
+      border: 1px solid rgba(17, 17, 17, 0.06);
+      border-radius: 28px;
+      background: var(--white);
+      box-shadow: 0 30px 80px rgba(17, 17, 17, 0.1);
+    }
+    .login-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .login-brand img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+    }
+    .login-brand strong {
+      display: block;
+      color: var(--black);
+      font-size: 0.95rem;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+    }
+    .login-brand span {
+      color: var(--gray-500);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .login-card h1 {
+      color: var(--black);
+      font-size: 1.7rem;
+      font-weight: 850;
+      letter-spacing: -0.04em;
+    }
+    .login-card .sub {
+      margin: 8px 0 26px;
+      color: var(--gray-500);
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .field { display: grid; gap: 8px; margin-bottom: 14px; }
+    .field label {
+      color: var(--charcoal);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .field input, .field textarea, .editor-card input, .editor-card textarea {
+      width: 100%;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      outline: 0;
+      background: #fbfbfa;
+      color: var(--black);
+      transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+    .field input, .editor-card input.title-input {
+      height: 50px;
+      padding: 0 14px;
+    }
+    .field textarea, .editor-card textarea {
+      min-height: 160px;
+      padding: 14px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+    .field input:focus, .field textarea:focus,
+    .editor-card input:focus, .editor-card textarea:focus {
+      border-color: var(--orange);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(252, 182, 92, 0.12);
+    }
+
+    .alert {
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 650;
+      line-height: 1.45;
+    }
+    .alert-error { background: var(--danger-soft); color: var(--danger); }
+    .alert-ok { background: #eaf7f0; color: var(--ok); }
+    .alert-info { background: var(--orange-soft); color: var(--orange-dark); }
+
+    /* App shell */
+    .app-shell { min-height: 100vh; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px clamp(16px, 4vw, 36px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(17, 17, 17, 0.94);
+      backdrop-filter: blur(12px);
+      color: var(--white);
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .topbar-brand img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: var(--white);
+    }
+    .topbar-brand strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .topbar-brand span {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .topbar-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .topbar .btn-outline {
+      border-color: rgba(255, 255, 255, 0.18);
+      background: transparent;
+      color: var(--white);
+    }
+    .topbar .btn-primary { box-shadow: 0 10px 24px rgba(252, 182, 92, 0.25); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+      gap: 22px;
+      padding: 22px clamp(16px, 4vw, 36px) 40px;
+    }
+
+    .panel {
+      border: 1px solid rgba(17, 17, 17, 0.06);
+      border-radius: 24px;
+      background: var(--white);
+      box-shadow: 0 18px 50px rgba(17, 17, 17, 0.06);
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 18px 0;
+    }
+    .panel-head h2 {
+      color: var(--black);
+      font-size: 1rem;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+    }
+    .panel-head p {
+      margin-top: 4px;
+      color: var(--gray-500);
+      font-size: 0.75rem;
+    }
+
+    .blog-list {
+      display: grid;
+      gap: 10px;
+      max-height: calc(100vh - 180px);
+      overflow: auto;
+      padding: 16px 18px 18px;
+    }
+
+    .blog-item {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      background: #fbfbfa;
+      text-align: left;
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms var(--ease);
+    }
+    .blog-item:hover { border-color: var(--black); transform: translateY(-1px); }
+    .blog-item.active {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+    }
+    .blog-item-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .blog-item strong {
+      color: var(--black);
+      font-size: 0.88rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .blog-item small {
+      display: block;
+      margin-top: 6px;
+      color: var(--gray-500);
+      font-size: 0.7rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 999px;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge-draft { background: var(--gray-200); color: var(--gray-700); }
+    .badge-published { background: #eaf7f0; color: var(--ok); }
+
+    .editor-card { padding: 22px; }
+    .editor-card .title-input {
+      margin-bottom: 14px;
+      font-size: 1.35rem;
+      font-weight: 850;
+      letter-spacing: -0.04em;
+    }
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .image-slot {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 1.5px dashed var(--gray-300);
+      border-radius: 16px;
+      background: #fbfbfa;
+    }
+    .image-slot.has-image {
+      border-style: solid;
+      border-color: var(--orange);
+    }
+    .image-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .image-slot .slot-add {
+      display: grid;
+      width: 100%;
+      height: 100%;
+      place-items: center;
+      color: var(--gray-500);
+      font-size: 0.72rem;
+      font-weight: 750;
+      text-align: center;
+      padding: 10px;
+    }
+    .image-slot input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .image-slot .remove-img {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      z-index: 2;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.78);
+      color: var(--white);
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    .empty-state {
+      padding: 48px 24px;
+      color: var(--gray-500);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(17, 17, 17, 0.55);
+    }
+    .modal {
+      width: min(440px, 100%);
+      padding: 26px;
+      border-radius: 22px;
+      background: var(--white);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+    }
+    .modal h3 {
+      margin-bottom: 8px;
+      color: var(--black);
+      font-size: 1.15rem;
+      font-weight: 850;
+    }
+    .modal p {
+      margin-bottom: 18px;
+      color: var(--gray-500);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+    .setup-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: var(--gray-100);
+      font-size: 0.75rem;
+      line-height: 1.55;
+      color: var(--gray-700);
+    }
+    .setup-box code {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: var(--white);
+      font-size: 0.7rem;
+    }
+
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+      .blog-list { max-height: 320px; }
+      .images-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <!-- LOGIN -->
+  <div class="login-shell" id="loginView">
+    <form class="login-card" id="loginForm" action="javascript:void(0)" method="post" onsubmit="return false;">
+      <div class="login-brand">
+        <img src="../assets/Logo superspeed png.png" alt="Super Speed Delivery" />
+        <div>
+          <strong>Super Speed Delivery</strong>
+          <span>Admin Console</span>
+        </div>
+      </div>
+      <h1>Sign in</h1>
+      <p class="sub">Manage blog posts, drafts, and publishing for the public website.</p>
+      <div class="alert alert-error" id="loginError" hidden></div>
+      <div class="alert alert-info" id="setupHint" hidden></div>
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" autocomplete="username" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required />
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:8px" type="button" id="loginBtn">Sign in</button>
+    </form>
+  </div>
+  <script>
+    // Kill credential URLs from old form submits / bookmarks
+    if (/\b(username|password)=/i.test(location.search)) {
+      history.replaceState(null, "", location.pathname + location.hash);
+    }
+  </script>
+
+  <!-- APP -->
+  <div class="app-shell" id="appView" hidden>
+    <header class="topbar">
+      <div class="topbar-brand">
+        <img src="../assets/Logo superspeed png.png" alt="" />
+        <div>
+          <strong>Blog Admin</strong>
+          <span id="adminUserLabel">Signed in</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-outline" type="button" id="newBlogBtn">New blog</button>
+        <button class="btn btn-outline" type="button" id="passwordBtn">Change password</button>
+        <a class="btn btn-outline" href="../index.html#blog">View site</a>
+        <button class="btn btn-primary" type="button" id="logoutBtn">Sign out</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>All blogs</h2>
+            <p id="blogCountLabel">0 posts</p>
+          </div>
+        </div>
+        <div class="blog-list" id="blogList">
+          <div class="empty-state">No blogs yet. Create your first post.</div>
+        </div>
+      </aside>
+
+      <main class="panel editor-card">
+        <div class="alert alert-error" id="editorError" hidden></div>
+        <div class="alert alert-ok" id="editorOk" hidden></div>
+
+        <form id="blogForm" action="javascript:void(0)" method="post" onsubmit="return false;">
+          <input type="hidden" id="blogId" value="" />
+          <input class="title-input" id="blogTitle" type="text" placeholder="Blog title" />
+          <textarea id="blogContent" placeholder="Write your blog content here..."></textarea>
+
+          <div style="margin-top:16px">
+            <label style="display:block;margin-bottom:8px;font-size:0.72rem;font-weight:800;letter-spacing:0.04em">Images <span style="color:var(--gray-500);font-weight:650">(up to 4)</span></label>
+            <div class="images-grid" id="imagesGrid"></div>
+          </div>
+        </form>
+
+        <div class="editor-actions">
+          <button class="btn btn-outline" type="button" id="saveDraftBtn">Save as draft</button>
+          <button class="btn btn-primary" type="button" id="publishBtn">Publish</button>
+          <button class="btn btn-danger" type="button" id="deleteBtn" hidden>Delete</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Password modal -->
+  <div class="modal-backdrop" id="passwordModal" hidden>
+    <form class="modal" id="passwordForm">
+      <h3>Change password</h3>
+      <p>Update your admin password. You will stay signed in after the change.</p>
+      <div class="alert alert-error" id="passwordError" hidden></div>
+      <div class="field">
+        <label for="currentPassword">Current password</label>
+        <input id="currentPassword" type="password" autocomplete="current-password" required />
+      </div>
+      <div class="field">
+        <label for="newPassword">New password</label>
+        <input id="newPassword" type="password" autocomplete="new-password" minlength="8" required />
+      </div>
+      <div class="field">
+        <label for="confirmPassword">Confirm new password</label>
+        <input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" type="button" id="passwordCancel">Cancel</button>
+        <button class="btn btn-primary" type="submit">Update password</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const SESSION_KEY = "ssd_admin_session";
+    const MAX_IMAGES = 4;
+    const SETUP_MSG =
+      'Database login is not installed yet. In Supabase → SQL Editor, paste and Run the file "supabase/fix-auth.sql" from this project, then hard-refresh this page.';
+
+    let db = null;
+    try {
+      if (!window.supabase || typeof window.supabase.createClient !== "function") {
+        throw new Error("Supabase library failed to load. Hard-refresh (Ctrl+F5).");
+      }
+      if (!window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+        throw new Error("Missing Supabase config (js/supabase-config.js).");
+      }
+      db = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+    } catch (bootErr) {
+      console.error(bootErr);
+      const el = document.getElementById("loginError");
+      if (el) {
+        el.hidden = false;
+        el.textContent = bootErr.message;
+      }
+    }
+
+    const ui = {
+      loginView: document.getElementById("loginView"),
+      appView: document.getElementById("appView"),
+      loginForm: document.getElementById("loginForm"),
+      loginError: document.getElementById("loginError"),
+      setupHint: document.getElementById("setupHint"),
+      loginBtn: document.getElementById("loginBtn"),
+      adminUserLabel: document.getElementById("adminUserLabel"),
+      blogList: document.getElementById("blogList"),
+      blogCountLabel: document.getElementById("blogCountLabel"),
+      editorError: document.getElementById("editorError"),
+      editorOk: document.getElementById("editorOk"),
+      blogForm: document.getElementById("blogForm"),
+      blogId: document.getElementById("blogId"),
+      blogTitle: document.getElementById("blogTitle"),
+      blogContent: document.getElementById("blogContent"),
+      imagesGrid: document.getElementById("imagesGrid"),
+      saveDraftBtn: document.getElementById("saveDraftBtn"),
+      publishBtn: document.getElementById("publishBtn"),
+      deleteBtn: document.getElementById("deleteBtn"),
+      newBlogBtn: document.getElementById("newBlogBtn"),
+      passwordBtn: document.getElementById("passwordBtn"),
+      logoutBtn: document.getElementById("logoutBtn"),
+      passwordModal: document.getElementById("passwordModal"),
+      passwordForm: document.getElementById("passwordForm"),
+      passwordError: document.getElementById("passwordError"),
+      passwordCancel: document.getElementById("passwordCancel"),
+      currentPassword: document.getElementById("currentPassword"),
+      newPassword: document.getElementById("newPassword"),
+      confirmPassword: document.getElementById("confirmPassword")
+    };
+
+    let session = null;
+    let blogs = [];
+    let imageItems = [];
+    let selectedId = null;
+
+    function on(el, event, handler) {
+      if (el) el.addEventListener(event, handler);
+    }
+
+    function showAlert(el, message) {
+      if (!el) return;
+      el.hidden = !message;
+      el.textContent = message || "";
+    }
+
+    function showSetupHint() {
+      if (!ui.setupHint) return;
+      ui.setupHint.hidden = false;
+      ui.setupHint.textContent = SETUP_MSG;
+    }
+
+    function isMissingRpc(err) {
+      const msg = String(err?.message || err || "").toLowerCase();
+      return (
+        msg.includes("could not find the function") ||
+        msg.includes("schema cache") ||
+        msg.includes("does not exist") ||
+        msg.includes("pgrst202") ||
+        msg.includes("42883")
+      );
+    }
+
+    function getSession() {
+      try {
+        return JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+      } catch {
+        return null;
+      }
+    }
+
+    function setSession(next) {
+      session = next;
+      if (next) localStorage.setItem(SESSION_KEY, JSON.stringify(next));
+      else localStorage.removeItem(SESSION_KEY);
+    }
+
+    async function rpc(name, args) {
+      if (!db) throw new Error("Supabase is not ready. Hard-refresh the page.");
+      const { data, error } = await db.rpc(name, args);
+      if (error) {
+        console.error("[admin] rpc error", name, error);
+        if (isMissingRpc(error)) {
+          const setupErr = new Error("SETUP_REQUIRED");
+          setupErr.cause = error;
+          throw setupErr;
+        }
+        throw new Error(error.message || "Request failed.");
+      }
+      return data;
+    }
+
+    function showLogin() {
+      ui.loginView.hidden = false;
+      ui.appView.hidden = true;
+    }
+
+    async function enterApp(nextSession) {
+      setSession(nextSession);
+      ui.adminUserLabel.textContent = nextSession.username || "admin";
+      ui.loginView.hidden = true;
+      ui.appView.hidden = false;
+      resetEditor();
+      await loadBlogs();
+    }
+
+    async function doLogin() {
+      showAlert(ui.loginError, "");
+      if (ui.setupHint) ui.setupHint.hidden = true;
+
+      if (!db) {
+        showAlert(ui.loginError, "Supabase failed to load. Hard-refresh (Ctrl+F5).");
+        return;
+      }
+
+      const username = String(document.getElementById("username").value || "").trim();
+      const password = String(document.getElementById("password").value || "");
+      if (!username || !password) {
+        showAlert(ui.loginError, "Enter username and password.");
+        return;
+      }
+
+      ui.loginBtn.disabled = true;
+      ui.loginBtn.textContent = "Signing in…";
+
+      try {
+        const result = await rpc("admin_login", {
+          p_username: username,
+          p_password: password
+        });
+
+        if (!result || result.ok !== true) {
+          showAlert(ui.loginError, (result && result.error) || "Invalid username or password.");
+          return;
+        }
+
+        await enterApp({
+          token: result.token,
+          username: result.username,
+          expires_at: result.expires_at
+        });
+      } catch (err) {
+        console.error("[admin] login error", err);
+        if (err.message === "SETUP_REQUIRED") {
+          showSetupHint();
+          showAlert(
+            ui.loginError,
+            "Login database setup is incomplete. Run supabase/fix-auth.sql in Supabase SQL Editor."
+          );
+        } else {
+          showAlert(ui.loginError, err.message || "Login failed.");
+        }
+      } finally {
+        ui.loginBtn.disabled = false;
+        ui.loginBtn.textContent = "Sign in";
+      }
+    }
+
+    function clearImagePreviews() {
+      imageItems.forEach((item) => {
+        if (item.previewUrl) URL.revokeObjectURL(item.previewUrl);
+      });
+      imageItems = [];
+    }
+
+    function renderImages() {
+      if (!ui.imagesGrid) return;
+      ui.imagesGrid.innerHTML = "";
+
+      imageItems.forEach((item, index) => {
+        const slot = document.createElement("div");
+        slot.className = "image-slot has-image";
+        slot.innerHTML =
+          '<img alt="Blog image" /><button type="button" class="remove-img" aria-label="Remove image">×</button>';
+        slot.querySelector("img").src = item.previewUrl || item.publicUrl;
+        slot.querySelector("button").addEventListener("click", () => {
+          if (item.previewUrl) URL.revokeObjectURL(item.previewUrl);
+          imageItems.splice(index, 1);
+          renderImages();
+        });
+        ui.imagesGrid.appendChild(slot);
+      });
+
+      if (imageItems.length < MAX_IMAGES) {
+        const add = document.createElement("div");
+        add.className = "image-slot";
+        add.innerHTML =
+          '<label class="slot-add">Add image<input type="file" accept="image/*" /></label>';
+        add.querySelector("input").addEventListener("change", (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          imageItems.push({ file, previewUrl: URL.createObjectURL(file) });
+          renderImages();
+        });
+        ui.imagesGrid.appendChild(add);
+      }
+    }
+
+    function resetEditor() {
+      selectedId = null;
+      ui.blogId.value = "";
+      ui.blogTitle.value = "";
+      ui.blogContent.value = "";
+      ui.deleteBtn.hidden = true;
+      clearImagePreviews();
+      renderImages();
+      showAlert(ui.editorError, "");
+      showAlert(ui.editorOk, "");
+      [...ui.blogList.querySelectorAll(".blog-item")].forEach((el) =>
+        el.classList.remove("active")
+      );
+    }
+
+    function fillEditor(blog, opts = {}) {
+      selectedId = blog.id;
+      ui.blogId.value = blog.id;
+      ui.blogTitle.value = blog.title || "";
+      ui.blogContent.value = blog.content || "";
+      ui.deleteBtn.hidden = false;
+      clearImagePreviews();
+      (blog.images || []).forEach((url) => imageItems.push({ publicUrl: url }));
+      renderImages();
+      if (!opts.keepAlerts) {
+        showAlert(ui.editorError, "");
+        showAlert(ui.editorOk, "");
+      }
+      [...ui.blogList.querySelectorAll(".blog-item")].forEach((el) => {
+        el.classList.toggle("active", el.dataset.id === blog.id);
+      });
+    }
+
+    async function uploadNewImages() {
+      const uploaded = [];
+      for (const item of imageItems) {
+        if (item.publicUrl && !item.file) {
+          uploaded.push(item.publicUrl);
+          continue;
+        }
+        const ext = (item.file.name.split(".").pop() || "jpg").toLowerCase();
+        const path = `posts/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+        const { error } = await db.storage.from("blog-images").upload(path, item.file, {
+          cacheControl: "3600",
+          upsert: false,
+          contentType: item.file.type || "image/jpeg"
+        });
+        if (error) throw new Error(error.message || "Image upload failed.");
+        const { data } = db.storage.from("blog-images").getPublicUrl(path);
+        uploaded.push(data.publicUrl);
+      }
+      return uploaded;
+    }
+
+    function renderBlogList() {
+      ui.blogList.innerHTML = "";
+      if (ui.blogCountLabel) {
+        ui.blogCountLabel.textContent =
+          blogs.length + (blogs.length === 1 ? " post" : " posts");
+      }
+
+      if (!blogs.length) {
+        ui.blogList.innerHTML =
+          '<div class="empty-state">No blogs yet. Create your first post.</div>';
+        return;
+      }
+
+      blogs.forEach((blog) => {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "blog-item" + (blog.id === selectedId ? " active" : "");
+        item.dataset.id = blog.id;
+        item.innerHTML =
+          '<div class="blog-item-top">' +
+          '<span class="badge badge-' +
+          (blog.status === "published" ? "published" : "draft") +
+          '">' +
+          blog.status +
+          "</span>" +
+          "<small></small></div><strong></strong><small class=\"excerpt\"></small>";
+        item.querySelector(".blog-item-top small").textContent = new Date(
+          blog.updated_at || blog.created_at
+        ).toLocaleString();
+        item.querySelector("strong").textContent = blog.title;
+        item.querySelector(".excerpt").textContent = String(blog.content || "").slice(0, 90);
+        item.addEventListener("click", () => fillEditor(blog));
+        ui.blogList.appendChild(item);
+      });
+    }
+
+    async function loadBlogs() {
+      try {
+        const result = await rpc("admin_list_blogs", { p_token: session.token });
+        if (!result?.ok) {
+          throw new Error(result?.error || "Could not load blogs.");
+        }
+        blogs = Array.isArray(result.blogs) ? result.blogs : [];
+        renderBlogList();
+        if (selectedId) {
+          const current = blogs.find((b) => b.id === selectedId);
+          if (current) fillEditor(current, { keepAlerts: true });
+          else resetEditor();
+        }
+      } catch (err) {
+        if (err.message === "SETUP_REQUIRED") {
+          showSetupHint();
+          setSession(null);
+          showLogin();
+          return;
+        }
+        showAlert(ui.editorError, err.message || "Could not load blogs.");
+      }
+    }
+
+    async function saveBlog(status) {
+      showAlert(ui.editorError, "");
+      showAlert(ui.editorOk, "");
+
+      try {
+        const active = session || getSession();
+        if (!active?.token) {
+          showAlert(ui.editorError, "Session expired. Please sign in again.");
+          setSession(null);
+          showLogin();
+          return;
+        }
+        session = active;
+
+        const title = String(ui.blogTitle?.value || "").trim();
+        const content = String(ui.blogContent?.value || "").trim();
+        if (!title || !content) {
+          showAlert(ui.editorError, "Title and content are required.");
+          ui.editorError?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          return;
+        }
+
+        const savingLabel = status === "published" ? "Publishing…" : "Saving…";
+        if (ui.saveDraftBtn) ui.saveDraftBtn.disabled = true;
+        if (ui.publishBtn) ui.publishBtn.disabled = true;
+        const draftText = ui.saveDraftBtn?.textContent;
+        const publishText = ui.publishBtn?.textContent;
+        if (status === "draft" && ui.saveDraftBtn) ui.saveDraftBtn.textContent = savingLabel;
+        if (status === "published" && ui.publishBtn) ui.publishBtn.textContent = savingLabel;
+
+        try {
+          const urls = await uploadNewImages();
+          // Never send "" for uuid — PostgREST rejects it before the SQL runs
+          const rawId = String(ui.blogId?.value || "").trim();
+          const payload = {
+            p_token: active.token,
+            p_title: title,
+            p_content: content,
+            p_images: urls,
+            p_status: status,
+            p_id: rawId || null
+          };
+
+          const result = await rpc("admin_upsert_blog", payload);
+          if (!result?.ok) throw new Error(result?.error || "Could not save blog.");
+
+          selectedId = result.blog?.id || selectedId;
+          if (selectedId && ui.blogId) ui.blogId.value = selectedId;
+          if (ui.deleteBtn) ui.deleteBtn.hidden = false;
+
+          await loadBlogs();
+          showAlert(
+            ui.editorOk,
+            status === "published" ? "Published successfully." : "Draft saved successfully."
+          );
+          ui.editorOk?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } finally {
+          if (ui.saveDraftBtn) {
+            ui.saveDraftBtn.disabled = false;
+            ui.saveDraftBtn.textContent = draftText || "Save as draft";
+          }
+          if (ui.publishBtn) {
+            ui.publishBtn.disabled = false;
+            ui.publishBtn.textContent = publishText || "Publish";
+          }
+        }
+      } catch (err) {
+        console.error("[admin] saveBlog", err);
+        showAlert(ui.editorError, err.message || "Could not save blog.");
+        ui.editorError?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+
+    window.ssdSaveBlog = saveBlog;
+
+    on(ui.loginForm, "submit", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      doLogin();
+    });
+    on(ui.loginBtn, "click", (e) => {
+      e.preventDefault();
+      doLogin();
+    });
+
+    on(ui.logoutBtn, "click", async () => {
+      try {
+        if (session?.token) await rpc("admin_logout", { p_token: session.token });
+      } catch (_) {}
+      setSession(null);
+      showLogin();
+    });
+
+    on(ui.newBlogBtn, "click", () => resetEditor());
+    on(ui.saveDraftBtn, "click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      saveBlog("draft");
+    });
+    on(ui.publishBtn, "click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      saveBlog("published");
+    });
+
+    on(ui.deleteBtn, "click", async () => {
+      if (!ui.blogId.value) return;
+      if (!confirm("Delete this blog post?")) return;
+      try {
+        const result = await rpc("admin_delete_blog", {
+          p_token: session.token,
+          p_id: ui.blogId.value
+        });
+        if (!result?.ok) throw new Error(result?.error || "Could not delete.");
+        resetEditor();
+        await loadBlogs();
+        showAlert(ui.editorOk, "Blog deleted.");
+      } catch (err) {
+        showAlert(ui.editorError, err.message || "Could not delete.");
+      }
+    });
+
+    on(ui.passwordBtn, "click", () => {
+      showAlert(ui.passwordError, "");
+      ui.passwordForm.reset();
+      ui.passwordModal.hidden = false;
+    });
+    on(ui.passwordCancel, "click", () => {
+      ui.passwordModal.hidden = true;
+    });
+    on(ui.passwordModal, "click", (e) => {
+      if (e.target === ui.passwordModal) ui.passwordModal.hidden = true;
+    });
+
+    on(ui.passwordForm, "submit", async (e) => {
+      e.preventDefault();
+      showAlert(ui.passwordError, "");
+      const currentPassword = ui.currentPassword.value;
+      const newPassword = ui.newPassword.value;
+      const confirmPassword = ui.confirmPassword.value;
+      if (newPassword !== confirmPassword) {
+        showAlert(ui.passwordError, "New passwords do not match.");
+        return;
+      }
+      if (newPassword.length < 8) {
+        showAlert(ui.passwordError, "Use at least 8 characters.");
+        return;
+      }
+      try {
+        const result = await rpc("admin_change_password", {
+          p_token: session.token,
+          p_current_password: currentPassword,
+          p_new_password: newPassword
+        });
+        if (!result?.ok) throw new Error(result?.error || "Could not update password.");
+        ui.passwordModal.hidden = true;
+        showAlert(ui.editorOk, "Password updated.");
+      } catch (err) {
+        showAlert(ui.passwordError, err.message);
+      }
+    });
+
+    (async () => {
+      renderImages();
+      const existing = getSession();
+      if (!existing?.token || !db) return;
+      try {
+        const result = await rpc("admin_session_check", { p_token: existing.token });
+        if (!result?.ok) {
+          setSession(null);
+          return;
+        }
+        await enterApp({
+          token: existing.token,
+          username: result.username || existing.username,
+          expires_at: existing.expires_at
+        });
+      } catch (err) {
+        if (err.message === "SETUP_REQUIRED") showSetupHint();
+        setSession(null);
+      }
+    })();
+  </script>
+
+
+</body>
+</html>
