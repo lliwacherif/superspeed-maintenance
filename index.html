@@ -1368,6 +1368,27 @@
       line-height: 1.2;
     }
 
+    .about-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-top: 28px;
+    }
+
+    .about-watch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .about-watch-btn svg {
+      width: 18px;
+      height: 18px;
+      color: var(--black);
+    }
+
     .about-video-card {
       position: absolute;
       right: 0;
@@ -1377,6 +1398,7 @@
       isolation: isolate;
       overflow: hidden;
       aspect-ratio: 16 / 10;
+      padding: 0;
       border: 7px solid var(--white);
       border-radius: 30px;
       background: var(--black);
@@ -1384,6 +1406,11 @@
         0 30px 75px rgba(17, 17, 17, 0.18),
         0 0 0 1px rgba(17, 17, 17, 0.06);
       transform: rotate(1.2deg);
+      cursor: pointer;
+      text-align: left;
+      font: inherit;
+      color: inherit;
+      display: block;
       transition:
         transform 500ms var(--ease),
         box-shadow 500ms ease;
@@ -1394,8 +1421,8 @@
       inset: 0;
       z-index: 1;
       background:
-        linear-gradient(180deg, rgba(17, 17, 17, 0.05) 35%, rgba(17, 17, 17, 0.72) 100%),
-        linear-gradient(120deg, rgba(252, 182, 92, 0.18), transparent 48%);
+        linear-gradient(180deg, rgba(17, 17, 17, 0.15) 20%, rgba(17, 17, 17, 0.75) 100%),
+        linear-gradient(120deg, rgba(252, 182, 92, 0.22), transparent 52%);
       content: "";
       pointer-events: none;
     }
@@ -1417,8 +1444,8 @@
 
     .about-video-card:hover {
       box-shadow:
-        0 38px 90px rgba(17, 17, 17, 0.24),
-        0 0 0 1px rgba(252, 182, 92, 0.16);
+        0 38px 90px rgba(17, 17, 17, 0.28),
+        0 0 0 2px rgba(252, 182, 92, 0.35);
       transform: rotate(0deg) translateY(-7px);
     }
 
@@ -1426,11 +1453,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 900ms var(--ease);
+      opacity: 0.88;
+      transition: transform 900ms var(--ease), opacity 400ms ease;
     }
 
     .about-video-card:hover video {
-      transform: scale(1.045);
+      transform: scale(1.05);
+      opacity: 0.98;
     }
 
     .about-video-label {
@@ -1441,24 +1470,98 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 12px;
+      padding: 8px 14px;
       border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 999px;
-      background: rgba(17, 17, 17, 0.42);
+      background: rgba(17, 17, 17, 0.62);
       color: var(--white);
-      font-size: 0.67rem;
+      font-size: 0.68rem;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      backdrop-filter: blur(9px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .about-video-label::before {
+    .pulse-dot {
+      display: inline-block;
       width: 7px;
       height: 7px;
       border-radius: 50%;
       background: var(--orange);
-      content: "";
+      box-shadow: 0 0 0 4px rgba(252, 182, 92, 0.3);
+      animation: live-pulse 1.8s ease-in-out infinite;
+    }
+
+    .about-play-badge {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 22px 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.68);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(252, 182, 92, 0.25);
+      color: var(--white);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transform: translate(-50%, -50%);
+      transition: transform 320ms var(--ease), background-color 220ms ease, box-shadow 320ms ease;
+      pointer-events: none;
+    }
+
+    .about-play-badge-icon {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--black);
+      box-shadow: 0 8px 24px rgba(252, 182, 92, 0.5);
+      flex: 0 0 46px;
+      transition: transform 320ms var(--ease), background-color 220ms ease;
+    }
+
+    .about-play-badge-icon svg {
+      width: 18px;
+      height: 18px;
+      margin-left: 3px;
+    }
+
+    .about-play-badge-text strong {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      color: var(--white);
+      white-space: nowrap;
+    }
+
+    .about-play-badge-text small {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.7rem;
+      font-weight: 650;
+      color: rgba(255, 255, 255, 0.72);
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .about-video-card:hover .about-play-badge {
+      transform: translate(-50%, -50%) scale(1.06);
+      background: rgba(17, 17, 17, 0.85);
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.6), 0 0 0 2px var(--orange);
+    }
+
+    .about-video-card:hover .about-play-badge-icon {
+      transform: scale(1.1);
+      background: #ffc478;
     }
 
     .about-video-caption {
@@ -3718,7 +3821,7 @@
 
     .modal-shell {
       position: relative;
-      width: min(92vw, 520px);
+      width: min(94vw, 980px);
       max-height: 90vh;
       opacity: 0;
       transform: scale(0.94) translateY(12px);
@@ -3734,18 +3837,22 @@
 
     .modal-video-wrap {
       overflow: hidden;
-      aspect-ratio: 9 / 16;
       max-height: 82vh;
       margin-inline: auto;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 24px;
       background: #000000;
-      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(252, 182, 92, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .modal-video-wrap video {
+      display: block;
       width: 100%;
       height: 100%;
+      max-height: 80vh;
       object-fit: contain;
       background: #000000;
     }
@@ -4871,26 +4978,59 @@
               </p>
               <p>We don't just deliver orders. We power the businesses behind them.</p>
             </div>
+
+            <div class="about-actions reveal" data-delay="3">
+              <button
+                class="button button-primary about-watch-btn"
+                type="button"
+                data-video="assets/Speed delivery teaser final 3rd Aug.mp4"
+                data-title="Welcome to Super Speed Delivery — Discover Our Headquarters &amp; Operations"
+                aria-label="Play Welcome Video and Discover the Office"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="m8 5 11 7-11 7V5Z" />
+                </svg>
+                Watch Welcome &amp; Office Tour
+              </button>
+            </div>
           </div>
 
           <div class="about-media-stack about-media-single reveal" data-delay="2">
-            <div class="about-video-card">
+            <button
+              class="about-video-card"
+              type="button"
+              data-video="assets/Speed delivery teaser final 3rd Aug.mp4"
+              data-title="Welcome to Super Speed Delivery — Discover Our Headquarters &amp; Operations"
+              aria-label="Play Welcome Video and Discover Our Office"
+            >
               <video
-                src="assets/background video.mp4"
+                src="assets/Speed delivery teaser final 3rd Aug.mp4"
                 autoplay
                 muted
                 loop
                 playsinline
                 preload="metadata"
                 data-motion-video
-                aria-label="Dubai skyline and Super Speed Delivery operations"
+                aria-hidden="true"
               ></video>
-              <span class="about-video-label">Dubai · Since 2021</span>
-              <div class="about-video-caption">
-                <strong>From one city to<br />a regional network.</strong>
-                <span>UAE · Saudi Arabia</span>
+              <span class="about-video-label">
+                <span class="pulse-dot" aria-hidden="true"></span>
+                Welcome Tour · Office &amp; Operations
+              </span>
+              <div class="about-play-badge" aria-hidden="true">
+                <span class="about-play-badge-icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="m8 5 11 7-11 7V5Z" /></svg>
+                </span>
+                <span class="about-play-badge-text">
+                  <strong>Watch Welcome Video</strong>
+                  <small>Discover Super Speed · Click to expand</small>
+                </span>
               </div>
-            </div>
+              <div class="about-video-caption">
+                <strong>Inside Super Speed HQ<br />&amp; Fleet Operations</strong>
+                <span>Dubai · UAE</span>
+              </div>
+            </button>
           </div>
         </div>
 
@@ -6457,7 +6597,7 @@
         if (lastFocusedElement) lastFocusedElement.focus();
       };
 
-      document.querySelectorAll(".media-card").forEach((card) => {
+      document.querySelectorAll(".media-card, [data-video]").forEach((card) => {
         card.addEventListener("click", () => openVideo(card));
       });
 
