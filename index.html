@@ -2083,29 +2083,29 @@
       line-height: 1.7;
     }
 
-    .team-showcase {
-      position: relative;
-      overflow: hidden;
-      max-width: 620px;
+    .team-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      max-width: 980px;
       margin: 0 auto;
+    }
+
+    .team-photo {
+      overflow: hidden;
+      margin: 0;
       border: 1px solid rgba(17, 17, 17, 0.08);
-      border-radius: 28px;
+      border-radius: 24px;
       background: #1c1c1c;
-      box-shadow: 0 30px 70px rgba(17, 17, 17, 0.16);
-      transition:
-        transform 500ms var(--ease),
-        box-shadow 500ms ease;
+      box-shadow: 0 18px 40px rgba(17, 17, 17, 0.1);
     }
 
-    .team-showcase:hover {
-      box-shadow: 0 40px 90px rgba(17, 17, 17, 0.22);
-      transform: translateY(-6px);
-    }
-
-    .team-showcase img {
+    .team-photo img {
       display: block;
       width: 100%;
-      height: auto;
+      height: 340px;
+      object-fit: cover;
+      object-position: center;
     }
 
     /* Partners */
@@ -4255,8 +4255,12 @@
         margin-bottom: 34px;
       }
 
-      .team-showcase {
-        max-width: 480px;
+      .team-gallery {
+        gap: 12px;
+      }
+
+      .team-photo img {
+        height: 260px;
       }
 
       .media-head {
@@ -4646,9 +4650,17 @@
         font-size: 0.86rem;
       }
 
-      .team-showcase {
-        max-width: 100%;
+      .team-gallery {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .team-photo {
         border-radius: 20px;
+      }
+
+      .team-photo img {
+        height: 280px;
       }
 
       .partner-marquee {
@@ -5204,13 +5216,36 @@
       </div>
 
       <div class="container">
-        <figure class="team-showcase reveal" data-delay="3">
-          <img
-            src="assets/ChatGPT Image Sep 8, 2026, 11_48_46 AM.png"
-            alt="Super Speed Delivery team collage — One team, one mission"
-            loading="lazy"
-          />
-        </figure>
+        <div class="team-gallery reveal" data-delay="3">
+          <figure class="team-photo">
+            <img
+              src="assets/The team/WhatsApp Image 2026.jpeg"
+              alt="Super Speed Delivery team"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-photo">
+            <img
+              src="assets/The team/WhatsApp Image 2026-07-22 at 7.jpeg"
+              alt="Super Speed Delivery team on site"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-photo">
+            <img
+              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.jpeg"
+              alt="Super Speed Delivery riders and coordinators"
+              loading="lazy"
+            />
+          </figure>
+          <figure class="team-photo">
+            <img
+              src="assets/The team/WhatsApp Image 2026-07-22 at 7.32.35.jpeg"
+              alt="Super Speed Delivery team together"
+              loading="lazy"
+            />
+          </figure>
+        </div>
       </div>
     </section>
 
